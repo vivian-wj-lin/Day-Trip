@@ -1,6 +1,6 @@
 import json
 import flask
-import mysql
+# import mysql
 import mysql.connector
 import mysql.connector.cursor
 from flask import *
