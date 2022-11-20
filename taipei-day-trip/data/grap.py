@@ -41,7 +41,7 @@ mydb = mysql.connector.connect(
     # user="root",
     user="debian-sys-maint",
     # passwd="mysqlpwd2022",
-    passwd="b6hdV6hWNuqadE2s',
+    passwd="b6hdV6hWNuqadE2s",
     database="mysql"
 )
 
