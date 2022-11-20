@@ -59,7 +59,7 @@ def api_attractionId(attractionId):
     try:
         att_cursor = mydb.cursor(dictionary=True)
         sql = """
-                SELECT *
+                SELECT source_id,name,category,description,address,transport,mrt,lat,lng 
                 FROM Attractions
                 WHERE source_id = %s
                 ;
