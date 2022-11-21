@@ -17,7 +17,8 @@ mydb = mysql.connector.connect(
     user="debian-sys-maint",
     # passwd="mysqlpwd2022",
     passwd="b6hdV6hWNuqadE2s",
-    database="TaipeiAttractionsDB"
+    database="TaipeiAttractionsDB",
+    auth_plugin='mysql_native_password'
 )
 
 # Pages
