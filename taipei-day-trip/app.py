@@ -13,10 +13,10 @@ app.secret_key = "secret"
 
 mydb = mysql.connector.connect(
     host="localhost",
-    # user="root",
-    user="debian-sys-maint",
-    # passwd="mysqlpwd2022",
-    passwd="b6hdV6hWNuqadE2s",
+    user="root",
+    # user="debian-sys-maint",
+    passwd="mysqlpwd2022",
+    # passwd="b6hdV6hWNuqadE2s",
     database="TaipeiAttractionsDB"
 )
 
