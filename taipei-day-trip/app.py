@@ -12,7 +12,12 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.secret_key = "secret"
 
 mydb = mysql.connector.connect(
-    host="localhost", user="root", passwd="mysqlpwd2022", database="TaipeiAttractionsDB"
+    host="localhost",
+    # user="root",
+    user="debian-sys-maint",
+    # passwd="mysqlpwd2022",
+    passwd="b6hdV6hWNuqadE2s",
+    database="TaipeiAttractionsDB"
 )
 
 # Pages
