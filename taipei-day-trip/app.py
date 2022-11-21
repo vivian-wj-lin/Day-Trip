@@ -60,7 +60,7 @@ def api_categories():
         )
 
 
-@app.route("/api/attractions/<attractionId>")
+@app.route("/api/attraction/<attractionId>")
 def api_attractionId(attractionId):
     try:
         att_cursor = mydb.cursor(dictionary=True)
