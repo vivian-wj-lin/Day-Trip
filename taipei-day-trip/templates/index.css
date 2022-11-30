@@ -504,7 +504,8 @@ body {
     max-width: 550px;
   }
   .headline1200 {
-    padding-left: 15%;
+    padding-left: 0;
+    padding: 1%;
     justify-content: space-between;
     /* max-width: 550px; */
     width: 90%;
@@ -513,11 +514,12 @@ body {
     justify-content: center;
   }
   .headline-section {
-    max-height: 300px;
+    /* max-height: 300px; */
+    max-width: 360px;
   }
   .headline .subheadline .searchbar {
-    width: 70%;
-    height: 70%;
+    width: 30%;
+    height: 30%;
   }
   .container {
     overflow: scroll;
@@ -575,8 +577,8 @@ body {
   }
 }
 
-/* mobiletop */
-@media (max-width: 360px) {
+/* mobiletop width 360px*/
+@media (max-width: 500px) {
   body {
     position: ​relative​;
     flex-wrap: wrap;
