@@ -53,7 +53,6 @@ function load(page, keyword) {
       return response.json();
     })
     .then((attractions) => {
-      // console.log("attractions.data", attractions.data)
       const container = document.querySelector(".container");
       for (const attraction of attractions.data) {
         const attractionElement = createAttractionElement(attraction);
@@ -64,7 +63,6 @@ function load(page, keyword) {
       }
 
       nextPage = attractions.nextPage;
-      // console.log({ nextPage })
       isloading = false;
     });
 }
@@ -75,7 +73,6 @@ document.addEventListener("scroll", (event) => {
   const bottom = document
     .querySelector(".container")
     .getBoundingClientRect().bottom;
-  // console.log(height > bottom, height, bottom)
   if (height > bottom) {
     if (isloading) {
       return;
@@ -87,7 +84,6 @@ document.addEventListener("scroll", (event) => {
 document.querySelector(".searchbar").addEventListener("submit", (event) => {
   event.preventDefault();
   keyword = document.querySelector(".searchinput").value;
-  // console.log({ keyword })
   document.querySelector(".container").innerHTML = "";
   nextPage = 0;
   load(nextPage, keyword);
@@ -97,7 +93,6 @@ function loadCategories() {
   fetch("/api/categories")
     .then((response) => response.json())
     .then((y) => {
-      // console.log(y)
       return y.data;
     })
 
@@ -126,7 +121,3 @@ document.querySelector(".searchinput").addEventListener("focusout", () => {
     document.querySelector(".categories").style = "display: none;";
   }, 100);
 });
-
-// document.querySelector(".categories").addEventListener("click", () => {
-//   document.querySelector(".searchinput").textContent = document.querySelector(".category").textContent
-// })
