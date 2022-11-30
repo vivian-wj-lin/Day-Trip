@@ -225,10 +225,10 @@ body {
 
 .att-name {
   width: 100%;
-  height: 12%;
-  margin-top: -15%;
+  /* height: 12%; */
+  margin-top: -25%;
+  height: auto;
   margin-bottom: 0;
-  text-align: center;
   position: relative;
   color: white;
   background: #000000;
@@ -299,23 +299,7 @@ body {
     max-width: 1200px;
     text-align: center;
   }
-  .frame-section {
-    z-index: 999;
-    display: flex;
-    position: absolute;
-    width: 100%;
-    height: 45px;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    position: fixed;
-    background-color: #ffffff;
-  }
+
   .frame1200 {
     display: flex;
     max-width: 1200px;
@@ -326,48 +310,15 @@ body {
     background-color: #ffffff;
   }
 
-  .left {
-    max-width: 150px;
-    max-height: 34px;
-    font-size: 30px;
-    font-weight: bold;
-    margin-right: 0px;
-    justify-content: flex-start;
-    margin-right: 0px;
-    color: #448899;
-  }
-
-  .right {
-    display: flex;
-    width: auto;
-    flex: auto;
-    font-size: 16px;
-    font-weight: 500;
-    height: 100%;
-    justify-content: flex-end;
-    align-items: center;
-    color: #666666;
-  }
-
-  .item {
-    flex: none;
-    max-width: 100px;
-    text-align: center;
-  }
-
   .headline-section {
     z-index: -999;
     background: no-repeat center/100% url("index_cover.png");
     overflow: hidden;
-    /* overflow: hidden;
-  margin-bottom: 10%; */
     background-clip: padding-box;
     display: flex;
     flex-wrap: wrap;
     font-size: 40px;
     max-height: 400px;
-    /* max-height: 480px; */
-    /* height:auto; */
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -375,9 +326,7 @@ body {
     margin-right: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    /* margin: 10px auto 0 auto; */
     max-width: 1200px;
-    /* max-height: 480px; */
   }
 
   .headline1200 {
@@ -389,75 +338,7 @@ body {
     justify-content: center;
   }
 
-  .headline {
-    margin-top: 0;
-    margin-bottom: 1%;
-    text-align: start;
-    align-items: center;
-    font-weight: bold;
-    font-size: 28px;
-    display: flex;
-    align-items: center;
-    color: #f8f8f8;
-    text-shadow: 0px 0px 30px #aabbcc;
-    max-width: 1180px;
-    max-height: 41px;
-    text-align: center;
-  }
-  .subheadline {
-    margin-bottom: 1%;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    display: flex;
-    flex-wrap: wrap;
-    color: #f8f8f8;
-  }
-
-  .searchbar {
-    display: flex;
-  }
-
-  .searchinput {
-    border-width: 0;
-    border-radius: 5px 0 0 5px;
-    display: flex;
-    max-width: 370px;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 13px;
-    align-items: center;
-    color: #757575;
-  }
-
-  .searchbutton {
-    border-radius: 0 5px 5px 0;
-    border-width: 0;
-    background-color: #448899;
-    z-index: 999;
-  }
-
-  .categories {
-    margin-top: 5px;
-    text-align: left;
-    padding: 5px;
-    font-size: 14px;
-    max-width: 360px;
-    height: 30%;
-    background-color: white;
-    color: black;
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-content: space-evenly;
-    grid-template-areas:
-      "category category category"
-      "category category category"
-      "category category category";
-  }
-
   .container {
-    /* max-width:1200px */
     overflow: scroll;
     margin-bottom: 10%;
     display: flex;
@@ -471,13 +352,13 @@ body {
   }
 
   .attractions {
-    width: 43%;
+    width: 40%;
     height: 100%;
     /* height: auto; */
     outline: 2px solid #e8e8e8;
     border-radius: 5px;
-    margin-top: 1%;
-    margin-bottom: 1%;
+    /* margin-top: 1%;
+    margin-bottom: 1%; */
   }
 
   .attraction {
@@ -500,13 +381,14 @@ body {
     object-fit: cover;
     display: block;
     border-radius: 5px;
-    margin-bottom: 1%;
+    /* margin-bottom: 1%; */
     /* position: relative; */
   }
 
   .att-name {
     width: 100%;
-    height: 12%;
+    /* height: 12%; */
+    height: auto;
     margin-bottom: 0;
     position: relative;
     color: white;
@@ -542,33 +424,6 @@ body {
     justify-content: flex-end;
     grid-column: 3/3;
     text-align: right;
-  }
-
-  .desktop-menu {
-    display: block;
-  }
-
-  .footer {
-    display: flex;
-    position: ​absolute​;
-    bottom: 0;
-    width: 100%;
-    height: 10%;
-    margin-bottom: -10px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    background: #757575;
-  }
-
-  .footer-text {
-    font-weight: 700;
-    font-size: 16px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ffffff;
   }
 }
 
