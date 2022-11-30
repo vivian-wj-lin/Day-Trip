@@ -1,123 +1,132 @@
-let currentPage=0;
-let isloading=false;
+let nextPage = 0;
+let isloading = false;
+let keyword = "";
 
-// fetch("/data/taipei-attractions.json")
-fetch("http://127.0.0.1:5500/taipei-day-trip/data/taipei-attractions.json")
-    .then(function(response){
-    return response.json();
+function createAttractionElement(x) {
+  //attractions//a single attraction
+  const divAttractions = document.createElement("div");
+  divAttractions.className = "attractions";
+
+  //attraction//name and img
+  const divAttraction = document.createElement("div");
+  divAttraction.className = "attraction";
+  const img = document.createElement("img");
+  img.className = "att-img";
+  img.src = x.images[0];
+  const name = document.createElement("div");
+  name.className = "att-name";
+  name.textContent = x.name;
+  divAttraction.appendChild(img);
+  divAttraction.appendChild(name);
+
+  //datils//mrt and cat
+  const divdetails = document.createElement("div");
+  divdetails.className = "details";
+  const mrt = document.createElement("div");
+  mrt.className = "mrt";
+  mrt.textContent = x.mrt;
+  const cat = document.createElement("div");
+  cat.className = "cat";
+  cat.textContent = x.category;
+  divdetails.appendChild(mrt);
+  divdetails.appendChild(cat);
+
+  divAttractions.appendChild(divAttraction);
+  divAttractions.appendChild(divdetails);
+
+  return divAttractions;
+}
+
+function load(page, keyword) {
+  if (page === null) {
+    return;
+  }
+
+  isloading = true;
+  let url = `/api/attractions?page=${page}`;
+  if (keyword) {
+    url += `&keyword=${keyword}`;
+  }
+  // console.log({ url })
+  fetch(url)
+    .then((response) => {
+      return response.json();
     })
-    .then(function(dataList){
-        const attractions = [] 
-        for(let i=0;i<dataList.result.results.length;i++){ 
-            const attraction={
-                attractionName:dataList.result.results[i]["name"],
-                fistImage:"https://"+dataList.result.results[i]["file"].split("https://")[1],
-                mrt:dataList.result.results[i]["MRT"],
-                cat:dataList.result.results[i]["CAT"]         
-            } 
-            attractions.push(attraction)
-       } 
-       return attractions 
-    })
-    
-    
-    .then(function (attractions) {
-  
-    //12 items
-    //name and img
-    const container = document.querySelector(".container")
-    let j = 0 //景點從0開始
-    function appendAttraction(){
-      //attractions
-      const divAttractions = document.createElement("div")
-      divAttractions.className = "attractions"
-
-      //attraction
-      const divAttraction = document.createElement("div")
-      divAttraction.className = "attraction"
-      const img = document.createElement("img")
-      img.className = "att-img"
-      img.src = attractions[j].fistImage
-      const name = document.createElement("div")
-      name.className = "att-name"
-      name.textContent = attractions[j].attractionName
-      divAttraction.appendChild(img)
-      divAttraction.appendChild(name)
-
-      //datils
-      const divdetails = document.createElement("div")
-      divdetails.className = "details"
-      const mrt = document.createElement("div")
-      mrt.className = "mrt"
-      mrt.textContent = attractions[j].mrt
-      const cat = document.createElement("div")
-      cat.className = "cat"
-      cat.textContent = attractions[j].cat
-      divdetails.appendChild(mrt)
-      divdetails.appendChild(cat)
-
-      divAttractions.appendChild(divAttraction)
-      divAttractions.appendChild(divdetails)
-
-      container.appendChild(divAttractions)
-      
-      j++
-    }
-
-    for (let i = 0; i < 12; i++) {
-      isloading=true;
-      appendAttraction()
-      isloading=false; 
-      // break;
-    }
-    
-    document.addEventListener('scroll', (ev) => {
-      // https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
-      if (window.innerHeight >= document.querySelector('html').getBoundingClientRect().bottom) {
-        console.log('end')
-        // ....
-        appendAttraction()
+    .then((attractions) => {
+      // console.log("attractions.data", attractions.data)
+      const container = document.querySelector(".container");
+      for (const attraction of attractions.data) {
+        const attractionElement = createAttractionElement(attraction);
+        container.appendChild(attractionElement);
       }
+      if (attractions.data.length === 0) {
+        container.textContent = "No result found.";
+      }
+
+      nextPage = attractions.nextPage;
+      // console.log({ nextPage })
+      isloading = false;
+    });
+}
+
+load(nextPage, keyword);
+document.addEventListener("scroll", (event) => {
+  const height = window.innerHeight;
+  const bottom = document
+    .querySelector(".container")
+    .getBoundingClientRect().bottom;
+  // console.log(height > bottom, height, bottom)
+  if (height > bottom) {
+    if (isloading) {
+      return;
+    }
+    load(nextPage, keyword);
+  }
+});
+
+document.querySelector(".searchbar").addEventListener("submit", (event) => {
+  event.preventDefault();
+  keyword = document.querySelector(".searchinput").value;
+  // console.log({ keyword })
+  document.querySelector(".container").innerHTML = "";
+  nextPage = 0;
+  load(nextPage, keyword);
+});
+
+function loadCategories() {
+  fetch("/api/categories")
+    .then((response) => response.json())
+    .then((y) => {
+      // console.log(y)
+      return y.data;
     })
 
-//     window.onscroll = function(ev) {
-//           if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-//             console.log('end')
-//             window.setTimeout(appendAttraction, 3000)
-//     }
-// };
-
-    //search
-    const searchForm = document.querySelector('.searchbar')
-    const searchInput = document.querySelector('.searchinput')
-    searchForm.addEventListener('submit', function search(event)  {
-    event.preventDefault()
-    const keyword = searchInput.value
-    // console.log(keyword) 
-    let filteredresults = []
-    // console.log(attractions)
-
-    for(let attraction of attractions){
-    // console.log(attraction);
-      if(attraction.attractionName.includes(keyword)||attraction.cat.includes(keyword)){
-        filteredresults.push(attraction)
+    .then((categories) => {
+      console.log({ categories });
+      const categoriesElement = document.querySelector(".categories");
+      for (const category of categories) {
+        const categoryElement = document.createElement("div");
+        categoryElement.className = "category";
+        categoryElement.textContent = category;
+        categoryElement.addEventListener("click", () => {
+          document.querySelector(".searchinput").value = category;
+        });
+        categoriesElement.appendChild(categoryElement);
       }
-      // console.log(filteredresults);//搜尋"地熱谷"，印出58個地熱谷...
-      appendAttraction(filteredresults);
-      //index.js:40 Uncaught TypeError: Cannot read properties of undefined (reading 'fistImage')
-      // at appendAttraction (index.js:40:32)
-      // at HTMLFormElement.search (index.js:107:7)
-    }
-  }) 
-})
+    });
+}
+loadCategories();
 
+document.querySelector(".searchinput").addEventListener("focus", () => {
+  document.querySelector(".categories").style = "";
+});
 
+document.querySelector(".searchinput").addEventListener("focusout", () => {
+  setTimeout(() => {
+    document.querySelector(".categories").style = "display: none;";
+  }, 100);
+});
 
-    
-
-
-
-
-
-    
-  
+// document.querySelector(".categories").addEventListener("click", () => {
+//   document.querySelector(".searchinput").textContent = document.querySelector(".category").textContent
+// })

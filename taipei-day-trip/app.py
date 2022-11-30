@@ -161,8 +161,8 @@ def api_attractions():
             val = (page * 12,)
             att_cursor.execute(sql, val)
             attractions = att_cursor.fetchall()
-            # att_cursor.close()
-            # cnx.close()
+            att_cursor.close()
+            cnx.close()
 
         # with keywords
         else:
@@ -178,12 +178,13 @@ def api_attractions():
             val = (keyword, keyword, page * 12)
             keyword_cursor.execute(sql, val)
             attractions = keyword_cursor.fetchall()
-#             keyword_cursor.close()
-#             cnx.close()
+            keyword_cursor.close()
+            cnx.close()
 
         # composed with images
         for attraction in attractions:
             # img_cursor = mydb.cursor(dictionary=True)
+            cnx = cnxpool.get_connection()
             img_cursor = cnx.cursor(dictionary=True)
             sql = """
                 SELECT images                    
@@ -196,8 +197,8 @@ def api_attractions():
             images = img_cursor.fetchall()
             images = [x["images"] for x in images]
             attraction["images"] = images
-            # img_cursor.close()
-            # cnx.close()
+            img_cursor.close()
+            cnx.close()
 
         # pagination
         if len(attractions) == 12:
@@ -210,7 +211,8 @@ def api_attractions():
             "data": attractions,
         }
 
-    except Exception:
+    except Exception as e:
+        print(e)
         return Response(
             json.dumps({"error": True, "message": "Internal Server Error"}),
             mimetype="application/json",
