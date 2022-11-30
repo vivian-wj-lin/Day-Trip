@@ -506,10 +506,18 @@ body {
   .headline1200 {
     padding-left: 15%;
     justify-content: space-between;
-    max-width: 550px;
+    /* max-width: 550px; */
+    width: 90%;
     height: auto;
     align-items: center;
     justify-content: center;
+  }
+  .headline-section {
+    max-height: 300px;
+  }
+  .headline .subheadline .searchbar {
+    width: 70%;
+    height: 70%;
   }
   .container {
     overflow: scroll;
@@ -594,6 +602,7 @@ body {
   }
   .frame1200 {
     display: flex;
+    padding: 2%;
     max-width: 360px;
     height: 45px;
     align-items: center;
@@ -622,7 +631,7 @@ body {
   }
 
   .headline1200 {
-    padding-left: 10%;
+    padding-left: 0;
     justify-content: space-between;
     max-width: 100%;
     height: auto;
