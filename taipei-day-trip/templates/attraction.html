@@ -11,7 +11,27 @@
     <!-- the upper part of the page -->
     <div class="imgs-and-res">
       <!-- the left part  -->
-      <div class="imgs">
+      <div class="slideshow-container">
+        <!-- Full-width images with number and caption text -->
+
+        <!-- <div class="mySlides fade">
+          <img src="img1.jpg" style="width: 100%" />
+        </div> -->
+
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      </div>
+      <br />
+
+      <!-- The dots/circles -->
+      <div class="dotParentDiv" style="text-align: center">
+        <!-- <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span> -->
+      </div>
+      <!-- end of the slide show -->
+
       <!-- the right part -->
       <div class="res">
         <div class="name">{{name}}</div>
@@ -45,8 +65,8 @@
       <div>交通方式: {{direction}}</div>
     </div>
     <script type="text/javascript" src="attraction.js"></script>
+    <footer class="footer">
+      <div class="footer-text">COPYRIGHT © 2022 台北一日遊</div>
+    </footer>
   </body>
-  <footer class="footer">
-    <div class="footer-text">COPYRIGHT © 2022 台北一日遊</div>
-  </footer>
 </html>
