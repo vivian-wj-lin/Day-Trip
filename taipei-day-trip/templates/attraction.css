@@ -1,0 +1,11 @@
+.carousel .carousel-indicators button {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+
+.carousel .carousel-item img {
+  min-height: 540px;
+  max-height: 406px;
+  object-fit: cover;
+}

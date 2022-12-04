@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>attration</title>
+    <link rel="stylesheet" href="attraction.css" />
+  </head>
+  <body>
+    <!-- the upper part of the page -->
+    <div class="imgs-and-res">
+      <!-- the left part  -->
+      <div class="imgs">
+      <!-- the right part -->
+      <div class="res">
+        <div class="name">{{name}}</div>
+        <div class="cat-and-mrt">{{cat}} at {{mrt}}</div>
+        <div class="res-details">
+          <div class="headline">
+            訂購導覽行程
+            <div>以此景點為中心的一日行程，帶您探索城市角落故事</div>
+          </div>
+
+          <div>選擇日期:</div>
+          <form>
+            <div>
+              選擇時間:
+              <input type="radio" id="morning" name="time" value="上半天" />
+              <label for="morning">上半天</label>
+              <input type="radio" id="afternoon" name="time" value="下半天" />
+              <label for="afternoon">下半天</label>
+            </div>
+          </form>
+          <div class="price">導覽費用:</div>
+          <button>開始預約行程</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- the bottom part of the page -->
+    <div class="intros">
+      <div class="intro-text"></div>
+      <div>景點地址: {{address}}</div>
+      <div>交通方式: {{direction}}</div>
+    </div>
+    <script type="text/javascript" src="attraction.js"></script>
+  </body>
+  <footer class="footer">
+    <div class="footer-text">COPYRIGHT © 2022 台北一日遊</div>
+  </footer>
+</html>

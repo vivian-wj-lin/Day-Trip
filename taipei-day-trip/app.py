@@ -3,6 +3,11 @@ import flask
 import mysql
 import mysql.connector
 import mysql.connector.cursor
+
+from mysql.connector import pooling
+from mysql.connector import connect
+from mysql.connector import Error
+
 from flask import *
 from flask import Flask, request
 
@@ -11,15 +16,29 @@ app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.secret_key = "secret"
 
-mydb = mysql.connector.connect(
-    host="localhost",
-    # user="root",
+# try:
+cnxpool = pooling.MySQLConnectionPool(
+    pool_name="mypool",
+    pool_size=5,
+    host='localhost',
+    database='TaipeiAttractionsDB',
+    # user='root',
     user="debian-sys-maint",
-    # passwd="mysqlpwd2022",
+    # password='mysqlpwd2022'
     passwd="b6hdV6hWNuqadE2s",
-    database="TaipeiAttractionsDB",
-    auth_plugin='mysql_native_password'
+    # auth_plugin='mysql_native_password'
 )
+
+
+# mydb = mysql.connector.connect(
+#     host="localhost",
+#     user="root",
+#     # user="debian-sys-maint",
+#     passwd="mysqlpwd2022",
+#     # passwd="b6hdV6hWNuqadE2s",
+#     database="TaipeiAttractionsDB",
+#     auth_plugin='mysql_native_password'
+# )
 
 # Pages
 
@@ -46,11 +65,16 @@ def thankyou():
 
 @app.route("/api/categories")
 def api_categories():
+
     try:
-        cursor = mydb.cursor()
+        # cursor = mydb.cursor()
+        cnx = cnxpool.get_connection()
+        cursor = cnx.cursor()
         cursor.execute("SELECT DISTINCT category FROM Attractions")
         data = cursor.fetchall()
         data = [x[0] for x in data]
+        cursor.close()
+        cnx.close()
         return {"data": data}
     except Exception:
         return Response(
@@ -63,7 +87,9 @@ def api_categories():
 @app.route("/api/attraction/<attractionId>")
 def api_attractionId(attractionId):
     try:
-        att_cursor = mydb.cursor(dictionary=True)
+        cnx = cnxpool.get_connection()
+        att_cursor = cnx.cursor(dictionary=True)
+        # att_cursor = mydb.cursor(dictionary=True)
         sql = """
                 SELECT source_id,name,category,description,address,transport,mrt,lat,lng 
                 FROM Attractions
@@ -82,7 +108,7 @@ def api_attractionId(attractionId):
             )
 
         # if attractionId exists in database
-        img_cursor = mydb.cursor(dictionary=True)
+        img_cursor = cnx.cursor(dictionary=True)
         sql = """
                 SELECT *
                 FROM Images
@@ -94,6 +120,9 @@ def api_attractionId(attractionId):
         images = img_cursor.fetchall()
         images = [x["images"] for x in images]
         attraction["images"] = images
+        att_cursor.close()
+        img_cursor.close()
+        cnx.close()
         return {
             "data": attraction,
         }
@@ -121,7 +150,8 @@ def api_attractions():
 
         # without keywords
         if keyword is None:
-            att_cursor = mydb.cursor(dictionary=True)
+            cnx = cnxpool.get_connection()
+            att_cursor = cnx.cursor(dictionary=True)
             sql = """
                     SELECT source_id,name,category,description,address,transport,mrt,lat,lng 
                     FROM Attractions
@@ -131,10 +161,13 @@ def api_attractions():
             val = (page * 12,)
             att_cursor.execute(sql, val)
             attractions = att_cursor.fetchall()
+            att_cursor.close()
+            cnx.close()
 
         # with keywords
         else:
-            keyword_cursor = mydb.cursor(dictionary=True)
+            cnx = cnxpool.get_connection()
+            keyword_cursor = cnx.cursor(dictionary=True)
             sql = """
                     SELECT source_id,name,category,description,address,transport,mrt,lat,lng
                     FROM Attractions
@@ -145,10 +178,14 @@ def api_attractions():
             val = (keyword, keyword, page * 12)
             keyword_cursor.execute(sql, val)
             attractions = keyword_cursor.fetchall()
+            keyword_cursor.close()
+            cnx.close()
 
         # composed with images
         for attraction in attractions:
-            img_cursor = mydb.cursor(dictionary=True)
+            # img_cursor = mydb.cursor(dictionary=True)
+            cnx = cnxpool.get_connection()
+            img_cursor = cnx.cursor(dictionary=True)
             sql = """
                 SELECT images                    
                 FROM Images
@@ -160,6 +197,8 @@ def api_attractions():
             images = img_cursor.fetchall()
             images = [x["images"] for x in images]
             attraction["images"] = images
+            img_cursor.close()
+            cnx.close()
 
         # pagination
         if len(attractions) == 12:
@@ -172,7 +211,8 @@ def api_attractions():
             "data": attractions,
         }
 
-    except Exception:
+    except Exception as e:
+        print(e)
         return Response(
             json.dumps({"error": True, "message": "Internal Server Error"}),
             mimetype="application/json",
