@@ -56,6 +56,9 @@ function load(page, keyword) {
       const container = document.querySelector(".container");
       for (const attraction of attractions.data) {
         const attractionElement = createAttractionElement(attraction);
+        attractionElement.addEventListener("click", () => {
+          location.pathname = `/attraction/${attraction.source_id}`;
+        });
         container.appendChild(attractionElement);
       }
       if (attractions.data.length === 0) {

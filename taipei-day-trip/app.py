@@ -11,7 +11,7 @@ from mysql.connector import Error
 from flask import *
 from flask import Flask, request
 
-app = Flask(__name__, static_folder="templates", static_url_path="/")
+app = Flask(__name__, static_folder="templates", static_url_path="/static")
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.secret_key = "secret"

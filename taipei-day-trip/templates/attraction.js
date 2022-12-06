@@ -1,70 +1,19 @@
-function loadinfos(id) {
-  let url = `/api/attraction/${id}`;
-  if (id === null) {
-    return;
-  }
-  fetch(url)
-    .then((response) => response.json())
-    .then((y) => {
-      console.log(y.data);
-      return y.data;
-    })
-    .then(() => {});
+let slideIndex = 1; ////////slide show
+
+async function getAttractionData() {
+  const attractionId = location.pathname.split("/").pop();
+  console.log(attractionId);
+  const response = await fetch(`/api/attraction/${attractionId}`);
+  const data = await response.json();
+  console.log(data);
+  return data;
 }
-loadinfos(9);
-function loadImages(id) {
-  let url = `/api/attraction/${id}`;
-  if (id === null) {
-    return;
-  }
-  // console.log(url);
-  fetch(url)
-    .then((response) => response.json())
-    .then((y) => {
-      // console.log(y.data.images);
-      return y.data.images;
-    })
-    .then((images) => {
-      console.log(images);
-      const slideshowContainerDiv = document.querySelector(
-        ".slideshow-container"
-      );
-      for (const image of images) {
-        //photos
-        const mySlidesFadeElement = document.createElement("div");
-        mySlidesFadeElement.className = "mySlides fade";
-        const imgElement = document.createElement("img");
-        imgElement.src = image;
-        imgElement.style = "width: 100%";
-        mySlidesFadeElement.appendChild(imgElement);
-        slideshowContainerDiv.appendChild(mySlidesFadeElement);
-        // console.log(imgElement);
-        //dots
-      }
 
-      for (n = 0; n < images.length; n++) {
-        const dotParentDiv = document.querySelector(".dotParentDiv");
-        const dotSpan = document.createElement("span");
-        dotSpan.className = "dot";
-        dotSpan.onclick = function () {
-          showSlides((slideIndex = n + 1));
-        };
-        dotParentDiv.appendChild(dotSpan);
-      }
-    });
-}
-loadImages(9);
-
-////////slide show starts
-let slideIndex = 1;
-showSlides(slideIndex);
-
-// Next/previous controls
+////////slide show begins
 function plusSlides(n) {
   showSlides((slideIndex += n));
 }
 
-// Thumbnail image controls
 function currentSlide(n) {
   showSlides((slideIndex = n));
 }
@@ -89,3 +38,60 @@ function showSlides(n) {
   dots[slideIndex - 1].className += " active";
 }
 ////////slide show ends
+
+function loadImages(images) {
+  console.log(images);
+  //images and dotted indicators
+  const slideshowContainerDiv = document.querySelector(".slideshow-container");
+  const dotsDiv = document.querySelector(".dots");
+  for (let i = 0; i < images.length; i++) {
+    const mySlidesFadeElement = document.createElement("div");
+    mySlidesFadeElement.className = "mySlides fade";
+    const imgElement = document.createElement("img");
+    imgElement.src = images[i];
+    imgElement.style = "width: 100%";
+    mySlidesFadeElement.appendChild(imgElement);
+    slideshowContainerDiv.appendChild(mySlidesFadeElement);
+
+    const dotSpan = document.createElement("span");
+    dotSpan.className = "dot";
+    dotSpan.onclick = function () {
+      currentSlide(i + 1);
+    };
+    dotsDiv.appendChild(dotSpan);
+
+    // const dotImg = document.createElement("img");
+    // dotImg.className = "dot";
+    // dotImg.src = "/static/circle current.png";
+    // dotImg.onclick = function () {
+    //   currentSlide(i + 1);
+    // };
+    // dotsDiv.appendChild(dotImg);
+  }
+}
+
+async function main() {
+  const attractionData = (await getAttractionData()).data;
+  const timeSelectedMorning = document.querySelector(".morning");
+  const timeSelectedafternoon = document.querySelector(".afternoon");
+  console.log(attractionData);
+
+  document.querySelector(".att-name").textContent = attractionData.name;
+  document.querySelector(".cat").textContent = attractionData.category;
+  document.querySelector(".mrt").textContent = attractionData.mrt;
+  document.querySelector(".descr").textContent = attractionData.description;
+  document.querySelector(".address").textContent = attractionData.address;
+  document.querySelector(".transport").textContent = attractionData.transport;
+
+  loadImages(attractionData.images);
+  showSlides(slideIndex); ////////slide show
+
+  timeSelectedMorning.addEventListener("click", () => {
+    document.querySelector(".price").textContent = "新台幣 2000 元";
+  });
+  timeSelectedafternoon.addEventListener("click", () => {
+    document.querySelector(".price").textContent = "新台幣 2500 元";
+  });
+}
+
+main();
