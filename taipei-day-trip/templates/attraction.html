@@ -17,66 +17,68 @@
         </div>
       </div>
     </div>
+    <!-- <hr style="width: 1200px; text-align: left; margin-left: 0" /> -->
 
     <!-- the upper part of the page -->
-    <div class="the-upper-part">
-      <!-- the left part  -->
-      <div class="slideshow-container the-upper-left">
-        <!-- Full-width images with number and caption text -->
+    <div class="the-upper-container">
+      <div class="the-upper-part">
+        <!-- the left part  -->
+        <div class="slideshow-container the-upper-left">
+          <!-- Full-width images with number and caption text -->
 
-        <!-- <div class="mySlides fade">
+          <!-- <div class="mySlides fade">
           <img src="img1.jpg" style="width: 100%" />
         </div> -->
 
-        <!-- Next and previous buttons -->
-        <img
-          src="/static/btn_leftArrow.png"
-          class="prev"
-          onclick="plusSlides(-1)"
-        />
-        <img
-          src="/static/btn_rightArrow.png"
-          class="next"
-          onclick="plusSlides(1)"
-        />
-        <!-- <a class="prev" onclick="plusSlides(-1)">&#10094;</a> -->
-        <!-- <a class="next" onclick="plusSlides(1)">&#10095;</a> -->
-        <!-- The dots/circles -->
-        <div class="dots" style="text-align: center">
-          <!-- <span class="dot" onclick="currentSlide(1)"></span>
+          <!-- Next and previous buttons -->
+          <img
+            src="/static/btn_leftArrow.png"
+            class="prev"
+            onclick="plusSlides(-1)"
+          />
+          <img
+            src="/static/btn_rightArrow.png"
+            class="next"
+            onclick="plusSlides(1)"
+          />
+          <!-- <a class="prev" onclick="plusSlides(-1)">&#10094;</a> -->
+          <!-- <a class="next" onclick="plusSlides(1)">&#10095;</a> -->
+          <!-- The dots/circles -->
+          <div class="dots" style="text-align: center">
+            <!-- <span class="dot" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
         <span class="dot" onclick="currentSlide(3)"></span> -->
-        </div>
-        <!-- end of the slide show container -->
-      </div>
-      <br />
-
-      <!-- the right part -->
-      <div class="the-upper-right">
-        <div class="att-name"></div>
-        <div class="cat-and-mrt">
-          <span class="cat"></span> at <span class="mrt"></span>
-        </div>
-        <div class="booking-process">
-          <div class="headline">訂購導覽行程</div>
-          <div>以此景點為中心的一日行程，帶您探索城市角落故事</div>
-
-          <div class="date-selector">
-            <label for="start">選擇日期: </label>
-
-            <input
-              type="date"
-              id="start"
-              name="trip-start"
-              value="yyyy-mm-dd"
-              min="2022-12-06"
-              max="2023-12-31"
-            />
           </div>
-          <form>
-            <div class="time-selector">
-              選擇時間:
-              <!-- <input type="radio" class="morning" name="time" value="上半天" />
+          <!-- end of the slide show container -->
+        </div>
+        <br />
+
+        <!-- the right part -->
+        <div class="the-upper-right">
+          <div class="att-name"></div>
+          <div class="cat-and-mrt">
+            <span class="cat"></span> at <span class="mrt"></span>
+          </div>
+          <div class="booking-process">
+            <div class="headline">訂購導覽行程</div>
+            <div class="headline-descript">以此景點為中心的一日行程，帶您探索城市角落故事</div>
+
+            <div class="date-selector">
+              <label for="start">選擇日期: </label>
+
+              <input
+                type="date"
+                id="start"
+                name="trip-start"
+                value="yyyy-mm-dd"
+                min="2022-12-06"
+                max="2023-12-31"
+              />
+            </div>
+            <form>
+              <div class="time-selector">
+                選擇時間:
+                <!-- <input type="radio" class="morning" name="time" value="上半天" />
               <label for="morning">上半天</label>
               <input
                 type="radio"
@@ -86,54 +88,57 @@
               />
               <label for="afternoon">下半天</label> -->
 
-              <!-- test code starts -->
-              <span>
-                <input
-                  id="option-one"
-                  class="morning"
-                  name="radio"
-                  value="one"
-                  checked="checked"
-                  type="radio"
-                />
-                <label for="option-one"> <span></span>上半天 </label>
-                <!-- <label for="option-one"> <span>上半天</span> </label> -->
-              </span>
-              <span>
-                <input
-                  id="option-two"
-                  class="afternoon"
-                  name="radio"
-                  value="two"
-                  type="radio"
-                />
-                <label for="option-two"> <span></span>下半天 </label>
-              </span>
+                <!-- test code starts -->
+                <span>
+                  <input
+                    id="option-one"
+                    class="morning"
+                    name="radio"
+                    value="one"
+                    checked="checked"
+                    type="radio"
+                  />
+                  <label for="option-one"> <span></span>上半天 </label>
+                  <!-- <label for="option-one"> <span>上半天</span> </label> -->
+                </span>
+                <span>
+                  <input
+                    id="option-two"
+                    class="afternoon"
+                    name="radio"
+                    value="two"
+                    type="radio"
+                  />
+                  <label for="option-two"> <span></span>下半天 </label>
+                </span>
 
-              <!-- test code ends -->
+                <!-- test code ends -->
+              </div>
+            </form>
+
+            <div class="prices">
+              導覽費用:
+              <span class="price">新台幣 2000 元</span>
             </div>
-          </form>
-
-          <div class="prices">
-            導覽費用:
-            <span class="price">新台幣 2000 元</span>
+            <button class="bookingBtn">開始預約行程</button>
           </div>
-          <button class="bookingBtn">開始預約行程</button>
         </div>
       </div>
     </div>
 
     <!-- the bottom part of the page -->
-    <div class="the-bottom-part intros">
-      <div class="descr"></div>
-      <div class="intro-text"></div>
-      <div>
-        景點地址:
-        <div class="address"></div>
-      </div>
-      <div>
-        交通方式:
-        <div class="transport"></div>
+    <div class="the-bottom-container">
+      <div class="the-bottom-part intros">
+        <div class="descr"></div>
+        <div class="intro-text"></div>
+        <div>
+          景點地址:
+          <div class="address"></div>
+        </div>
+        <div>
+          交通方式:
+          <div class="transport"></div>
+        </div>
       </div>
     </div>
     <script type="text/javascript" src="/static/attraction.js"></script>

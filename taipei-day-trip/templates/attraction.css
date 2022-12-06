@@ -8,6 +8,10 @@ body {
   font-size: 20px;
   margin: 0;
   padding: 0;
+  background: #757575;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   /* justify-content: center;
   align-items: center; */
@@ -41,7 +45,6 @@ body {
   margin-right: auto;
   position: fixed;
   background-color: #ffffff;
-  border-bottom: 0.1px solid grey;
 }
 
 .frame1200 {
@@ -53,6 +56,7 @@ body {
   justify-content: center;
   margin: 10px, auto 10px, auto;
   background-color: #ffffff;
+  border-bottom: 1px solid grey;
 }
 
 .left {
@@ -167,12 +171,6 @@ input[type="radio"]:checked + label span {
   border-radius: 5px;
 }
 
-.the-upper-part {
-  /* background-color: burlywood; */
-  flex-wrap: nowrap;
-  display: flex;
-  align-items: stretch;
-}
 /* Slideshow container */
 .slideshow-container {
   position: absolute;
@@ -286,6 +284,25 @@ mySlides fade {
   }
 }
 /* /////////////slide shows end */
+.the-upper-container {
+  background-color: white;
+  width: 100%;
+  height: 45%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-bottom: -30px;
+}
+.the-upper-part {
+  margin-top: 40px;
+  width: 1200px;
+  background-color: white;
+  /* background-color: burlywood; */
+  flex-wrap: nowrap;
+  display: flex;
+  align-items: stretch;
+  padding-top: 40px;
+}
 .the-upper-left {
   margin-right: 15px;
 }
@@ -298,6 +315,52 @@ mySlides fade {
 }
 .att-name {
   margin-top: 0;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+}
+.cat-and-mrt {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+}
+.headline {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+}
+.headline-descript {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+}
+.date-selector {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+}
+.time-selector {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+}
+.prices {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+}
+.price {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
 }
 .booking-process {
   /* position: absolute; */
@@ -317,6 +380,24 @@ mySlides fade {
   width: 18px;
   height: 18px;
   background-color: #448899;
+}
+
+.the-bottom-container {
+  background-color: white;
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: -20px; */
+}
+.the-bottom-part {
+  border-top: 1px solid grey;
+  width: 1200px;
+  background-color: white;
+}
+.descr {
+  margin-top: 40px;
 }
 .footer {
   display: flex;
