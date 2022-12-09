@@ -300,14 +300,14 @@ mySlides fade {
   width: 100%;
   height: 45%;
   min-height: 500px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  display: flex;
   margin-bottom: -30px;
 }
 .the-upper-part {
   margin-top: 40px;
-  width: 1200px;
+  /* width: 1200px; */
   background-color: white;
   /* background-color: burlywood; */
   flex-wrap: nowrap;
@@ -351,7 +351,7 @@ mySlides fade {
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  line-height: 13px;
+  line-height: 15px;
 }
 .date-selector {
   font-style: normal;
@@ -401,22 +401,23 @@ mySlides fade {
   background-color: white;
   width: 100%;
   height: 45%;
-  min-height: 500px;
+  /* min-height: 500px; */
   display: flex;
-  justify-content: space-around;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
+
   /* margin-top: -20px; */
 }
 .the-bottom-part {
-  margin-top: -100px;
+  /* margin-top: -100px; */
   border-top: 1px solid #e8e8e8;
   width: 1200px;
   background-color: white;
 }
 .descr {
   margin-top: 30px;
-  width: 1180px;
+  width: 100%;
+  /* width: 1180px; */
   height: 96px;
   left: 10px;
   top: 10px;
@@ -426,21 +427,23 @@ mySlides fade {
   font-size: 16px;
   line-height: 23px;
   color: #666666;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
 }
 .address-headline {
-  width: 1180px;
-  height: 32px;
+  width: 100%;
+  /* width: 1180px; */
+  /* height: 32px; */
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
   /* line-height: 13px; */
   align-items: center;
-  margin-top: 80px;
+  /* margin-top: 80px; */
 }
 .address {
-  width: 1180px;
-  height: 24px;
+  width: 100%;
+  /* width: 1180px; */
+  /* height: 24px; */
   /* left: 10px;
   top: 158px; */
   font-style: normal;
@@ -450,8 +453,9 @@ mySlides fade {
 }
 .transport-headline {
   /* position: absolute; */
-  width: 1180px;
-  height: 32px;
+  width: 100%;
+  /* width: 1180px; */
+  /* height: 32px; */
   /* left: 10px;
   top: 202px; */
   font-weight: 700;
@@ -460,12 +464,13 @@ mySlides fade {
   margin-top: 50px;
 }
 .transport {
-  width: 1180px;
+  width: 100%;
+  /* width: 1180px; */
   height: 48px;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 23px;
+  /* line-height: 23px; */
 }
 .footer {
   display: flex;
@@ -488,19 +493,30 @@ mySlides fade {
 }
 /* max-width:1200px */
 @media (max-width: 1200px) {
+  html,
   body {
     width: 100%;
-    display: grid;
-    justify-items: center;
+    /* display: grid; */
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
   }
   .frame-section,
   .frame1200 {
     width: 100%;
   }
+  .left {
+    width: auto;
+  }
   .the-upper-container {
-    min-width: 800px;
-    display: grid;
-    grid-template-columns: auto auto;
+    /* min-width: 800px; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    /* grid-template-columns: auto auto; */
   }
   .the-upper-part {
     width: 100%;
@@ -524,6 +540,10 @@ mySlides fade {
   .item2 {
     width: auto;
   }
+
+  .item1 {
+    width: auto;
+  }
   .booking-process {
     width: 100%;
   }
@@ -536,15 +556,20 @@ mySlides fade {
     width: 100%;
   }
   .the-bottom-container {
-    max-width: 1200px;
+    width: 100%;
   }
+  .transport-headline {
+    width: 100%;
+  }
+  /* .address {
+    width: 100%;
+  } */
   .transport {
     width: 100%;
-
-    /* max-width: 1200px; */
   }
   .footer {
-    max-width: 1200px;
+    height: 50px;
+    width: 100%;
     left: 0px;
     right: 0px;
     top: 0px;
@@ -553,5 +578,92 @@ mySlides fade {
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 100px;
+  }
+}
+
+@media (max-width: 680px) {
+  html,
+  body {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    /* text-align: center; */
+    margin: 0 auto;
+  }
+  .frame-section {
+    width: 360px;
+  }
+  .the-upper-part {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .the-upper-left {
+    /* width: 466px; */
+    margin: 0 auto;
+    width: 360px;
+    height: 350px;
+    object-fit: cover;
+  }
+
+  .the-upper-right {
+    /* width: 90%; */
+    width: 340px;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+  img {
+    width: 360px;
+    /* width: 100%; */
+    height: 350px;
+    object-fit: cover;
+  }
+
+  .att-name {
+    width: 340px;
+    height: 33px;
+    left: 0px;
+    top: 0px;
+  }
+  .cat-and-mrt {
+    width: 340px;
+    height: 22px;
+  }
+  .booking-process {
+    width: 340px;
+    height: 300px;
+  }
+  .the-bottom-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    margin-top: 0;
+    width: 380px;
+    margin-top: 50px;
+  }
+  .descr {
+    margin: 0;
+  }
+
+  .address-headline {
+    margin-top: 20px;
+    height: auto;
+  }
+  .address {
+    height: auto;
+  }
+  .transport-headline {
+    height: auto;
+  }
+  footer {
+    height: 100px;
+    margin-top: 150px;
   }
 }
