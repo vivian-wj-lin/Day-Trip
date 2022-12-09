@@ -4,7 +4,9 @@ import mysql
 import mysql.connector
 import mysql.connector.cursor
 import jwt
+import time
 
+from datetime import datetime
 from mysql.connector import pooling
 from mysql.connector import connect
 from mysql.connector import Error
@@ -290,14 +292,34 @@ def UserInfo():
         return {"data": None}
 
 
-@app.route("/api/user/auth", methods=["PUT"])
+@app.route("/api/user/auth", methods=["PUT"], headers={"Content-Type": "application/json", "Authorization": f"Bearer {token}"})
 def jwtToken():
+    now = time.time()
+    expiretime = 60 * 60
+
     email = request.args.get("email")
-    password = request.args.get("password")
-    # official example:
-    # encoded_jwt = jwt.encode({"some": "payload"}, "secret", algorithm="HS256")
-    # print(encoded_jwt)
-    # jwt.decode(encoded_jwt, "secret", algorithms=["HS256"]){'some': 'payload'}
+    cnx_userInfo = cnxpool_Users.get_connection()
+    userinfo_cursor = cnx_userInfo.cursor()(dictionary=True)
+    select_stmt = "SELECT id, name, email FROM Users WHERE email = %(email)s"
+    userinfo_cursor.execute(select_stmt, {"email": email})
+    select_stmt = userinfo_cursor.fetchone()
+
+    payload = {
+        # 'iss': 'example.com', #發行者
+        # 'sub': 'the_user_id', #該 Token 的使用者
+        # 'aud': 'www.example.com', #Token 的接收者=後端伺服器
+        'exp': now + expiretime,  # Token 過期時間
+        'nbf': datetime.utcnow(),  # Token 生效時間 Not Before Time
+        'iat': datetime.utcnow(),  # Token 發行時間 Issued At
+        # 'jti': 'unique_jwt_id',  # Token ID
+        'id': '{select_stmt[0]}',
+        'name': '{select_stmt[1]}',
+        'email': '{select_stmt[2]}', }
+
+    encoded_jwt = jwt.encode(payload, "secret", algorithm="HS256")
+    print(encoded_jwt)
+    jwt.decode(encoded_jwt, "secret", algorithms=["HS256"])
+    return
 
 
 app.run(host="0.0.0.0", debug=True, port=3000)

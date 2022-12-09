@@ -17,7 +17,7 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-mycursor.execute("CREATE DATABASE IF NOT EXISTS TpeAttUserDB")
+mycursor.execute("CREATE DATABASE IF NOT EXISTS TaipeiAttractionsDB")
 mydb.commit()
 mycursor.close()
 mydb.close()
@@ -28,7 +28,7 @@ mydb = mysql.connector.connect(
     # user="debian-sys-maint",
     passwd="mysqlpwd2022",
     # passwd="b6hdV6hWNuqadE2s",
-    database="TpeAttUserDB"
+    database="TaipeiAttractionsDB"
 )
 mycursor = mydb.cursor()
 mycursor.execute(
