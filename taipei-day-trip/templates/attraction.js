@@ -92,6 +92,20 @@ async function main() {
   timeSelectedafternoon.addEventListener("click", () => {
     document.querySelector(".price").textContent = "新台幣 2500 元";
   });
+
+  document.querySelector(".item2").addEventListener("click", () => {
+    document.querySelector(".login").style = "display:blcok";
+  });
+
+  document.querySelector(".link-to-signup").addEventListener("click", () => {
+    document.querySelector(".login").style = "display:none";
+    document.querySelector(".signup").style = "display:blcok";
+  });
+
+  document.querySelector(".link-to-login").addEventListener("click", () => {
+    document.querySelector(".signup").style = "display:none";
+    document.querySelector(".login").style = "display:blcok";
+  });
 }
 
 main();

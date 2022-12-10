@@ -124,3 +124,17 @@ document.querySelector(".searchinput").addEventListener("focusout", () => {
     document.querySelector(".categories").style = "display: none;";
   }, 100);
 });
+
+document.querySelector(".item2").addEventListener("click", () => {
+  document.querySelector(".login").style = "display:blcok";
+});
+
+document.querySelector(".link-to-signup").addEventListener("click", () => {
+  document.querySelector(".login").style = "display:none";
+  document.querySelector(".signup").style = "display:blcok";
+});
+
+document.querySelector(".link-to-login").addEventListener("click", () => {
+  document.querySelector(".signup").style = "display:none";
+  document.querySelector(".login").style = "display:blcok";
+});
