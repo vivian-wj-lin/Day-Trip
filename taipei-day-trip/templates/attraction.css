@@ -487,10 +487,10 @@ mySlides fade {
   height: 45%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  /* margin-top: 60px; */
-  margin-top: 6%;
-  margin-bottom: 1%;
+  /* align-items: center; */
+  align-items: start;
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 .the-bottom-part {
   border-top: 1px solid #e8e8e8;
@@ -509,6 +509,10 @@ mySlides fade {
   font-size: 16px;
   line-height: 23px;
   color: #666666;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
 }
 .address-headline {
   width: 100%;
