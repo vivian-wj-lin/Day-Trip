@@ -56,6 +56,9 @@ function load(page, keyword) {
       const container = document.querySelector(".container");
       for (const attraction of attractions.data) {
         const attractionElement = createAttractionElement(attraction);
+        attractionElement.addEventListener("click", () => {
+          location.pathname = `/attraction/${attraction.source_id}`;
+        });
         container.appendChild(attractionElement);
       }
       if (attractions.data.length === 0) {
@@ -120,4 +123,18 @@ document.querySelector(".searchinput").addEventListener("focusout", () => {
   setTimeout(() => {
     document.querySelector(".categories").style = "display: none;";
   }, 100);
+});
+
+document.querySelector(".item2").addEventListener("click", () => {
+  document.querySelector(".login").style = "display:blcok";
+});
+
+document.querySelector(".link-to-signup").addEventListener("click", () => {
+  document.querySelector(".login").style = "display:none";
+  document.querySelector(".signup").style = "display:blcok";
+});
+
+document.querySelector(".link-to-login").addEventListener("click", () => {
+  document.querySelector(".signup").style = "display:none";
+  document.querySelector(".login").style = "display:blcok";
 });
