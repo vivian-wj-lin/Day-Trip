@@ -206,7 +206,7 @@ input[type="radio"] {
 input[type="radio"] + label {
   font-weight: 400;
   font-size: 14px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 input[type="radio"] + label span {
   display: inline-block;
