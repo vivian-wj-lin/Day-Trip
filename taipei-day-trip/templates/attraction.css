@@ -206,6 +206,7 @@ input[type="radio"] {
 input[type="radio"] + label {
   font-weight: 400;
   font-size: 14px;
+  margin-left: 10px;
 }
 input[type="radio"] + label span {
   display: inline-block;
@@ -224,6 +225,7 @@ input[type="radio"] + label span {
 input[type="radio"]:checked + label {
   color: #333;
   font-weight: 700;
+  margin-right: 10px;
 }
 input[type="radio"]:checked + label span {
   background-color: #448899;
@@ -446,6 +448,16 @@ mySlides fade {
   font-size: 16px;
   line-height: 13px;
 }
+.start {
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  justify-content: start;
+  margin: auto;
+  border: none;
+}
+
 .time-selector {
   font-style: normal;
   font-weight: 700;
