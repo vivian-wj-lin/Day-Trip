@@ -113,28 +113,113 @@ function loadCategories() {
       }
     });
 }
-loadCategories();
+// loadCategories();
 
-document.querySelector(".searchinput").addEventListener("focus", () => {
-  document.querySelector(".categories").style = "";
-});
+function signup() {
+  document.querySelector(".signupButton").addEventListener("click", (ev) => {
+    ev.preventDefault();
+    const name = document.querySelector(".signup .input-name").value;
+    // console.log(name);
+    const email = document.querySelector(".signup .input-email").value;
+    const password = document.querySelector(".signup .input-password").value;
+    const newHeaders = new Headers();
+    newHeaders.append("Content-Type", "application/json");
+    const newbody = JSON.stringify({
+      name,
+      email,
+      password,
+    });
+    const requestOptions = {
+      method: "POST",
+      headers: newHeaders,
+      body: newbody,
+      redirect: "follow",
+    };
+    fetch("/api/user", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  });
+}
 
-document.querySelector(".searchinput").addEventListener("focusout", () => {
-  setTimeout(() => {
-    document.querySelector(".categories").style = "display: none;";
-  }, 100);
-});
+function login() {
+  document.querySelector(".loginButton").addEventListener("click", (ev) => {
+    ev.preventDefault();
+    const email = document.querySelector(".login .input-email").value;
+    const password = document.querySelector(".login .input-password").value;
+    const newHeaders = new Headers();
+    newHeaders.append("Content-Type", "application/json");
+    const newbody = JSON.stringify({
+      email,
+      password,
+    });
+    const requestOptions = {
+      method: "PUT",
+      headers: newHeaders,
+      body: newbody,
+      redirect: "follow",
+    };
+    fetch("/api/user/auth", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  });
+}
 
-document.querySelector(".login-and-signup").addEventListener("click", () => {
-  document.querySelector(".login").style = "display:blcok";
-});
+function checkIsLogin() {
+  const requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+  fetch("/api/user/auth", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+}
 
-document.querySelector(".link-to-signup").addEventListener("click", () => {
-  document.querySelector(".login").style = "display:none";
-  document.querySelector(".signup").style = "display:blcok";
-});
+function logout() {
+  document.querySelector(".logout").addEventListener("click", () => {
+    const requestOptions = {
+      method: "DELETE",
+      redirect: "follow",
+    };
+    fetch("/api/user/auth", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  });
+}
 
-document.querySelector(".link-to-login").addEventListener("click", () => {
-  document.querySelector(".signup").style = "display:none";
-  document.querySelector(".login").style = "display:blcok";
-});
+function main() {
+  loadCategories();
+  signup();
+  login();
+  checkIsLogin();
+  logout();
+
+  document.querySelector(".searchinput").addEventListener("focus", () => {
+    document.querySelector(".categories").style = "";
+  });
+
+  document.querySelector(".searchinput").addEventListener("focusout", () => {
+    setTimeout(() => {
+      document.querySelector(".categories").style = "display: none;";
+    }, 100);
+  });
+
+  document.querySelector(".login-and-signup").addEventListener("click", () => {
+    document.querySelector(".login").style = "display:blcok";
+  });
+
+  document.querySelector(".link-to-signup").addEventListener("click", () => {
+    document.querySelector(".login").style = "display:none";
+    document.querySelector(".signup").style = "display:blcok";
+  });
+
+  document.querySelector(".link-to-login").addEventListener("click", () => {
+    document.querySelector(".signup").style = "display:none";
+    document.querySelector(".login").style = "display:blcok";
+  });
+}
+
+main();

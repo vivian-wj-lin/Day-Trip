@@ -178,6 +178,14 @@ async function main() {
     document.querySelector(".signup").style = "display:none";
     document.querySelector(".login").style = "display:blcok";
   });
+
+  document.querySelector(".left").addEventListener(
+    "click",
+    () => {
+      window.location.href = "/";
+    },
+    false
+  );
 }
 
 main();

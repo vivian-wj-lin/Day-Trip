@@ -263,10 +263,12 @@ def signup():
 def userInfo():
     encoded_jwt = flask.request.cookies.get(COOKIE_KEY_JWT_TOKEN)
     if encoded_jwt is None:
-        return {'data': None}
+        return {"data": None}
+        # return flask.Response(json.dumps({"data": None}),
+        #                       mimetype="application/json",)
     user = jwt.decode(encoded_jwt, JWT_KEY, algorithms=[
                       "HS256"])
-    return {'data': user}
+    return {"data": user}
 
 
 @app.route("/api/user/auth", methods=["PUT"])
