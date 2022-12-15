@@ -19,30 +19,22 @@ app = Flask(__name__, static_folder="templates", static_url_path="/static")
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.secret_key = "secret"
-IS_LOGIN = "isLogin..."
 
-# try:
+IS_LOGIN = "isLogin..."
+JWT_KEY = 'secret'
+COOKIE_KEY_JWT_TOKEN = 'hijkl'
+
 cnxpool = pooling.MySQLConnectionPool(
     pool_name="mypool",
     pool_size=5,
     host='localhost',
     database='TaipeiAttractionsDB',
-    # user='root',
-    user="debian-sys-maint",
-    # password='mysqlpwd2022'
-    passwd="b6hdV6hWNuqadE2s",
+    user='root',
+    # user="debian-sys-maint",
+    password='mysqlpwd2022'
+    # passwd="b6hdV6hWNuqadE2s",
     # auth_plugin='mysql_native_password'
 )
-
-# mydb = mysql.connector.connect(
-#     host="localhost",
-#     user="root",
-#     # user="debian-sys-maint",
-#     passwd="mysqlpwd2022",
-#     # passwd="b6hdV6hWNuqadE2s",
-#     database="TaipeiAttractionsDB",
-#     auth_plugin='mysql_native_password'
-# )
 
 # Pages
 
@@ -224,89 +216,102 @@ def api_attractions():
         )
 
 
-# @app.route("/api/user", methods=["POST"])
-# def signup():
-#     name = request.form["name"]
-#     email = request.form["email"]
-#     password = request.form["password"]
-#     # 檢查帳號
-#     cnx_Users = cnxpool_Users.get_connection()
-#     users_cursor = cnx_Users.cursor()(dictionary=True)
-#     select_stmt = "SELECT * FROM member WHERE email = %(email)s"
-#     users_cursor.execute(select_stmt, {"email": email})
-#     myresult = users_cursor.fetchall()
-#     if not myresult:
-#         signup_cursor = cnx_Users.cursor()(dictionary=True)
-#         sql = "INSERT INTO Users (name,email,password) VALUES (%s, %s, %s)"
-#         val = [(name, email, password)]
-#         signup_cursor.executemany(sql, val)
-#         cnx_Users.commit()
-#         return Response(
-#             json.dumps(
-#                 {"ok": True, }),
-#             mimetype="application/json",
-#             status=200,
-#         )
-#     if myresult:
-#         return Response(
-#             json.dumps(
-#                 {"error": True, "message": "duplicate email address or other errors"}),
-#             mimetype="application/json",
-#             status=400,
-#         )
-#     else:
-#         return Response(
-#             json.dumps(
-#                 {"error": True, "message": "Internal Server Error"}),
-#             mimetype="application/json",
-#             status=500,
-#         )
+@app.route("/api/user", methods=["POST"])
+def signup():
+    try:
+        data = flask.request.get_json()
+        name = data["name"]
+        email = data["email"]
+        password = data["password"]
+        # 檢查帳號
+        cnx_Users = cnxpool.get_connection()
+        users_cursor = cnx_Users.cursor(dictionary=True)
+        select_stmt = "SELECT * FROM Users WHERE email = %(email)s"
+        users_cursor.execute(select_stmt, {"email": email})
+        myresult = users_cursor.fetchall()
+        if not myresult:
+            signup_cursor = cnx_Users.cursor(dictionary=True)
+            sql = "INSERT INTO Users (name,email,password) VALUES (%s, %s, %s)"
+            val = [(name, email, password)]
+            signup_cursor.executemany(sql, val)
+            cnx_Users.commit()
+            return flask.Response(
+                json.dumps(
+                    {
+                        "ok": True,
+                    }
+                ),
+                mimetype="application/json",
+                status=200,
+            )
+        return flask.Response(
+            json.dumps(
+                {"error": True, "message": "duplicate email address or other errors"}
+            ),
+            mimetype="application/json",
+            status=400,
+        )
+    except Exception:
+        return flask.Response(
+            json.dumps({"error": True, "message": "Internal Server Error"}),
+            mimetype="application/json",
+            status=500,
+        )
 
 
-# @app.route("/api/user/auth")
-# def UserInfo():
-#     if session.get(IS_LOGIN, None):
-#         email = request.args.get("email")
-#         cnx_userInfo = cnxpool_Users.get_connection()
-#         userinfo_cursor = cnx_userInfo.cursor()(dictionary=True)
-#         select_stmt = "SELECT id, name, email FROM Users WHERE email = %(email)s"
-#         userinfo_cursor.execute(select_stmt, {"email": email})
-#         select_stmt = userinfo_cursor.fetchone()
-#         return {
-#             "data": {"id": select_stmt[0], "name": select_stmt[1], "email": select_stmt[2]}
-#         }
-#     else:
-#         return {"data": None}
+@app.route("/api/user/auth")
+def userInfo():
+    encoded_jwt = flask.request.cookies.get(COOKIE_KEY_JWT_TOKEN)
+    if encoded_jwt is None:
+        return {'data': None}
+    user = jwt.decode(encoded_jwt, JWT_KEY, algorithms=[
+                      "HS256"])
+    return {'data': user}
 
 
-# @app.route("/api/user/auth", methods=["PUT"], headers={"Content-Type": "application/json", "Authorization": f"Bearer {token}"})
-# def jwtToken():
-#     now = time.time()
-#     expiretime = 60 * 60
+@app.route("/api/user/auth", methods=["PUT"])
+def login():
+    data = flask.request.get_json()
+    email = data["email"]
+    password = data["password"]
+    try:
+        connection = cnxpool.get_connection()
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT id,name,email FROM Users WHERE email = %(email)s AND password = %(password)s",
+            {"email": email, 'password': password},
+        )
+        user = cursor.fetchone()
+        if user is None:
+            return flask.Response(
+                json.dumps(
+                    {"error": True, "message": "failed to log in due to wrong email/password or other errors"}
+                ),
+                mimetype="application/json",
+                status=400,
+            )
 
-#     email = request.args.get("email")
-#     cnx_userInfo = cnxpool_Users.get_connection()
-#     userinfo_cursor = cnx_userInfo.cursor()(dictionary=True)
-#     select_stmt = "SELECT id, name, email FROM Users WHERE email = %(email)s"
-#     userinfo_cursor.execute(select_stmt, {"email": email})
-#     select_stmt = userinfo_cursor.fetchone()
+        encoded_jwt = jwt.encode(payload=user, key=JWT_KEY, algorithm="HS256")
+        response = flask.make_response({'ok': True})
+        response.set_cookie(
+            key=COOKIE_KEY_JWT_TOKEN,
+            value=encoded_jwt,
+            max_age=7 * 24 * 60 * 60,
+        )
+        return response
+    except Exception:
+        return flask.Response(
+            json.dumps({"error": True, "message": "Internal Server Error"}),
+            mimetype="application/json",
+            status=500,
+        )
 
-#     payload = {
-#         # 'iss': 'example.com', #發行者
-#         # 'sub': 'the_user_id', #該 Token 的使用者
-#         # 'aud': 'www.example.com', #Token 的接收者=後端伺服器
-#         'exp': now + expiretime,  # Token 過期時間
-#         'nbf': datetime.utcnow(),  # Token 生效時間 Not Before Time
-#         'iat': datetime.utcnow(),  # Token 發行時間 Issued At
-#         # 'jti': 'unique_jwt_id',  # Token ID
-#         'id': '{select_stmt[0]}',
-#         'name': '{select_stmt[1]}',
-#         'email': '{select_stmt[2]}', }
 
-#     encoded_jwt = jwt.encode(payload, "secret", algorithm="HS256")
-#     print(encoded_jwt)
-#     jwt.decode(encoded_jwt, "secret", algorithms=["HS256"])
-#     return
+@app.route("/api/user/auth", methods=["DELETE"])
+def logout():
+    response = flask.make_response({'ok': True})
+    response.delete_cookie(key=COOKIE_KEY_JWT_TOKEN)
+    return response
 
 
 app.run(host="0.0.0.0", debug=True, port=3000)

@@ -125,7 +125,7 @@ document.querySelector(".searchinput").addEventListener("focusout", () => {
   }, 100);
 });
 
-document.querySelector(".item2").addEventListener("click", () => {
+document.querySelector(".login-and-signup").addEventListener("click", () => {
   document.querySelector(".login").style = "display:blcok";
 });
 

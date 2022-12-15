@@ -80,13 +80,14 @@ body {
 .input-name,
 .input-email,
 .input-password {
-  width: 310px;
-  height: 47px;
+  /* width: 310px;
+  height: 47px; */
+  width: 280px;
+  height: 17px;
   font-weight: 500;
   font-size: 16px;
   margin: 0 auto;
-  /* text-align: center; */
-  /* padding: 15px; */
+  padding: 15px;
   border: 1px solid #cccccc;
   border-radius: 5px;
 }

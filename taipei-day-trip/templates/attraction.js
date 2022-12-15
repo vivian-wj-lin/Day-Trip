@@ -59,18 +59,90 @@ function loadImages(images) {
       currentSlide(i + 1);
     };
     dotsDiv.appendChild(dotSpan);
-
-    // const dotImg = document.createElement("img");
-    // dotImg.className = "dot";
-    // dotImg.src = "/static/circle current.png";
-    // dotImg.onclick = function () {
-    //   currentSlide(i + 1);
-    // };
-    // dotsDiv.appendChild(dotImg);
   }
 }
 
+function signup() {
+  document.querySelector(".signupButton").addEventListener("click", (ev) => {
+    ev.preventDefault();
+    const name = document.querySelector(".signup .input-name").value;
+    // console.log(name);
+    const email = document.querySelector(".signup .input-email").value;
+    const password = document.querySelector(".signup .input-password").value;
+    const newHeaders = new Headers();
+    newHeaders.append("Content-Type", "application/json");
+    const newbody = JSON.stringify({
+      name,
+      email,
+      password,
+    });
+    const requestOptions = {
+      method: "POST",
+      headers: newHeaders,
+      body: newbody,
+      redirect: "follow",
+    };
+    fetch("/api/user", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  });
+}
+
+function login() {
+  document.querySelector(".loginButton").addEventListener("click", (ev) => {
+    ev.preventDefault();
+    const email = document.querySelector(".login .input-email").value;
+    const password = document.querySelector(".login .input-password").value;
+    const newHeaders = new Headers();
+    newHeaders.append("Content-Type", "application/json");
+    const newbody = JSON.stringify({
+      email,
+      password,
+    });
+    const requestOptions = {
+      method: "PUT",
+      headers: newHeaders,
+      body: newbody,
+      redirect: "follow",
+    };
+    fetch("/api/user/auth", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  });
+}
+
+function checkIsLogin() {
+  const requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+  fetch("/api/user/auth", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+}
+
+function logout() {
+  document.querySelector(".logout").addEventListener("click", () => {
+    const requestOptions = {
+      method: "DELETE",
+      redirect: "follow",
+    };
+    fetch("/api/user/auth", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  });
+}
+
 async function main() {
+  signup();
+  login();
+  checkIsLogin();
+  logout();
+
   const attractionData = (await getAttractionData()).data;
   const timeSelectedMorning = document.querySelector(".morning");
   const timeSelectedafternoon = document.querySelector(".afternoon");
@@ -93,7 +165,7 @@ async function main() {
     document.querySelector(".price").textContent = "新台幣 2500 元";
   });
 
-  document.querySelector(".item2").addEventListener("click", () => {
+  document.querySelector(".login-and-signup").addEventListener("click", () => {
     document.querySelector(".login").style = "display:blcok";
   });
 
