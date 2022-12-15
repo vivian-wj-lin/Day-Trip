@@ -22,7 +22,8 @@ body {
   max-width: 1920px;
 }
 .login,
-.signup {
+.signup,
+.logout-window {
   position: absolute;
   top: 25%;
   left: 50%;
@@ -31,7 +32,9 @@ body {
   border-radius: 6px;
   z-index: 99999;
 }
-
+.logout-window {
+  background-color: white;
+}
 .login {
   overflow: visible;
   background-color: white;
@@ -79,6 +82,19 @@ body {
   text-align: center;
   color: #666666;
 }
+.logout-headline {
+  width: 310px;
+  height: 27px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* display: flex; */
+  align-items: center;
+  text-align: center;
+  color: #a8324c;
+}
 .input-name,
 .input-email,
 .input-password {
@@ -107,6 +123,10 @@ body {
   /* line-height: 16px; */
   align-items: center;
   text-align: center;
+}
+.loginSuccessText {
+  text-align: center;
+  color: #a8324c;
 }
 .link-to-signup,
 .link-to-login {

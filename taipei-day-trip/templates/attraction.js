@@ -107,8 +107,26 @@ function login() {
       redirect: "follow",
     };
     fetch("/api/user/auth", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
+      // .then((response) => response.text())
+      .then((response) => response.json())
+      // .then((result) => console.log(result))
+      .then((result) => {
+        if (result.data !== null) {
+          document.querySelector(".login-and-signup").style = "display:none";
+          document.querySelector(".logout").style = "display:blcok";
+          const loginDiv = document.querySelector(".loginDiv");
+          const loginSuccessText = document.createElement("div");
+          loginSuccessText.className = "loginSuccessText";
+          loginSuccessText.textContent = "登入成功!";
+          loginDiv.appendChild(loginSuccessText);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        } else {
+          document.querySelector(".logout").style = "display:none";
+          document.querySelector(".login-and-signup").style = "display:blcok";
+        }
+      })
       .catch((error) => console.log("error", error));
   });
 }
@@ -119,8 +137,17 @@ function checkIsLogin() {
     redirect: "follow",
   };
   fetch("/api/user/auth", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
+    .then((response) => response.json())
+    // .then((result) => console.log(result))
+    .then((result) => {
+      if (result.data !== null) {
+        document.querySelector(".login-and-signup").style = "display:none";
+        document.querySelector(".logout").style = "display:blcok";
+      } else {
+        document.querySelector(".logout").style = "display:none";
+        document.querySelector(".login-and-signup").style = "display:blcok";
+      }
+    }) //{"data":null} //hello = () => "Hello World!";
     .catch((error) => console.log("error", error));
 }
 
@@ -131,8 +158,22 @@ function logout() {
       redirect: "follow",
     };
     fetch("/api/user/auth", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
+      // .then((response) => response.text())
+      .then((response) => response.json())
+      // .then((result) => console.log(result))
+      .then((result) => {
+        if (result.data == null) {
+          document.querySelector(".logout").style = "display:none";
+          document.querySelector(".login-and-signup").style = "display:blcok";
+          document.querySelector(".logout-window").style = "display:blcok";
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        } else {
+          document.querySelector(".login-and-signup").style = "display:none";
+          document.querySelector(".logout").style = "display:blcok";
+        }
+      })
       .catch((error) => console.log("error", error));
   });
 }

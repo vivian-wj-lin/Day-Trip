@@ -24,7 +24,10 @@
           name=""
           placeholder="輸入密碼"
         />
-        <button class="loginButton">登入帳戶</button>
+        <div class="loginDiv">
+          <button class="loginButton">登入帳戶</button>
+          <!-- <div class="loginSuccessText">登入成功</div> -->
+        </div>
         <div class="link-to-signup">還沒有帳戶? 點此註冊</div>
       </div>
     </div>
@@ -49,9 +52,14 @@
         <div class="link-to-login">已經有帳戶了? 點此登入</div>
       </div>
     </div>
+    <div class="logout-window" style="display: none">
+      <div class="logout-window"></div>
+      <div class="color"></div>
+      <div class="logout-headline">登出成功!</div>
+    </div>
     <div class="frame-section">
       <div class="frame1200">
-        <a href="/"><div class="left">台北一日遊</div></a>
+        <div class="left">台北一日遊</div>
         <div class="right">
           <div class="item booking">預定行程</div>
           <div class="item login-and-signup">登入/註冊</div>

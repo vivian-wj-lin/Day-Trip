@@ -172,8 +172,17 @@ function checkIsLogin() {
     redirect: "follow",
   };
   fetch("/api/user/auth", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
+    .then((response) => response.json())
+    // .then((result) => console.log(result))
+    .then((result) => {
+      if (result.data !== null) {
+        document.querySelector(".login-and-signup").style = "display:none";
+        document.querySelector(".logout").style = "display:blcok";
+      } else {
+        document.querySelector(".logout").style = "display:none";
+        document.querySelector(".login-and-signup").style = "display:blcok";
+      }
+    }) //{"data":null} //hello = () => "Hello World!";
     .catch((error) => console.log("error", error));
 }
 
