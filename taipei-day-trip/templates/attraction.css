@@ -93,7 +93,7 @@ body {
   /* display: flex; */
   align-items: center;
   text-align: center;
-  color: #a8324c;
+  color: black;
 }
 .input-name,
 .input-email,
@@ -124,7 +124,8 @@ body {
   align-items: center;
   text-align: center;
 }
-.loginSuccessText {
+.loginSuccessText,
+.signupSuccessText {
   text-align: center;
   color: #a8324c;
 }
