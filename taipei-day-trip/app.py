@@ -5,6 +5,8 @@ import mysql.connector
 import mysql.connector.cursor
 import jwt
 import time
+import requests
+
 
 from datetime import datetime
 from mysql.connector import pooling
@@ -26,13 +28,13 @@ COOKIE_KEY_JWT_TOKEN = 'hijkl'
 
 cnxpool = pooling.MySQLConnectionPool(
     pool_name="mypool",
-    pool_size=5,
+    pool_size=10,
     host='localhost',
     database='TaipeiAttractionsDB',
-    # user='root',
-    user="debian-sys-maint",
-    # password='mysqlpwd2022'
-    passwd="b6hdV6hWNuqadE2s",
+    user='root',
+    # user="debian-sys-maint",
+    password='mysqlpwd2022'
+    # passwd="b6hdV6hWNuqadE2s",
     # auth_plugin='mysql_native_password'
 )
 
@@ -314,6 +316,20 @@ def logout():
     response = flask.make_response({'ok': True})
     response.delete_cookie(key=COOKIE_KEY_JWT_TOKEN)
     return response
+
+
+@app.route("/api/booking")
+def cartInfo():
+    encoded_jwt = flask.request.cookies.get(COOKIE_KEY_JWT_TOKEN)
+    res = flask.requests.get("/api/attraction/<attractionId>")
+    # id = flask.request.args.get("attractionId")
+    response = json.loads(res.text)
+    print(id)
+    # attraction =
+    if encoded_jwt is None:
+        return flask.Response(json.dumps({"error": True, "message": "Please log in"}),
+                              mimetype="application/json",)
+    return {"data": res}
 
 
 app.run(host="0.0.0.0", debug=True, port=3000)
