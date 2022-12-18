@@ -259,8 +259,12 @@ async function main() {
     localStorage.setItem("date", dateSelected);
     localStorage.setItem("time", timeSelected);
     localStorage.setItem("price", price);
+    if (document.cookie !== null) {
+      window.location.href = "/booking";
+    } else {
+      window.location.href = "/";
+    }
   });
 }
-// console.log(localStorage.getItem("date"));
 
 main();
