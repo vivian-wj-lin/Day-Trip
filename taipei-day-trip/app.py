@@ -321,15 +321,11 @@ def logout():
 @app.route("/api/booking")
 def cartInfo():
     encoded_jwt = flask.request.cookies.get(COOKIE_KEY_JWT_TOKEN)
-    res = flask.requests.get("/api/attraction/<attractionId>")
-    # id = flask.request.args.get("attractionId")
-    response = json.loads(res.text)
-    print(id)
-    # attraction =
     if encoded_jwt is None:
         return flask.Response(json.dumps({"error": True, "message": "Please log in"}),
-                              mimetype="application/json",)
-    return {"data": res}
+                              mimetype="application/json", status=403,)
+
+    return
 
 
 app.run(host="0.0.0.0", debug=True, port=3000)

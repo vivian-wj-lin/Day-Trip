@@ -135,11 +135,91 @@ function logout() {
   });
 }
 
+const localStorageId = localStorage.getItem("BookingAttId");
+const localStorageDate = localStorage.getItem("date");
+const localStorageTime = localStorage.getItem("time");
+const localStoragePrice = localStorage.getItem("price");
+
+function loadAttractionInfo() {
+  let url = `/api/attraction/${localStorageId}`;
+  fetch(url)
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then((attractionInfo) => {
+      const UpperleftDiv = document.querySelector(".the-upper-left");
+      const UpperrightDiv = document.querySelector(".the-upper-right");
+      // console.log(attractionInfo.data.images[0]);
+      // console.log(attractionInfo.data.name);
+      // console.log(localStorageDate);
+      // console.log(localStorageTime);
+      // console.log(localStoragePrice);
+      // console.log(attractionInfo.data.address);
+      const bookingImg = document.createElement("img");
+      bookingImg.className = "bookingImg";
+      bookingImg.src = attractionInfo.data.images[0];
+      UpperleftDiv.appendChild(bookingImg);
+
+      const nameDiv = document.createElement("div");
+      nameDiv.className = "nameDiv";
+      nameDiv.textContent = "台北一日遊 : ";
+      const nameSpan = document.createElement("span");
+      nameSpan.className = "nameSpan";
+      nameSpan.textContent = attractionInfo.data.name;
+      nameDiv.appendChild(nameSpan);
+      UpperrightDiv.appendChild(nameDiv);
+
+      const dateDiv = document.createElement("div");
+      dateDiv.className = "dateDiv";
+      dateDiv.textContent = "日期 : ";
+      const dateSpan = document.createElement("span");
+      dateSpan.className = "dateSpan";
+      dateSpan.textContent = localStorageDate;
+      dateDiv.appendChild(dateSpan);
+      UpperrightDiv.appendChild(dateDiv);
+
+      const timeDiv = document.createElement("div");
+      timeDiv.className = "nameDiv";
+      timeDiv.textContent = "時間 : ";
+      const timeSpan = document.createElement("span");
+      timeSpan.className = "timeSpan";
+      timeSpan.textContent = localStorageTime;
+      timeDiv.appendChild(timeSpan);
+      UpperrightDiv.appendChild(timeDiv);
+      // const timeDetails = document.querySelector(".timeSpan").textContent;
+      // console.log(timeDetails);
+      // if ((timeDetails.textContent = "下半天")) {
+      //   timeDetails.innerHTML = "下午2點到6點";
+      // }
+
+      const addressDiv = document.createElement("div");
+      addressDiv.className = "addressDiv";
+      addressDiv.textContent = "地點 : ";
+      const addressSpan = document.createElement("span");
+      addressSpan.className = "addressSpan";
+      addressSpan.textContent = attractionInfo.data.address;
+      addressDiv.appendChild(addressSpan);
+      UpperrightDiv.appendChild(addressDiv);
+
+      const priceDiv = document.createElement("div");
+      priceDiv.className = "priceDiv";
+      priceDiv.textContent = "費用 : ";
+      const priceSpan = document.createElement("span");
+      priceSpan.className = "priceSpan";
+      priceSpan.textContent = localStoragePrice;
+      priceDiv.appendChild(priceSpan);
+      UpperrightDiv.appendChild(priceDiv);
+      return;
+    });
+}
+
 function main() {
   signup();
   login();
   checkIsLogin();
   logout();
+  loadAttractionInfo();
 
   document.querySelector(".login-and-signup").addEventListener("click", () => {
     document.querySelector(".login").style = "";

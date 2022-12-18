@@ -248,6 +248,19 @@ async function main() {
     },
     false
   );
+  document.querySelector(".bookingBtn").addEventListener("click", () => {
+    const attractionId = location.pathname.split("/").pop();
+    const dateSelected = document.querySelector(".start").value;
+    const timeSelected = document.querySelector(
+      'input[name="radio"]:checked'
+    ).value;
+    const price = document.querySelector(".price").textContent;
+    localStorage.setItem("BookingAttId", attractionId);
+    localStorage.setItem("date", dateSelected);
+    localStorage.setItem("time", timeSelected);
+    localStorage.setItem("price", price);
+  });
 }
+// console.log(localStorage.getItem("date"));
 
 main();
