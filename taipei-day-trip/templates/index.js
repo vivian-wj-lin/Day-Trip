@@ -145,7 +145,7 @@ function signup() {
           signupSuccessText.textContent = "註冊成功!請登入帳號";
           signupDiv.appendChild(signupSuccessText);
           setTimeout(() => {
-            window.location.reload();
+            document.querySelector(".signup-window").style = "display:none";
           }, 1000);
         } else {
           document.querySelector(".logout").style = "display:none";
