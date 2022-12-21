@@ -6,11 +6,7 @@ import mysql.connector.cursor
 import jwt
 
 
-from datetime import datetime
 from mysql.connector import pooling
-from mysql.connector import connect
-from mysql.connector import Error
-from unicodedata import name
 from contextlib import contextmanager
 
 from flask import *
@@ -30,10 +26,10 @@ cnxpool = pooling.MySQLConnectionPool(
     pool_size=10,
     host='localhost',
     database='TaipeiAttractionsDB',
-    user='root',
-    # user="debian-sys-maint",
-    password='mysqlpwd2022'
-    # passwd="b6hdV6hWNuqadE2s",
+    # user='root',
+    user="debian-sys-maint",
+    # password='mysqlpwd2022'
+    passwd="b6hdV6hWNuqadE2s",
     # auth_plugin='mysql_native_password'
 )
 
