@@ -11,6 +11,7 @@ from mysql.connector import pooling
 from mysql.connector import connect
 from mysql.connector import Error
 from unicodedata import name
+from contextlib import contextmanager
 
 from flask import *
 from flask import Flask, request
@@ -35,6 +36,17 @@ cnxpool = pooling.MySQLConnectionPool(
     # passwd="b6hdV6hWNuqadE2s",
     # auth_plugin='mysql_native_password'
 )
+
+
+@contextmanager
+def get_cursor(dictionary=True):
+    cnx = cnxpool.get_connection()
+    cursor = cnx.cursor(dictionary=dictionary)
+    try:
+        yield cursor
+    finally:
+        cursor.close()
+        cnx.close()
 
 # Pages
 
@@ -61,152 +73,123 @@ def thankyou():
 
 @app.route("/api/categories")
 def api_categories():
-    cnx = cnxpool.get_connection()
-    cat_cursor = cnx.cursor(buffered=True)
-    response = ""
-
     try:
-        # cursor = mydb.cursor()
-        # cat_cursor = cnx.cursor()
-        cat_cursor.execute("SELECT DISTINCT category FROM Attractions")
-        data = cat_cursor.fetchall()
-        data = [x[0] for x in data]
-        response = {"data": data}
-        # cursor.close()
-        # cnx.close()
-        # return {"data": data}
+        with get_cursor() as cat_cursor:
+            cat_cursor.execute("SELECT DISTINCT category FROM Attractions")
+            data = cat_cursor.fetchall()
+        data = [x['category'] for x in data]
+        return {"data": data}
 
     except Exception as e:
         print(e)
-        response = Response(
+        return flask.Response(
             json.dumps({"error": True, "message": "Internal Server Error"}),
             mimetype="application/json",
             status=500,
         )
-    finally:
-        cat_cursor.close()
-        cnx.close()
-    # print(response)
-    return response
 
 
 @app.route("/api/attraction/<attractionId>")
 def api_attractionId(attractionId):
-    cnx = cnxpool.get_connection()
-    att_cursor = cnx.cursor(dictionary=True)
-    img_cursor = cnx.cursor(dictionary=True)
-    response = ""
 
     try:
-        sql = """
-                SELECT source_id,name,category,description,address,transport,mrt,lat,lng
-                FROM Attractions
-                WHERE source_id = %s
-                ;
-                """
-        val = (attractionId,)
-        att_cursor.execute(sql, val)
-        attraction = att_cursor.fetchone()
+        with get_cursor() as att_cursor:
+            sql = """
+                    SELECT source_id,name,category,description,address,transport,mrt,lat,lng
+                    FROM Attractions
+                    WHERE source_id = %s
+                    ;
+                    """
+            val = (attractionId,)
+            att_cursor.execute(sql, val)
+            attraction = att_cursor.fetchone()
 
         if attraction is None:
-            response = Response(
+            return flask.Response(
                 json.dumps({"error": True, "message": "Wrong attraction ID"}),
                 mimetype="application/json",
                 status=400,
             )
 
         # if attractionId exists in database
-        sql = """
-                SELECT *
-                FROM Images
-                WHERE source_id = %s
-                ;
-                """
-        val = (attractionId,)
-        img_cursor.execute(sql, val)
-        images = img_cursor.fetchall()
+        with get_cursor() as img_cursor:
+            sql = """
+                    SELECT *
+                    FROM Images
+                    WHERE source_id = %s
+                    ;
+                    """
+            val = (attractionId,)
+            img_cursor.execute(sql, val)
+            images = img_cursor.fetchall()
         images = [x["images"] for x in images]
         attraction["images"] = images
-
-        response = {
+        return {
             "data": attraction,
         }
 
     except Exception as e:
         print(e)
-        response = Response(
+        return flask.Response(
             json.dumps({"error": True, "message": "Internal Server Error"}),
             mimetype="application/json",
             status=500,
         )
-    finally:
-        att_cursor.close()
-        img_cursor.close()
-        cnx.close()
-    return response
 
 
 @app.route("/api/attractions")
 def api_attractions():
-    cnx = cnxpool.get_connection()
-    att_cursor = cnx.cursor(dictionary=True)
-    img_cursor = cnx.cursor(dictionary=True)
-
     try:
         page = flask.request.args.get("page")
         keyword = flask.request.args.get("keyword")
 
         # page is required
-        if page is None:
-            return {"error": True, "message": "Please enter page number"}
+        page = str(page)
         if page.isdigit() is False:
             return {"error": True, "message": "Please enter page number"}
-
         page = int(page)
 
         # without keywords
         if keyword is None:
-
-            sql = """
-                    SELECT source_id,name,category,description,address,transport,mrt,lat,lng
-                    FROM Attractions
-                    LIMIT 12 OFFSET %s
-                    ;
-                    """
-            val = (page * 12,)
-            att_cursor.execute(sql, val)
-            attractions = att_cursor.fetchall()
+            with get_cursor() as att_cursor:
+                sql = """
+                        SELECT source_id,name,category,description,address,transport,mrt,lat,lng
+                        FROM Attractions
+                        LIMIT 12 OFFSET %s
+                        ;
+                        """
+                val = (page * 12,)
+                att_cursor.execute(sql, val)
+                attractions = att_cursor.fetchall()
 
         # with keywords
         else:
-            cnx = cnxpool.get_connection()
-            keyword_cursor = cnx.cursor(dictionary=True)
-            sql = """
-                    SELECT source_id,name,category,description,address,transport,mrt,lat,lng
-                    FROM Attractions
-                    WHERE category = %s or name like CONCAT("%",%s,"%")
-                    LIMIT 12 OFFSET %s
-                    ;
-                    """
-            val = (keyword, keyword, page * 12)
-            keyword_cursor.execute(sql, val)
-            attractions = keyword_cursor.fetchall()
-            keyword_cursor.close()
-            cnx.close()
+            with get_cursor() as keyword_cursor:
+                sql = """
+                        SELECT source_id,name,category,description,address,transport,mrt,lat,lng
+                        FROM Attractions
+                        WHERE category = %s or name like CONCAT("%",%s,"%")
+                        LIMIT 12 OFFSET %s
+                        ;
+                        """
+                val = (keyword, keyword, page * 12)
+                keyword_cursor.execute(sql, val)
+                attractions = keyword_cursor.fetchall()
 
         # composed with images
-        for attraction in attractions:
-            sql = """
-                SELECT images
-                FROM Images
-                WHERE source_id = %s
-                ;
-            """
-            val = (attraction["source_id"],)
-            img_cursor.execute(sql, val)
-            images = img_cursor.fetchall()
-            images = [x["images"] for x in images]
-            attraction["images"] = images
+        with get_cursor(False) as img_cursor:
+            for attraction in attractions:
+                sql = """
+                    SELECT images
+                    FROM Images
+                    WHERE source_id = %s
+                    ;
+                """
+                val = (attraction["source_id"],)
+                img_cursor.execute(sql, val)
+                images = img_cursor.fetchall()
+                images = [x[0] for x in images]
+                attraction["images"] = images
 
         # pagination
         if len(attractions) == 12:
@@ -214,47 +197,42 @@ def api_attractions():
         else:
             next_page = None
 
-        response = {
+        return {
             "nextPage": next_page,
             "data": attractions,
         }
 
     except Exception as e:
         print(e)
-        response = Response(
+        return flask.Response(
             json.dumps({"error": True, "message": "Internal Server Error"}),
             mimetype="application/json",
             status=500,
         )
 
-    finally:
-        att_cursor.close()
-        img_cursor.close()
-        cnx.close()
-    return response
-
 
 @app.route("/api/user", methods=["POST"])
 def signup():
-    cnx_Users = cnxpool.get_connection()
-    users_cursor = cnx_Users.cursor(dictionary=True)
-
     try:
         data = flask.request.get_json()
         name = data["name"]
         email = data["email"]
         password = data["password"]
         # 檢查帳號
-        select_stmt = "SELECT * FROM Users WHERE email = %(email)s"
-        users_cursor.execute(select_stmt, {"email": email})
-        myresult = users_cursor.fetchall()
+        with get_cursor() as users_cursor:
+            select_stmt = "SELECT * FROM Users WHERE email = %(email)s"
+            users_cursor.execute(select_stmt, {"email": email})
+            myresult = users_cursor.fetchall()
         if not myresult:
+            cnx_Users = cnxpool.get_connection()
             signup_cursor = cnx_Users.cursor(dictionary=True)
             sql = "INSERT INTO Users (name,email,password) VALUES (%s, %s, %s)"
             val = [(name, email, password)]
             signup_cursor.executemany(sql, val)
             cnx_Users.commit()
-            response = flask.Response(
+            signup_cursor.close()
+            cnx_Users.close()
+            return flask.Response(
                 json.dumps(
                     {
                         "ok": True,
@@ -263,7 +241,7 @@ def signup():
                 mimetype="application/json",
                 status=200,
             )
-        response = flask.Response(
+        return flask.Response(
             json.dumps(
                 {"error": True, "message": "duplicate email address or other errors"}
             ),
@@ -272,46 +250,44 @@ def signup():
         )
     except Exception as e:
         print(e)
-        response = flask.Response(
+        return flask.Response(
             json.dumps({"error": True, "message": "Internal Server Error"}),
             mimetype="application/json",
             status=500,
         )
-    return response
 
 
 @app.route("/api/user/auth")
 def userInfo():
-    encoded_jwt = flask.request.cookies.get(COOKIE_KEY_JWT_TOKEN)
-    if encoded_jwt is None:
-        # return {"data": None}
-        response = {"data": None}
-        # return flask.Response(json.dumps({"data": None}),
-        #                       mimetype="application/json",)
-    else:
-        user = jwt.decode(encoded_jwt, JWT_KEY, algorithms=[
-            "HS256"])
-        response = {"data": user}
-    return response
-    # return {"data": user}
+    try:
+        encoded_jwt = flask.request.cookies.get(COOKIE_KEY_JWT_TOKEN)
+        if encoded_jwt is None:
+            return {"data": None}
+        user = jwt.decode(encoded_jwt, JWT_KEY, algorithms=["HS256"])
+        return {"data": user}
+    except Exception as e:
+        print(e)
+        return flask.Response(
+            json.dumps({"error": True, "message": "Internal Server Error"}),
+            mimetype="application/json",
+            status=500,
+        )
 
 
 @app.route("/api/user/auth", methods=["PUT"])
 def login():
-    data = flask.request.get_json()
-    email = data["email"]
-    password = data["password"]
-    cnx = cnxpool.get_connection()
-    cursor = cnx.cursor(dictionary=True)
-
     try:
-        cursor.execute(
-            "SELECT id,name,email FROM Users WHERE email = %(email)s AND password = %(password)s",
-            {"email": email, 'password': password},
-        )
-        user = cursor.fetchone()
+        data = flask.request.get_json()
+        email = data["email"]
+        password = data["password"]
+        with get_cursor() as cursor:
+            cursor.execute(
+                "SELECT id,name,email FROM Users WHERE email = %(email)s AND password = %(password)s",
+                {"email": email, 'password': password},
+            )
+            user = cursor.fetchone()
         if user is None:
-            response = flask.Response(
+            return flask.Response(
                 json.dumps(
                     {"error": True, "message": "failed to log in due to wrong email/password or other errors"}
                 ),
@@ -329,15 +305,11 @@ def login():
         return response
     except Exception as e:
         print(e)
-        response = flask.Response(
+        return flask.Response(
             json.dumps({"error": True, "message": "Internal Server Error"}),
             mimetype="application/json",
             status=500,
         )
-    finally:
-        cursor.close()
-        cnx.close()
-    return response
 
 
 @app.route("/api/user/auth", methods=["DELETE"])
@@ -345,6 +317,14 @@ def logout():
     response = flask.make_response({'ok': True})
     response.delete_cookie(key=COOKIE_KEY_JWT_TOKEN)
     return response
+
+
+def get_userinfo():
+    encoded_jwt = flask.request.cookies.get(COOKIE_KEY_JWT_TOKEN)
+    if encoded_jwt is None:
+        return
+    user = jwt.decode(encoded_jwt, JWT_KEY, algorithms=["HS256"])
+    return user
 
 
 @app.route("/api/booking")

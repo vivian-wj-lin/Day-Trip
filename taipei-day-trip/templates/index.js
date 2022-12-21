@@ -153,7 +153,9 @@ function signup() {
           signupSuccessText.textContent = "註冊失敗!email重複或其他原因";
           signupDiv.appendChild(signupSuccessText);
           setTimeout(() => {
-            window.location.reload();
+            document.querySelector(".signup-window").style = "display:none";
+            document.querySelector(".container").style.opacity = "";
+            document.querySelector(".headline-section").style.opacity = "";
           }, 1000);
         }
       })
@@ -191,14 +193,20 @@ function login() {
           loginSuccessText.textContent = "登入成功!";
           loginDiv.appendChild(loginSuccessText);
           setTimeout(() => {
-            window.location.reload();
+            document.querySelector(".signin-window").style = "display:none";
+            document.querySelector(".container").style.opacity = "";
+            document.querySelector(".headline-section").style.opacity = "";
           }, 1000);
         } else {
           loginSuccessText.className = "loginSuccessText";
           loginSuccessText.textContent = "登入失敗!";
           loginDiv.appendChild(loginSuccessText);
+          document.querySelector(".login-and-signup").style = "";
+          document.querySelector(".logout").style = "display:none";
           setTimeout(() => {
-            window.location.reload();
+            document.querySelector(".signin-window").style = "display:none";
+            document.querySelector(".container").style.opacity = "";
+            document.querySelector(".headline-section").style.opacity = "";
           }, 1000);
         }
       })
@@ -215,6 +223,7 @@ function checkIsLogin() {
     .then((response) => response.json())
     .then((result) => {
       if (result.data !== null) {
+        // if (result["error"] !== null) {
         document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
       } else {
@@ -243,7 +252,9 @@ function logout() {
           document.querySelector(".headline-section").style.opacity = "0.5";
           document.querySelector(".container").style.opacity = "0.5";
           setTimeout(() => {
-            window.location.reload();
+            document.querySelector(".logout-window").style = "display:none";
+            document.querySelector(".container").style.opacity = "";
+            document.querySelector(".headline-section").style.opacity = "";
           }, 1000);
         } else {
           document.querySelector(".login-and-signup").style = "display:none";
@@ -272,6 +283,7 @@ function main() {
   });
 
   document.querySelector(".login-and-signup").addEventListener("click", () => {
+    document.querySelector(".signin-window").style = "";
     document.querySelector(".login").style = "";
     document.querySelector(".headline-section").style.opacity = "0.5";
     document.querySelector(".container").style.opacity = "0.5";
@@ -281,8 +293,8 @@ function main() {
   });
 
   document.querySelector(".link-to-signup").addEventListener("click", () => {
-    document.querySelector(".login").style = "display:none";
     document.querySelector(".signup").style = "";
+    document.querySelector(".login").style = "display:none";
   });
 
   document.querySelector(".link-to-login").addEventListener("click", () => {
