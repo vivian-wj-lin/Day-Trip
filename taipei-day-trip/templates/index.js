@@ -315,6 +315,15 @@ function main() {
     // document.querySelector(".login").style.filter = "filter: none;";
   });
 
+  document.querySelector(".logout").addEventListener("click", () => {
+    document.querySelector(".logout-window").style = "";
+    document.querySelector(".login").style = "";
+    document.querySelector(".headline-section").style.opacity = "0.5";
+    document.querySelector(".container").style.opacity = "0.5";
+    // document.querySelector("body").style.background = "#000000";
+    // document.querySelector("body").style.opacity = "0.25";
+  });
+
   document.querySelector(".link-to-signup").addEventListener("click", () => {
     console.log(17);
     document.querySelector(".signup").style = "";
