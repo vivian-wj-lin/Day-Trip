@@ -113,10 +113,11 @@ function loadCategories() {
       }
     });
 }
-// loadCategories();
+
 function signup() {
   document.querySelector(".signupButton").addEventListener("click", (ev) => {
     ev.preventDefault();
+    console.log(1);
     const name = document.querySelector(".signup .input-name").value;
     const email = document.querySelector(".signup .input-email").value;
     const password = document.querySelector(".signup .input-password").value;
@@ -127,46 +128,59 @@ function signup() {
       email,
       password,
     });
+    console.log(2);
     const requestOptions = {
       method: "POST",
       headers: newHeaders,
       body: newbody,
       redirect: "follow",
     };
+    console.log(3);
     fetch("/api/user", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        // console.log(result);
         const signupDiv = document.querySelector(".signupDiv");
         const signupSuccessText = document.createElement("div");
         signupSuccessText.className = "signupSuccessText";
         // if (result.data !== null) {
         if (result["error"] !== true) {
+          console.log(4);
           signupSuccessText.textContent = "註冊成功!請登入帳號";
           signupDiv.appendChild(signupSuccessText);
           setTimeout(() => {
-            document.querySelector(".signup-window").style = "display:none";
-          }, 1000);
-        } else {
-          document.querySelector(".logout").style = "display:none";
-          document.querySelector(".login-and-signup").style = "";
-          signupSuccessText.textContent = "註冊失敗!email重複或其他原因";
-          signupDiv.appendChild(signupSuccessText);
-          setTimeout(() => {
+            console.log(5);
             document.querySelector(".signup-window").style = "display:none";
             document.querySelector(".container").style.opacity = "";
             document.querySelector(".headline-section").style.opacity = "";
+            signupDiv.removeChild(signupSuccessText);
+            console.log(5.1);
+          }, 1000);
+        } else {
+          console.log(6);
+          signupSuccessText.textContent = "註冊失敗!email重複或其他原因";
+          signupDiv.appendChild(signupSuccessText);
+          document.querySelector(".login-and-signup").style = "";
+          document.querySelector(".logout").style = "display:none";
+
+          setTimeout(() => {
+            console.log(7);
+            document.querySelector(".signup-window").style = "display:none";
+            document.querySelector(".container").style.opacity = "";
+            document.querySelector(".headline-section").style.opacity = "";
+            signupDiv.removeChild(signupSuccessText);
+            console.log(5.2);
           }, 1000);
         }
       })
       .catch((error) => console.log("error", error));
+    console.log(8);
   });
 }
 
 function login() {
   document.querySelector(".loginButton").addEventListener("click", (ev) => {
     ev.preventDefault();
-
+    console.log(9);
     const email = document.querySelector(".login .input-email").value;
     const password = document.querySelector(".login .input-password").value;
     const newHeaders = new Headers();
@@ -175,6 +189,7 @@ function login() {
       email,
       password,
     });
+    console.log(10);
     const requestOptions = {
       method: "PUT",
       headers: newHeaders,
@@ -184,29 +199,38 @@ function login() {
     fetch("/api/user/auth", requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        console.log(11);
         document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
         const loginDiv = document.querySelector(".loginDiv");
         const loginSuccessText = document.createElement("div");
         if (result["error"] !== true) {
+          console.log(12);
           loginSuccessText.className = "loginSuccessText";
           loginSuccessText.textContent = "登入成功!";
           loginDiv.appendChild(loginSuccessText);
           setTimeout(() => {
+            console.log(13);
             document.querySelector(".signin-window").style = "display:none";
             document.querySelector(".container").style.opacity = "";
             document.querySelector(".headline-section").style.opacity = "";
+            document.querySelector(".loginSuccessText").style = "display:none";
+            loginDiv.removeChild(loginSuccessText);
           }, 1000);
         } else {
+          console.log(14);
           loginSuccessText.className = "loginSuccessText";
           loginSuccessText.textContent = "登入失敗!";
           loginDiv.appendChild(loginSuccessText);
           document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout").style = "display:none";
           setTimeout(() => {
+            console.log(15);
             document.querySelector(".signin-window").style = "display:none";
             document.querySelector(".container").style.opacity = "";
             document.querySelector(".headline-section").style.opacity = "";
+            document.querySelector(".loginSuccessText").style = "display:none";
+            loginDiv.removeChild(loginSuccessText);
           }, 1000);
         }
       })
@@ -249,8 +273,6 @@ function logout() {
           document.querySelector(".logout").style = "display:none";
           document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout-window").style = "";
-          document.querySelector(".headline-section").style.opacity = "0.5";
-          document.querySelector(".container").style.opacity = "0.5";
           setTimeout(() => {
             document.querySelector(".logout-window").style = "display:none";
             document.querySelector(".container").style.opacity = "";
@@ -283,6 +305,7 @@ function main() {
   });
 
   document.querySelector(".login-and-signup").addEventListener("click", () => {
+    console.log(16);
     document.querySelector(".signin-window").style = "";
     document.querySelector(".login").style = "";
     document.querySelector(".headline-section").style.opacity = "0.5";
@@ -293,11 +316,14 @@ function main() {
   });
 
   document.querySelector(".link-to-signup").addEventListener("click", () => {
+    console.log(17);
     document.querySelector(".signup").style = "";
+    document.querySelector(".signup-window").style = "";
     document.querySelector(".login").style = "display:none";
   });
 
   document.querySelector(".link-to-login").addEventListener("click", () => {
+    console.log(18);
     document.querySelector(".signup").style = "display:none";
     document.querySelector(".login").style = "";
   });
