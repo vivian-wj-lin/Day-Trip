@@ -24,7 +24,10 @@
           name=""
           placeholder="輸入密碼"
         />
-        <button class="loginButton">登入帳戶</button>
+        <div class="loginDiv">
+          <button class="loginButton">登入帳戶</button>
+          <!-- <div class="loginSuccessText">登入成功</div> -->
+        </div>
         <div class="link-to-signup">還沒有帳戶? 點此註冊</div>
       </div>
     </div>
@@ -45,16 +48,25 @@
           name=""
           placeholder="輸入密碼"
         />
-        <button class="signupButton">註冊新帳戶</button>
+        <div class="signupDiv">
+          <button class="signupButton">註冊新帳戶</button>
+          <!-- <div class="signupSuccessText">註冊成功!</div> -->
+        </div>
         <div class="link-to-login">已經有帳戶了? 點此登入</div>
       </div>
+    </div>
+    <div class="logout-window" style="display: none">
+      <div class="logout-window"></div>
+      <div class="color"></div>
+      <div class="logout-headline">登出成功!</div>
     </div>
     <div class="frame-section">
       <div class="frame1200">
         <div class="left">台北一日遊</div>
         <div class="right">
-          <div class="item item1">預定行程</div>
-          <div class="item item2">登入/註冊</div>
+          <div class="item booking">預定行程</div>
+          <div class="item login-and-signup">登入/註冊</div>
+          <div class="item logout">登出系統</div>
         </div>
       </div>
     </div>
@@ -138,7 +150,7 @@
                     id="option-one"
                     class="morning"
                     name="radio"
-                    value="one"
+                    value="上半天"
                     checked="checked"
                     type="radio"
                   />
@@ -150,7 +162,7 @@
                     id="option-two"
                     class="afternoon"
                     name="radio"
-                    value="two"
+                    value="下半天"
                     type="radio"
                   />
                   <label for="option-two"> <span></span>下半天</label>
@@ -169,7 +181,6 @@
         </div>
       </div>
     </div>
-
     <!-- the bottom part of the page -->
     <div class="the-bottom-container">
       <div class="the-bottom-part intros">
@@ -185,9 +196,11 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="/static/attraction.js"></script>
+
     <footer class="footer">
       <div class="footer-text">COPYRIGHT © 2022 台北一日遊</div>
     </footer>
+
+    <script type="text/javascript" src="/static/attraction.js"></script>
   </body>
 </html>

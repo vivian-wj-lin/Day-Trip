@@ -22,7 +22,8 @@ body {
   max-width: 1920px;
 }
 .login,
-.signup {
+.signup,
+.logout-window {
   position: absolute;
   top: 25%;
   left: 50%;
@@ -31,7 +32,9 @@ body {
   border-radius: 6px;
   z-index: 99999;
 }
-
+.logout-window {
+  background-color: white;
+}
 .login {
   overflow: visible;
   background-color: white;
@@ -79,16 +82,30 @@ body {
   text-align: center;
   color: #666666;
 }
+.logout-headline {
+  width: 310px;
+  height: 27px;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  /* display: flex; */
+  align-items: center;
+  text-align: center;
+  color: black;
+}
 .input-name,
 .input-email,
 .input-password {
+  width: 280px;
+  height: 17px;
   width: 310px;
   height: 47px;
   font-weight: 500;
   font-size: 16px;
   margin: 0 auto;
-  /* text-align: center; */
-  /* padding: 15px; */
+  padding: 15px;
   border: 1px solid #cccccc;
   border-radius: 5px;
 }
@@ -106,6 +123,11 @@ body {
   /* line-height: 16px; */
   align-items: center;
   text-align: center;
+}
+.loginSuccessText,
+.signupSuccessText {
+  text-align: center;
+  color: #a8324c;
 }
 .link-to-signup,
 .link-to-login {
@@ -177,12 +199,12 @@ body {
   justify-content: center;
   color: #666666;
 }
-.item1 {
+.booking {
   width: 64px;
   margin-right: 30px;
 }
 
-.item2 {
+.login-and-signup {
   width: 71px;
   margin-left: -10px;
 }
@@ -394,7 +416,7 @@ mySlides fade {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: -30px;
+  /* margin-bottom: -30px; */
 }
 .the-upper-part {
   margin-top: 40px;
@@ -501,8 +523,9 @@ mySlides fade {
   justify-content: center;
   /* align-items: center; */
   align-items: start;
-  margin-top: 60px;
-  margin-bottom: 60px;
+  /* margin-top: 60px; */
+  /* margin-bottom: 60px; */
+  margin-top: 0px;
 }
 .the-bottom-part {
   border-top: 1px solid #e8e8e8;
@@ -613,12 +636,12 @@ mySlides fade {
     width: 45%;
   }
   .item,
-  .item1,
-  .item2 {
+  .booking,
+  .login-and-signup {
     width: auto;
   }
 
-  .item1 {
+  .booking {
     width: auto;
   }
   .booking-process {
@@ -628,6 +651,7 @@ mySlides fade {
     width: 100%;
     padding-left: 20px;
     padding-right: 20px;
+    padding-top: 20px;
   }
   .descr {
     width: 100%;
@@ -652,7 +676,8 @@ mySlides fade {
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
+    /* margin-top: 100px; */
+    margin-top: 200px;
   }
 }
 
@@ -716,9 +741,13 @@ mySlides fade {
     height: auto;
     margin-top: 0;
     width: 380px;
-    margin-top: 50px;
+    /* margin-top: 50px; */
+    justify-items: center;
+    align-items: center;
+    margin: 20px auto 20px auto;
   }
   .descr {
+    -webkit-line-clamp: 2;
     margin: 0;
     height: auto;
   }
@@ -735,7 +764,7 @@ mySlides fade {
   }
   footer {
     height: 100px;
-    margin-top: 150px;
+    /* margin-top: 150px; */
   }
 }
 @media (max-width: 360px) {

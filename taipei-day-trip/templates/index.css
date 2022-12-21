@@ -20,7 +20,8 @@ body {
   text-align: center;
 }
 .login,
-.signup {
+.signup,
+.logout-window {
   position: absolute;
   top: 25%;
   left: 50%;
@@ -29,7 +30,9 @@ body {
   border-radius: 6px;
   z-index: 99999;
 }
-
+.logout-window {
+  background-color: white;
+}
 .login {
   overflow: visible;
   background-color: white;
@@ -80,13 +83,14 @@ body {
 .input-name,
 .input-email,
 .input-password {
-  width: 310px;
-  height: 47px;
+  /* width: 310px;
+  height: 47px; */
+  width: 280px;
+  height: 17px;
   font-weight: 500;
   font-size: 16px;
   margin: 0 auto;
-  /* text-align: center; */
-  /* padding: 15px; */
+  padding: 15px;
   border: 1px solid #cccccc;
   border-radius: 5px;
 }
@@ -104,6 +108,11 @@ body {
   /* line-height: 16px; */
   align-items: center;
   text-align: center;
+}
+.loginSuccessText,
+.signupSuccessText {
+  text-align: center;
+  color: #a8324c;
 }
 .link-to-signup,
 .link-to-login {
@@ -174,12 +183,12 @@ body {
   align-items: center;
   justify-content: center;
 }
-.item1 {
+.booking {
   width: 64px;
   margin-right: 30px;
 }
 
-.item2 {
+.login-and-signup {
   width: 71px;
   margin-left: -10px;
 }
