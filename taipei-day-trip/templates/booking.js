@@ -29,7 +29,7 @@ function signup() {
           signupSuccessText.textContent = "註冊成功!請登入帳號";
           signupDiv.appendChild(signupSuccessText);
           setTimeout(() => {
-            window.location.reload();
+            // window.location.reload();
           }, 1000);
         } else {
           document.querySelector(".logout").style = "display:none";
@@ -37,7 +37,7 @@ function signup() {
           signupSuccessText.textContent = "註冊失敗!email重複或其他原因";
           signupDiv.appendChild(signupSuccessText);
           setTimeout(() => {
-            window.location.reload();
+            // window.location.reload();
           }, 1000);
         }
       })
@@ -74,14 +74,14 @@ function login() {
           loginSuccessText.textContent = "登入成功!";
           loginDiv.appendChild(loginSuccessText);
           setTimeout(() => {
-            window.location.reload();
+            // window.location.reload();
           }, 1000);
         } else {
           loginSuccessText.className = "loginSuccessText";
           loginSuccessText.textContent = "登入失敗!";
           loginDiv.appendChild(loginSuccessText);
           setTimeout(() => {
-            window.location.reload();
+            // window.location.reload();
           }, 1000);
         }
       })
@@ -124,7 +124,7 @@ function logout() {
           document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout-window").style = "";
           setTimeout(() => {
-            window.location.reload();
+            // window.location.reload();
           }, 1000);
         } else {
           document.querySelector(".login-and-signup").style = "display:none";

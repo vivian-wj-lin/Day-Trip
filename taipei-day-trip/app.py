@@ -7,6 +7,7 @@ import jwt
 
 
 from mysql.connector import pooling
+from mysql.connector.errors import Error
 from contextlib import contextmanager
 
 from flask import *
@@ -26,10 +27,10 @@ cnxpool = pooling.MySQLConnectionPool(
     pool_size=10,
     host='localhost',
     database='TaipeiAttractionsDB',
-    # user='root',
-    user="debian-sys-maint",
-    # password='mysqlpwd2022'
-    passwd="b6hdV6hWNuqadE2s",
+    user='root',
+    # user="debian-sys-maint",
+    password='mysqlpwd2022'
+    # passwd="b6hdV6hWNuqadE2s",
     # auth_plugin='mysql_native_password'
 )
 
@@ -323,14 +324,75 @@ def get_userinfo():
     return user
 
 
+@app.route("/api/booking", methods=["POST"])
+def book():
+    user = get_userinfo()
+    if user is None:
+        return flask.Response(
+            json.dumps({"error": True, "message": "Please log in"}),
+            mimetype="application/json",
+            status=403,
+        )
+    data = flask.request.get_json()
+    attractionId = data["attractionId"]
+    date = data["date"]
+    time = data["time"]
+    price = data["price"]
+    cnx = cnxpool.get_connection()
+    cursor = cnx.cursor(dictionary=True)
+    try:
+        cursor.execute(
+            '''INSERT INTO Booking (userId,attractionId,date,time,price) VALUES (%s,%s,%s,%s,%s)''',
+            (user['id'], attractionId, date, time, price),
+        )
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+        return flask.Response(
+            json.dumps({"ok": True, }),
+            mimetype="application/json",
+            status=200,
+        )
+    except mysql.connector.Error as e:
+        print(e)
+        if (e.errno == 1062):
+            return flask.Response(
+                json.dumps(
+                    {"error": True, "message": "Reservation failed to established for duplicate orders or other reasons"}),
+                mimetype="application/json",
+                status=400,
+            )
+
+    return flask.Response(
+        json.dumps(
+            {"error": True, "message": "Internal Server Error"}),
+        mimetype="application/json",
+        status=500,
+    )
+
+
 @app.route("/api/booking")
 def cartInfo():
-    encoded_jwt = flask.request.cookies.get(COOKIE_KEY_JWT_TOKEN)
-    if encoded_jwt is None:
-        return flask.Response(json.dumps({"error": True, "message": "Please log in"}),
-                              mimetype="application/json", status=403,)
+    user = get_userinfo()
+    if user is None:
+        return flask.Response(
+            json.dumps({"error": True, "message": "Please log in"}),
+            mimetype="application/json",
+            status=403,
+        )
 
-    return
+    data = flask.request.get_json()
+    cnx = cnxpool.get_connection()
+
+    try:
+
+    except mysql.connector.Error as e:
+        print(e.errno)
+        return flask.Response(
+            json.dumps({"error": True, "message": "Internal Server Error"}),
+            mimetype="application/json",
+            status=500,
+        )
 
 
 app.run(host="0.0.0.0", debug=True, port=3000)

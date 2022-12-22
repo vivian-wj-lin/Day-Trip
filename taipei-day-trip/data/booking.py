@@ -33,12 +33,14 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 mycursor.execute(
     '''
-    CREATE Table IF NOT EXISTS Users
+    CREATE Table IF NOT EXISTS Booking
     (
         id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        `name` varchar(100) NOT NULL,
-        email varchar(100) UNIQUE NOT NULL,
-        password char(20) not null
+        userId int UNIQUE NOT NULL,
+        attractionId int NOT NULL,
+        date DATE NOT NULL,
+        time char(20) not null,
+        price int not null
     );
     '''
 )
@@ -46,4 +48,4 @@ mydb.commit()
 mycursor.close()
 mydb.close()
 
-# python user.py
+# python booking.py
