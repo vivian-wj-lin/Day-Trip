@@ -23,7 +23,8 @@ body {
 }
 .login,
 .signup,
-.logout-window {
+.logout-window,
+.duplicate-order-window {
   position: absolute;
   top: 25%;
   left: 50%;
@@ -32,7 +33,8 @@ body {
   border-radius: 6px;
   z-index: 99999;
 }
-.logout-window {
+.logout-window,
+.duplicate-order-window {
   background-color: white;
 }
 .login {
@@ -82,13 +84,15 @@ body {
   text-align: center;
   color: #666666;
 }
-.logout-headline {
+.logout-headline,
+.duplicate-order-headline {
   width: 310px;
   height: 27px;
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 700;
-  font-size: 24px;
+  /* font-size: 24px; */
+  font-size: 20px;
   line-height: 24px;
   /* display: flex; */
   align-items: center;

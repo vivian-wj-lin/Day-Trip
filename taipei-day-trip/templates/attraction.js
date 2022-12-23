@@ -286,6 +286,15 @@ function postBookingInfo() {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
+        console.log(result.message);
+        if (
+          result.message ==
+          "Reservation failed to established for duplicate orders or other reasons"
+        ) {
+          document.querySelector(".duplicate-order-window").style = "";
+          document.querySelector(".the-upper-container").style.opacity = "0.5";
+          document.querySelector(".the-bottom-container").style.opacity = "0.5";
+        }
       });
     // window.location.href = "/booking";
   });
