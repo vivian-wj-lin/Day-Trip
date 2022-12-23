@@ -381,18 +381,82 @@ def cartInfo():
             status=403,
         )
 
-    data = flask.request.get_json()
-    cnx = cnxpool.get_connection()
-
-    try:
-
-    except mysql.connector.Error as e:
-        print(e.errno)
-        return flask.Response(
-            json.dumps({"error": True, "message": "Internal Server Error"}),
-            mimetype="application/json",
-            status=500,
+    with get_cursor() as cursor:
+        cursor.execute(
+            '''
+            SELECT attractionId,date,time,price
+            FROM Booking 
+            WHERE userId = %s
+            ;''',
+            (user["id"],),
         )
+        booking_data = cursor.fetchone()
+    if not booking_data:
+        return flask.Response(
+            json.dumps({"data": None}),
+            mimetype="application/json",
+            status=200,
+        )
+
+    attractionId = booking_data["attractionId"]
+    del booking_data["attractionId"]
+
+    with get_cursor() as cursor:
+        cursor.execute(
+            '''
+            SELECT source_id AS id, name, address 
+            FROM Attractions
+            WHERE source_id = %s
+            ;''',
+            (attractionId,),
+        )
+        attraction_data = cursor.fetchone()
+
+    with get_cursor() as cursor:
+        cursor.execute(
+            '''
+            SELECT images 
+            FROM Images
+            WHERE source_id = %s
+            LIMIT 1
+            ;''',
+            (attractionId,),
+        )
+        image_data = cursor.fetchone()
+
+    booking_data["attraction"] = attraction_data
+    booking_data["attraction"]["image"] = image_data["images"]
+    return dict(data=booking_data)
+
+
+@app.route("/api/booking", methods=["DELETE"])
+def delete_booking():
+    user = get_userinfo()
+    if user is None:
+        return flask.Response(
+            json.dumps({"error": True, "message": "Please log in"}),
+            mimetype="application/json",
+            status=403,
+        )
+
+    cnx = cnxpool.get_connection()
+    cursor = cnx.cursor(dictionary=True)
+    cursor.execute(
+        '''
+        DELETE 
+        FROM `Booking` 
+        WHERE `userId` = %s
+        ;''',
+        (user['id'],),
+    )
+    cnx.commit()
+    cursor.close()
+    cnx.close()
+    return flask.Response(
+        json.dumps({"ok": True}),
+        mimetype="application/json",
+        status=200,
+    )
 
 
 app.run(host="0.0.0.0", debug=True, port=3000)
