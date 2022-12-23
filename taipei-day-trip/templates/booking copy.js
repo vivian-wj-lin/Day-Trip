@@ -107,6 +107,8 @@ function checkIsLogin() {
     .then((response) => response.json())
     .then((result) => {
       if (result.data !== null) {
+        document.querySelector(".greetingName").textContent =
+          result.data.name + " ，";
         document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
       } else {
@@ -152,17 +154,49 @@ function checkBooking() {
     .then((response) => response.json())
     .then((result) => {
       if (result.data == null) {
-        document.getElementsByClassName("the-upper-container").innerHTML = "";
-        document.getElementsByClassName("contactInfo").innerHTML = "";
-        document.getElementsByClassName("contactInfo").innerHTML = "";
+        document.querySelector(".the-upper-container").style = "display:none";
+        document.querySelector(".contactInfo").innerHTML = "";
+        document.querySelector(".paymentInfo").innerHTML = "";
         const greetingsDiv = document.querySelector(".greetings");
         const greetingsSpan = document.createElement("span");
         greetingsSpan.className = "greetingsSpan";
         greetingsSpan.textContent = "目前沒有任何待預定的行程";
         greetingsDiv.appendChild(greetingsSpan);
       }
+      if (result.data !== null) {
+        console.log(result);
+        document.querySelector(".bookingImg").src =
+          result.data.attraction.image;
+        document.querySelector(".nameSpan").textContent =
+          result.data.attraction.name;
+        document.querySelector(".timeSpan").textContent = result.data.time;
+        document.querySelector(".priceSpan").textContent = result.data.price;
+        document.querySelector(".addressSpan").textContent =
+          result.data.attraction.address;
+      }
     }) //{"data":null} //hello = () => "Hello World!";
     .catch((error) => console.log("error", error));
+}
+function deleteBooking() {
+  document.querySelector(".delete-icon").addEventListener("click", () => {
+    const requestOptions = {
+      method: "DELETE",
+      redirect: "follow",
+    };
+    fetch("/api/booking", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        document.querySelector(".the-upper-container").style = "display:none";
+        document.querySelector(".contactInfo").innerHTML = "";
+        document.querySelector(".paymentInfo").innerHTML = "";
+        const greetingsDiv = document.querySelector(".greetings");
+        const greetingsSpan = document.createElement("span");
+        greetingsSpan.className = "greetingsSpan";
+        greetingsSpan.textContent = "目前沒有任何待預定的行程";
+        greetingsDiv.appendChild(greetingsSpan);
+      });
+  });
 }
 function main() {
   signup();
@@ -170,6 +204,7 @@ function main() {
   checkIsLogin();
   logout();
   checkBooking();
+  deleteBooking();
 
   document.querySelector(".login-and-signup").addEventListener("click", () => {
     document.querySelector(".signin-window").style = "";
@@ -194,13 +229,6 @@ function main() {
     },
     false
   );
-  // document.querySelector(".booking").addEventListener(
-  //   "click",
-  //   () => {
-  //     window.location.href = "/booking";
-  //   },
-  //   false
-  // );
 }
 
 main();
