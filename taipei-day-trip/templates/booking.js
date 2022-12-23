@@ -29,15 +29,17 @@ function signup() {
           signupSuccessText.textContent = "註冊成功!請登入帳號";
           signupDiv.appendChild(signupSuccessText);
           setTimeout(() => {
-            // window.location.reload();
+            document.querySelector(".signup-window").style = "display:none";
+            signupDiv.removeChild(signupSuccessText);
           }, 1000);
         } else {
-          document.querySelector(".logout").style = "display:none";
-          document.querySelector(".login-and-signup").style = "";
           signupSuccessText.textContent = "註冊失敗!email重複或其他原因";
           signupDiv.appendChild(signupSuccessText);
+          document.querySelector(".login-and-signup").style = "";
+          document.querySelector(".logout").style = "display:none";
           setTimeout(() => {
-            // window.location.reload();
+            document.querySelector(".signup-window").style = "display:none";
+            signupDiv.removeChild(signupSuccessText);
           }, 1000);
         }
       })
@@ -74,14 +76,20 @@ function login() {
           loginSuccessText.textContent = "登入成功!";
           loginDiv.appendChild(loginSuccessText);
           setTimeout(() => {
-            // window.location.reload();
+            document.querySelector(".signin-window").style = "display:none";
+            document.querySelector(".loginSuccessText").style = "display:none";
+            loginDiv.removeChild(loginSuccessText);
           }, 1000);
         } else {
           loginSuccessText.className = "loginSuccessText";
           loginSuccessText.textContent = "登入失敗!";
           loginDiv.appendChild(loginSuccessText);
+          document.querySelector(".login-and-signup").style = "";
+          document.querySelector(".logout").style = "display:none";
           setTimeout(() => {
-            // window.location.reload();
+            document.querySelector(".signin-window").style = "display:none";
+            document.querySelector(".loginSuccessText").style = "display:none";
+            loginDiv.removeChild(loginSuccessText);
           }, 1000);
         }
       })
@@ -124,7 +132,7 @@ function logout() {
           document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout-window").style = "";
           setTimeout(() => {
-            // window.location.reload();
+            document.querySelector(".logout-window").style = "display:none";
           }, 1000);
         } else {
           document.querySelector(".login-and-signup").style = "display:none";
@@ -222,12 +230,14 @@ function main() {
   loadAttractionInfo();
 
   document.querySelector(".login-and-signup").addEventListener("click", () => {
+    document.querySelector(".signin-window").style = "";
     document.querySelector(".login").style = "";
   });
 
   document.querySelector(".link-to-signup").addEventListener("click", () => {
     document.querySelector(".login").style = "display:none";
     document.querySelector(".signup").style = "";
+    document.querySelector(".signup-window").style = "";
   });
 
   document.querySelector(".link-to-login").addEventListener("click", () => {

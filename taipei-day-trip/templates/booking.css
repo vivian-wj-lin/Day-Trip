@@ -85,6 +85,8 @@ body {
 .logout-headline {
   width: 310px;
   height: 27px;
+  /* width: 280px;
+  height: 17px; */
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 700;
@@ -98,10 +100,10 @@ body {
 .input-name,
 .input-email,
 .input-password {
+  /* width: 310px;
+  height: 47px; */
   width: 280px;
   height: 17px;
-  width: 310px;
-  height: 47px;
   font-weight: 500;
   font-size: 16px;
   margin: 0 auto;
