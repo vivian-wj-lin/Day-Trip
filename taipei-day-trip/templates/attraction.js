@@ -230,11 +230,52 @@ function logout() {
   });
 }
 
+function postAttractionInfo() {
+  document.querySelector(".bookingBtn").addEventListener("click", () => {
+    // ev.preventDefault();
+    const attractionId = location.pathname.split("/").pop();
+    const UpperleftDiv = document.querySelector(".the-upper-left");
+    const UpperrightDiv = document.querySelector(".the-upper-right");
+    const date = document.querySelector(".start").value;
+    const time = document.querySelector('input[name="radio"]:checked').value;
+    // const intPrice = parseInt(
+    //   Number(document.querySelector(".price").textContent)
+    // );
+    const intPrice = document.querySelector(".price").textContent;
+    console.log(intPrice);
+    // let text = "新台幣 2000 元";
+    // let result = text.substr(3,6);//2000
+    const price = parseInt(Number(intPrice.substr(3, 6)));
+    console.log(price);
+    const newHeaders = new Headers();
+    newHeaders.append("Content-Type", "application/json");
+    const newbody = JSON.stringify({
+      attractionId,
+      date,
+      time,
+      price,
+    });
+    const requestOptions = {
+      method: "POST",
+      headers: newHeaders,
+      body: newbody,
+      redirect: "follow",
+    };
+    fetch("/api/booking", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+      });
+    // window.location.href = "/booking";
+  });
+}
+
 async function main() {
   signup();
   login();
   checkIsLogin();
   logout();
+  postAttractionInfo();
 
   const attractionData = (await getAttractionData()).data;
   const timeSelectedMorning = document.querySelector(".morning");
@@ -294,23 +335,14 @@ async function main() {
     },
     false
   );
-  document.querySelector(".bookingBtn").addEventListener("click", () => {
-    const attractionId = location.pathname.split("/").pop();
-    const dateSelected = document.querySelector(".start").value;
-    const timeSelected = document.querySelector(
-      'input[name="radio"]:checked'
-    ).value;
-    const price = document.querySelector(".price").textContent;
-    localStorage.setItem("BookingAttId", attractionId);
-    localStorage.setItem("date", dateSelected);
-    localStorage.setItem("time", timeSelected);
-    localStorage.setItem("price", price);
-    if (document.cookie !== null) {
+  document.querySelector(".booking").addEventListener(
+    "click",
+    () => {
+      checkIsLogin();
       window.location.href = "/booking";
-    } else {
-      window.location.href = "/";
-    }
-  });
+    },
+    false
+  );
 }
 
 main();
