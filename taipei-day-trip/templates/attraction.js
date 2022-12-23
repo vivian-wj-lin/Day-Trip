@@ -294,6 +294,13 @@ function postBookingInfo() {
           document.querySelector(".duplicate-order-window").style = "";
           document.querySelector(".the-upper-container").style.opacity = "0.5";
           document.querySelector(".the-bottom-container").style.opacity = "0.5";
+          setTimeout(() => {
+            document.querySelector(".duplicate-order-window").style =
+              "display:none";
+            document.querySelector(".the-upper-container").style.opacity = "";
+            document.querySelector(".the-bottom-container").style.opacity = "";
+          }, 2000);
+          console.log(100);
         }
       });
     // window.location.href = "/booking";
