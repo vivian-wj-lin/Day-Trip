@@ -384,7 +384,7 @@ def cartInfo():
     with get_cursor() as cursor:
         cursor.execute(
             '''
-            SELECT attractionId,date,time,price
+            SELECT attractionId,DATE_FORMAT(date,'%Y-%m-%d') AS date,time,price
             FROM Booking 
             WHERE userId = %s
             ;''',
