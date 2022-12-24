@@ -291,13 +291,7 @@ function postBookingInfo() {
           result.message ==
           "Reservation failed to established for duplicate orders or other reasons"
         ) {
-          document.querySelector(".the-upper-container").style.opacity = "0.5";
-          document.querySelector(".the-bottom-container").style.opacity = "0.5";
-          setTimeout(() => {
-            document.querySelector(".the-upper-container").style.opacity = "";
-            document.querySelector(".the-bottom-container").style.opacity = "";
-          }, 2000);
-          console.log(100);
+          console.log("duplicate orders");
         }
       });
     // window.location.href = "/booking";
