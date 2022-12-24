@@ -229,39 +229,25 @@ function logout() {
       .catch((error) => console.log("error", error));
   });
 }
-// function deleteBooking() {
-//   document.querySelector(".bookingBtn").addEventListener("click", () => {
-//     const requestOptions = {
-//       method: "DELETE",
-//       redirect: "follow",
-//     };
-//     fetch("/api/booking", requestOptions)
-//       .then((response) => response.json())
-//       .then((result) => {
-//         console.log(result);
-//         document.querySelector(".the-upper-container").style = "display:none";
-//         document.querySelector(".contactInfo").innerHTML = "";
-//         document.querySelector(".paymentInfo").innerHTML = "";
-//         const greetingsDiv = document.querySelector(".greetings");
-//         const greetingsSpan = document.createElement("span");
-//         greetingsSpan.className = "greetingsSpan";
-//         greetingsSpan.textContent = "目前沒有任何待預定的行程";
-//         greetingsDiv.appendChild(greetingsSpan);
-//       });
-//   });
-// }
+
+function deleteBooking() {
+  const requestOptions = {
+    method: "DELETE",
+    redirect: "follow",
+  };
+  return fetch("/api/booking", requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+    });
+}
+
 function postBookingInfo() {
-  document.querySelector(".bookingBtn").addEventListener("click", () => {
-    // ev.preventDefault();
-    // deleteBooking();
+  document.querySelector(".bookingBtn").addEventListener("click", async () => {
+    await deleteBooking();
     const attractionId = location.pathname.split("/").pop();
-    const UpperleftDiv = document.querySelector(".the-upper-left");
-    const UpperrightDiv = document.querySelector(".the-upper-right");
     const date = document.querySelector(".start").value;
     const time = document.querySelector('input[name="radio"]:checked').value;
-    // const intPrice = parseInt(
-    //   Number(document.querySelector(".price").textContent)
-    // );
     const intPrice = document.querySelector(".price").textContent;
     console.log(intPrice);
     // let text = "新台幣 2000 元";
