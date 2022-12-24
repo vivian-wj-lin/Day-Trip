@@ -123,9 +123,7 @@ function logout() {
       redirect: "follow",
     };
     fetch("/api/user/auth", requestOptions)
-      // .then((response) => response.text())
       .then((response) => response.json())
-      // .then((result) => console.log(result))
       .then((result) => {
         if (result.data == null) {
           document.querySelector(".logout").style = "display:none";
@@ -158,12 +156,6 @@ function loadAttractionInfo() {
     .then((attractionInfo) => {
       const UpperleftDiv = document.querySelector(".the-upper-left");
       const UpperrightDiv = document.querySelector(".the-upper-right");
-      // console.log(attractionInfo.data.images[0]);
-      // console.log(attractionInfo.data.name);
-      // console.log(localStorageDate);
-      // console.log(localStorageTime);
-      // console.log(localStoragePrice);
-      // console.log(attractionInfo.data.address);
       const bookingImg = document.createElement("img");
       bookingImg.className = "bookingImg";
       bookingImg.src = attractionInfo.data.images[0];
@@ -183,9 +175,10 @@ function loadAttractionInfo() {
       dateDiv.textContent = "日期 : ";
       const dateSpan = document.createElement("span");
       dateSpan.className = "dateSpan";
-      dateSpan.textContent = localStorageDate;
+      dateSpan.textContent = attractionInfo.data.date;
       dateDiv.appendChild(dateSpan);
       UpperrightDiv.appendChild(dateDiv);
+      console.log(dateSpan);
 
       const timeDiv = document.createElement("div");
       timeDiv.className = "nameDiv";

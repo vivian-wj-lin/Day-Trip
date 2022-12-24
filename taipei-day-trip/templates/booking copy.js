@@ -170,6 +170,7 @@ function checkBooking() {
         document.querySelector(".nameSpan").textContent =
           result.data.attraction.name;
         document.querySelector(".timeSpan").textContent = result.data.time;
+        document.querySelector(".dateSpan").textContent = result.data.date;
         document.querySelector(".priceSpan").textContent = result.data.price;
         document.querySelector(".addressSpan").textContent =
           result.data.attraction.address;
