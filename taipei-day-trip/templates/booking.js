@@ -162,6 +162,7 @@ function checkBooking() {
         greetingsSpan.className = "greetingsSpan";
         greetingsSpan.textContent = "目前沒有任何待預定的行程";
         greetingsDiv.appendChild(greetingsSpan);
+        document.querySelector(".footer").style = "min-height:800px;";
       }
       if (result.data !== null) {
         console.log(result);
@@ -196,6 +197,7 @@ function deleteBooking() {
         greetingsSpan.className = "greetingsSpan";
         greetingsSpan.textContent = "目前沒有任何待預定的行程";
         greetingsDiv.appendChild(greetingsSpan);
+        document.querySelector(".footer").style = "min-height:800px;";
       });
   });
 }

@@ -15,11 +15,14 @@ body {
   justify-content: center;
 }
 body {
+  background: gainsboro;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   max-width: 1920px;
+  flex-direction: column;
+  /* justify-content: space-around; */
 }
 .login,
 .signup,
@@ -111,7 +114,14 @@ body {
   border: 1px solid #cccccc;
   border-radius: 5px;
 }
-
+.warning-text {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  color: #666666;
+}
 .loginButton,
 .signupButton {
   border: none;
@@ -218,41 +228,125 @@ img {
 }
 
 /* desktop width1920px */
+.greetings {
+  margin-top: 50px;
+  background: darkseagreen;
+  text-align: start;
+  padding-left: 100px;
+  width: 1200px;
+}
 
 .the-upper-container {
   background-color: white;
-  width: 100%;
+  width: 1200px;
   /* height: 45%;
   min-height: 500px; */
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  /* margin-bottom: -30px; */
+  align-items: flex-start;
+  flex-direction: column;
+  padding-left: 100px;
 }
 .the-upper-part {
-  margin-top: 40px;
+  /* margin-top: 40px; */
   /* width: 1200px; */
   background-color: white;
   /* background-color: burlywood; */
   flex-wrap: nowrap;
   display: flex;
   align-items: stretch;
-  padding-top: 40px;
+  /* padding-top: 40px; */
+  justify-content: space-between;
+  align-items: stretch;
 }
 .the-upper-left {
   align-items: flex-end;
-  margin-right: 15px;
+  /* margin-right: 15px; */
   justify-content: center;
   display: flex;
+}
+.bookingImg {
+  width: 266px;
+  height: 200px;
 }
 .the-upper-right {
   display: grid;
   align-items: center;
   margin-left: 15px;
 }
-
+.nameDiv,
+.dateDiv,
+.timeDiv,
+.priceDiv,
+.addressDiv {
+  /* width: 144px; */
+  height: 14px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  color: #666666;
+}
+.nameDiv {
+  color: #448899;
+}
+.dateSpan,
+.timeSpan,
+.priceSpan,
+.addressSpan {
+  font-weight: 500;
+  margin-left: 10px;
+}
+.delete-icon {
+  margin-left: 500px;
+}
+.the-bottom-container {
+  background: beige;
+  display: flex;
+  width: 1200px;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-left: 100px;
+  height: auto;
+}
+.contactInfo {
+  width: 100%;
+  margin: 20px 0 20px 0;
+}
+.paymentInfo {
+  width: 100%;
+  margin: 20px 0 20px 0;
+}
+.submitDiv {
+  width: 100%;
+  align-items: end;
+}
+.btnDiv {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 100px;
+  padding-bottom: 50px;
+}
+.Btn {
+  border: none;
+  color: white;
+  width: 173px;
+  height: 36px;
+  background: #448899;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+.upper_and_bottom {
+  /* min-height: 700px; */
+}
 .footer {
   display: flex;
+  font-weight: 400;
+  font-size: 19px;
   width: 100%;
   height: 105px;
   text-align: center;

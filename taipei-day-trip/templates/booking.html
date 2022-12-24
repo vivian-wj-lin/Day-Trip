@@ -75,76 +75,89 @@
     <div class="greetings">
       您好 ， <span class="greetingName"></span> 待預訂的行程如下
     </div>
-    <div class="the-upper-container">
-      <div class="the-upper-part">
-        <!-- the left part  -->
-        <div class="the-upper-left"></div>
-        <!-- the right part -->
-        <img class="bookingImg" src="" alt="" />
-        <div class="the-upper-right"></div>
-        <div class="nameDiv">台北一日遊:<span class="nameSpan"></span></div>
-        <div class="dateDiv">日期:<span class="dateSpan"></span></div>
-        <div class="timeDiv">時間:<span class="timeSpan"></span></div>
-        <div class="priceDiv">費用:<span class="priceSpan"></span></div>
-        <div class="addressDiv">地點:<span class="addressSpan"></span></div>
-      </div>
-      <div>
-        <img
-          class="delete-icon"
-          src="/static/icon_delete.png"
-          alt=""
-          style="width: 30px; height: 30px"
-        />
-      </div>
-    </div>
-    <div class="contactInfo">
-      您的聯絡資訊
-      <form action="">
-        <label for="contactName">聯絡姓名：</label><br />
-        <input
-          type="text"
-          id="contactName"
-          name="contactName"
-          placeholder="Yakko"
-        /><br />
-        <label for="contactEmail">聯絡信箱：</label><br />
-        <input
-          type="text"
-          id="contactEmail"
-          name="contactEmail"
-          placeholder="imyakkowu@gmail.com"
-        /><br />
-        <label for="contactPhone">手機號碼：</label><br />
-        <input
-          type="text"
-          id="contactPhone"
-          name="contactPhone"
-          placeholder=""
-        /><br /><br />
-      </form>
-    </div>
 
-    <div class="paymentInfo">
-      信用卡付款資訊
-      <form action="">
-        <label for="paymentCardNo">卡片號碼：</label><br />
-        <input
-          type="password"
-          id="paymentCardNo"
-          name="paymentCardNo"
-          placeholder="**** **** **** ****"
-        /><br />
-        <label for="expiredDate">過期時間：</label><br />
-        <input
-          type="text"
-          id="expiredDate"
-          name="expiredDate"
-          placeholder="MM /YY"
-        /><br /><br />
-        <label for="cvv">驗證密碼：</label><br />
-        <input type="text" id="cvv" name="cvv" placeholder="cvv" /><br />
-        <input type="submit" value="Submit" />
-      </form>
+    <div class="upper_and_bottom">
+      <div class="the-upper-container">
+        <div class="the-upper-part">
+          <!-- the left part  -->
+          <div class="the-upper-left"></div>
+          <!-- the right part -->
+          <img class="bookingImg" src="" alt="" />
+          <div class="the-upper-right">
+            <div class="nameDiv">台北一日遊:<span class="nameSpan"></span></div>
+            <div class="dateDiv">日期:<span class="dateSpan"></span></div>
+            <div class="timeDiv">時間:<span class="timeSpan"></span></div>
+            <div class="priceDiv">費用:<span class="priceSpan"></span></div>
+            <div class="addressDiv">地點:<span class="addressSpan"></span></div>
+          </div>
+          <div>
+            <img
+              class="delete-icon"
+              src="/static/icon_delete.png"
+              alt=""
+              style="width: 30px; height: 30px"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="the-bottom-container">
+        <div class="contactInfo">
+          您的聯絡資訊
+          <form action="">
+            <label for="contactName">聯絡姓名：</label><br />
+            <input
+              type="text"
+              id="contactName"
+              name="contactName"
+              placeholder="Yakko"
+            /><br />
+            <label for="contactEmail">聯絡信箱：</label><br />
+            <input
+              type="text"
+              id="contactEmail"
+              name="contactEmail"
+              placeholder="imyakkowu@gmail.com"
+            /><br />
+            <label for="contactPhone">手機號碼：</label><br />
+            <input
+              type="text"
+              id="contactPhone"
+              name="contactPhone"
+              placeholder=""
+            /><br /><br />
+            <div class="warning-text">
+              請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
+            </div>
+          </form>
+        </div>
+        <div class="paymentInfo">
+          信用卡付款資訊
+          <form action="">
+            <label for="paymentCardNo">卡片號碼：</label><br />
+            <input
+              type="password"
+              id="paymentCardNo"
+              name="paymentCardNo"
+              placeholder="**** **** **** ****"
+            /><br />
+            <label for="expiredDate">過期時間：</label><br />
+            <input
+              type="text"
+              id="expiredDate"
+              name="expiredDate"
+              placeholder="MM /YY"
+            /><br /><br />
+            <label for="cvv">驗證密碼：</label><br />
+            <input type="text" id="cvv" name="cvv" placeholder="cvv" /><br />
+          </form>
+          <div class="submitDiv">
+            <div class="btnDiv">
+              <button class="Btn">確認訂購並付款</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <footer class="footer">
