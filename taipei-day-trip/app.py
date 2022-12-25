@@ -27,10 +27,10 @@ cnxpool = pooling.MySQLConnectionPool(
     pool_size=10,
     host='localhost',
     database='TaipeiAttractionsDB',
-    user='root',
-    # user="debian-sys-maint",
+    # user='root',
+    user="debian-sys-maint",
     password='mysqlpwd2022'
-    # passwd="b6hdV6hWNuqadE2s",
+    passwd="b6hdV6hWNuqadE2s",
     # auth_plugin='mysql_native_password'
 )
 
