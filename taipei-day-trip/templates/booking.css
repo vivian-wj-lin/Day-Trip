@@ -611,13 +611,23 @@ img {
     height: auto;
   }
   .greetings {
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     margin-left: 0;
     max-width: 360px;
     padding-left: 0;
     margin-left: -50px;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 16px;
   }
+  .greetingsSpan {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 13px;
+    margin-top: 20px;
+  }
+
   .upper_and_bottom {
     max-width: 360px;
   }
