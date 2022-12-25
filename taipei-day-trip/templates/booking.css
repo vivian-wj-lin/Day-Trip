@@ -595,13 +595,32 @@ img {
 @media (max-width: 500px) {
   body {
     width: 100%;
+    display: flex;
+    justify-items: center;
+    align-items: center;
   }
-
-  .frame-section {
+  .frame1200 {
+    max-width: 500px;
     width: 100%;
     height: auto;
   }
 
+  .frame-section {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+  }
+  .greetings {
+    display: flex;
+    justify-content: center;
+    margin-left: 0;
+    max-width: 360px;
+    padding-left: 0;
+    margin-left: -50px;
+  }
+  .upper_and_bottom {
+    max-width: 360px;
+  }
   .the-upper-container {
     width: 90%;
     height: auto;
@@ -610,21 +629,87 @@ img {
     justify-content: center;
     margin: 0 auto;
   }
+  .the-upper-part {
+    display: flex;
+    flex-direction: column;
+  }
   .the-upper-left {
     height: auto;
     width: 90%;
+  }
+  .bookingImg {
+    width: 340px;
+    height: 256px;
+    margin-left: -20px;
+  }
+  .the-upper-part {
+    display: flex;
+  }
+  .nameDiv,
+  .dateDiv,
+  .timeDiv,
+  .priceDiv,
+  .addressDiv {
+    margin: 10px;
   }
   .the-upper-right {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     justify-items: center;
-    align-items: center;
     margin: auto;
+    align-items: start;
+    flex-direction: column;
+    line-height: 13px;
+    height: auto;
+    margin: 20px;
+    margin-left: 0;
+    margin-left: -30px;
   }
-
+  .deleteDiv {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .delete-icon {
+    margin: 0;
+    margin-top: 10px;
+    margin-right: 40px;
+    margin-right: 0px;
+  }
   img {
     width: 100%;
     height: auto;
+  }
+  .contacttext,
+  .paymenttext {
+    padding-left: 0;
+  }
+  .contactName,
+  .contactEmail,
+  .contactPhone {
+    padding-left: 0;
+  }
+  .warning-text {
+    padding-left: 0;
+    line-height: 23px;
+  }
+  .paymentCardNo,
+  .expiredDate,
+  .cvv {
+    padding-left: 0;
+  }
+  .totalpriceDiv {
+    margin-right: 0;
+  }
+  .btnDiv {
+    margin-right: 0;
+  }
+  .submitDiv {
+    padding-right: 20px;
+  }
+
+  .footer {
+    max-width: 500px;
+    width: 105%;
   }
 }
