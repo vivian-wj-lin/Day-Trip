@@ -23,6 +23,15 @@ body {
   flex-direction: column;
   /* justify-content: space-around; */
 }
+input {
+  box-sizing: border-box;
+  width: 200px;
+  height: 38px;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  padding: 10px;
+}
 .login,
 .signup,
 .logout-window {
@@ -114,6 +123,7 @@ body {
   border-radius: 5px;
 }
 .warning-text {
+  padding-left: 35px;
   font-weight: 700;
   font-size: 16px;
   line-height: 13px;
@@ -121,6 +131,7 @@ body {
   align-items: center;
   color: #666666;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 .loginButton,
 .signupButton {
@@ -229,17 +240,18 @@ img {
 
 /* desktop width1920px */
 .greetings {
-  padding-top: 20px;
+  padding-top: 10px;
   border-top: 1px solid #e8e8e8;
   margin-top: 70px;
   margin-bottom: 20px;
   /* background: darkseagreen; */
   text-align: start;
-  padding-left: 200px;
+  padding-left: 80px;
   width: 1200px;
 }
 
 .the-upper-container {
+  margin: 10px auto 10px auto;
   background-color: white;
   width: 1200px;
   /* height: 45%;
@@ -249,9 +261,10 @@ img {
   align-items: center;
   align-items: flex-start;
   flex-direction: column;
-  padding-left: 200px;
+  /* padding-left: 200px; */
 }
 .the-upper-part {
+  width: 100%;
   border-bottom: 1px solid #e8e8e8;
   padding-bottom: 30px;
   /* width: 1200px; */
@@ -277,7 +290,7 @@ img {
 .the-upper-right {
   display: grid;
   align-items: center;
-  margin-left: 30px;
+  /* margin-left: 30px; */
 }
 .nameDiv,
 .dateDiv,
@@ -309,6 +322,7 @@ img {
 }
 .delete-icon {
   margin-left: 450px;
+  margin-right: 90px;
 }
 .the-bottom-container {
   /* background: beige; */
@@ -317,16 +331,17 @@ img {
   justify-content: space-around;
   align-items: flex-start;
   flex-direction: column;
-  padding-left: 200px;
+  /* padding-left: 200px; */
   height: auto;
 }
 .contactInfo {
   width: 100%;
-  margin: 20px 0 20px 0;
+  /* margin: 20px 0 20px 0; */
 }
 .contactName,
 .contactEmail,
 .contactPhone {
+  padding-left: 35px;
   font-weight: 500;
   font-size: 16px;
 }
@@ -335,11 +350,12 @@ img {
 }
 .contacttext,
 .paymenttext {
+  padding-left: 35px;
   font-weight: 700;
   font-size: 19px;
 }
 .the-bottom-container {
-  line-height: 40px;
+  line-height: 50px;
   height: auto;
   font-weight: 500;
   font-size: 16px;
@@ -348,26 +364,31 @@ img {
 }
 .paymentInfo {
   border-top: 1px solid #e8e8e8;
-  padding-top: 20px;
+  /* padding-top: 20px; */
   width: 100%;
-  margin: 20px 0 20px 0;
+  /* margin: 20px 0 20px 0; */
+}
+.paymentCardNo,
+.expiredDate,
+.cvv {
+  padding-left: 35px;
 }
 .submitDiv {
-  padding-top: 20px;
+  /* padding-top: 20px; */
   margin: 20px 0 20px 0;
   width: 100%;
   align-items: end;
   display: flex;
   justify-content: flex-end;
-  padding-right: 100px;
+  /* padding-right: 100px; */
   /* padding-bottom: 50px; */
   flex-direction: column;
   border-top: 1px solid #e8e8e8;
 }
 .totalpriceDiv {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 180px;
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+  margin-right: 90px;
   font-weight: 700;
   font-size: 16px;
 }
@@ -376,7 +397,7 @@ img {
   font-size: 16px;
 }
 .btnDiv {
-  margin-right: 180px;
+  margin-right: 90px;
 }
 .Btn {
   font-weight: 400;
@@ -390,7 +411,7 @@ img {
   padding: 10px 20px;
 }
 .upper_and_bottom {
-  /* min-height: 700px; */
+  width: 1200px;
 }
 .footer {
   display: flex;
