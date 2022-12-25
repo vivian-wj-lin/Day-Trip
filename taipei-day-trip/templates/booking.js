@@ -169,7 +169,7 @@ function checkBooking() {
         document.querySelector(".paymentInfo").innerHTML = "";
         const greetingsDiv = document.querySelector(".greetings");
         const greetingstext = document.createElement("div");
-        greetingstext.className = "greetingsSpan";
+        greetingstext.className = "greetingstext";
         greetingstext.textContent = "目前沒有任何待預定的行程";
         greetingsDiv.appendChild(greetingstext);
         document.querySelector(".footer").style = "min-height:500px;";
@@ -206,10 +206,10 @@ function deleteBooking() {
         document.querySelector(".contactInfo").innerHTML = "";
         document.querySelector(".paymentInfo").innerHTML = "";
         const greetingsDiv = document.querySelector(".greetings");
-        const greetingsSpan = document.createElement("span");
-        greetingsSpan.className = "greetingsSpan";
-        greetingsSpan.textContent = "目前沒有任何待預定的行程";
-        greetingsDiv.appendChild(greetingsSpan);
+        const greetingstext = document.createElement("div");
+        greetingstext.className = "greetingstext";
+        greetingstext.textContent = "目前沒有任何待預定的行程";
+        greetingsDiv.appendChild(greetingstext);
         document.querySelector(".footer").style = "min-height:500px;";
       });
   });
