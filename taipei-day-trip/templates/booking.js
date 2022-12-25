@@ -76,9 +76,13 @@ function login() {
           loginSuccessText.textContent = "登入成功!";
           loginDiv.appendChild(loginSuccessText);
           document.querySelector(".login-and-signup").style = "display:none";
+          document.querySelector(".greetings").style.opacity = "0.5";
+          document.querySelector(".upper_and_bottom").style.opacity = "0.5";
           setTimeout(() => {
             document.querySelector(".signin-window").style = "display:none";
             document.querySelector(".loginSuccessText").style = "display:none";
+            document.querySelector(".greetings").style.opacity = "";
+            document.querySelector(".upper_and_bottom").style.opacity = "";
             loginDiv.removeChild(loginSuccessText);
           }, 1000);
         } else {
@@ -221,6 +225,8 @@ function main() {
   document.querySelector(".login-and-signup").addEventListener("click", () => {
     document.querySelector(".signin-window").style = "";
     document.querySelector(".login").style = "";
+    document.querySelector(".greetings").style.opacity = "0.5";
+    document.querySelector(".upper_and_bottom").style.opacity = "0.5";
   });
 
   document.querySelector(".link-to-signup").addEventListener("click", () => {
