@@ -252,7 +252,12 @@ img {
   font-size: 19px;
   line-height: 16px;
 }
-
+.greetingstext {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  margin-top: 20px;
+}
 .the-upper-container {
   margin: 10px auto 10px auto;
   background-color: white;
@@ -465,6 +470,12 @@ img {
     font-weight: 700;
     font-size: 19px;
     line-height: 16px;
+  }
+  .greetingstext {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 13px;
+    margin-top: 20px;
   }
   .the-upper-container {
     width: 100%;
