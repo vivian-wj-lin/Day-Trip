@@ -146,6 +146,7 @@ function logout() {
             document.querySelector(".greetings").style.opacity = "";
             document.querySelector(".upper_and_bottom").style.opacity = "";
             document.querySelector(".footer").style.opacity = "";
+            checkIsLogin();
           }, 1000);
         } else {
           // document.querySelector(".login-and-signup").style = "display:none";
