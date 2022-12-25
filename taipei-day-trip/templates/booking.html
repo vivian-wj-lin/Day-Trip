@@ -87,7 +87,11 @@
             <div class="nameDiv">台北一日遊:<span class="nameSpan"></span></div>
             <div class="dateDiv">日期:<span class="dateSpan"></span></div>
             <div class="timeDiv">時間:<span class="timeSpan"></span></div>
-            <div class="priceDiv">費用:<span class="priceSpan"></span></div>
+            <div class="priceDiv">
+              費用: <span class="NTSpan"> 新台幣</span
+              ><span class="priceSpan"></span
+              ><span class="dollarSpan">&nbsp;元</span>
+            </div>
             <div class="addressDiv">地點:<span class="addressSpan"></span></div>
           </div>
           <div>
@@ -103,55 +107,64 @@
 
       <div class="the-bottom-container">
         <div class="contactInfo">
-          您的聯絡資訊
+          <div class="contacttext">您的聯絡資訊</div>
           <form action="">
-            <label for="contactName">聯絡姓名：</label><br />
+            <label class="contactName" for="contactName">聯絡姓名：</label>
             <input
               type="text"
               id="contactName"
               name="contactName"
               placeholder="Yakko"
             /><br />
-            <label for="contactEmail">聯絡信箱：</label><br />
+            <label for="contactEmail" class="contactEmail">聯絡信箱：</label>
             <input
               type="text"
               id="contactEmail"
               name="contactEmail"
               placeholder="imyakkowu@gmail.com"
             /><br />
-            <label for="contactPhone">手機號碼：</label><br />
+            <label for="contactPhone" class="contactPhone">手機號碼：</label>
             <input
               type="text"
               id="contactPhone"
               name="contactPhone"
               placeholder=""
-            /><br /><br />
+            />
             <div class="warning-text">
               請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
             </div>
           </form>
         </div>
         <div class="paymentInfo">
-          信用卡付款資訊
+          <div class="paymenttext">信用卡付款資訊</div>
           <form action="">
-            <label for="paymentCardNo">卡片號碼：</label><br />
+            <label for="paymentCardNo">卡片號碼：</label>
             <input
               type="password"
               id="paymentCardNo"
               name="paymentCardNo"
               placeholder="**** **** **** ****"
             /><br />
-            <label for="expiredDate">過期時間：</label><br />
+            <label for="expiredDate">過期時間：</label>
             <input
               type="text"
               id="expiredDate"
               name="expiredDate"
               placeholder="MM /YY"
-            /><br /><br />
-            <label for="cvv">驗證密碼：</label><br />
+            /><br />
+            <label for="cvv">驗證密碼：</label>
             <input type="text" id="cvv" name="cvv" placeholder="cvv" /><br />
           </form>
           <div class="submitDiv">
+            <div class="totalpriceDiv">
+              <div class="ttltext">
+                總價：<span class="ttltextSpan"></span>
+                <!-- <span class="NTSpan"> &nbsp;&nbsp;&nbsp;新台幣</span
+                ><span class="btmpriceSpan"></span
+                ><span class="dollarSpan">&nbsp;元</span> -->
+              </div>
+              <div class="ttlnum"></div>
+            </div>
             <div class="btnDiv">
               <button class="Btn">確認訂購並付款</button>
             </div>

@@ -134,8 +134,14 @@ function logout() {
           document.querySelector(".logout").style = "display:none";
           document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout-window").style = "";
+          document.querySelector(".greetings").style.opacity = "0.5";
+          document.querySelector(".upper_and_bottom").style.opacity = "0.5";
+          document.querySelector(".footer").style.opacity = "0.5";
           setTimeout(() => {
             document.querySelector(".logout-window").style = "display:none";
+            document.querySelector(".greetings").style.opacity = "";
+            document.querySelector(".upper_and_bottom").style.opacity = "";
+            document.querySelector(".footer").style.opacity = "";
           }, 1000);
         } else {
           // document.querySelector(".login-and-signup").style = "display:none";
@@ -175,6 +181,9 @@ function checkBooking() {
         document.querySelector(".priceSpan").textContent = result.data.price;
         document.querySelector(".addressSpan").textContent =
           result.data.attraction.address;
+        document.querySelector(".ttltextSpan").textContent =
+          "新台幣" + result.data.price + "元";
+        ttltextDiv.appendChild(ttltextSpan);
       }
     }) //{"data":null} //hello = () => "Hello World!";
     .catch((error) => console.log("error", error));

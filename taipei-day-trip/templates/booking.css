@@ -15,9 +15,8 @@ body {
   justify-content: center;
 }
 body {
-  background: gainsboro;
+  /* background: gainsboro; */
   display: flex;
-  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
   max-width: 1920px;
@@ -121,6 +120,7 @@ body {
   display: flex;
   align-items: center;
   color: #666666;
+  margin-top: 20px;
 }
 .loginButton,
 .signupButton {
@@ -229,10 +229,13 @@ img {
 
 /* desktop width1920px */
 .greetings {
-  margin-top: 50px;
-  background: darkseagreen;
+  padding-top: 20px;
+  border-top: 1px solid #e8e8e8;
+  margin-top: 70px;
+  margin-bottom: 20px;
+  /* background: darkseagreen; */
   text-align: start;
-  padding-left: 100px;
+  padding-left: 200px;
   width: 1200px;
 }
 
@@ -246,10 +249,11 @@ img {
   align-items: center;
   align-items: flex-start;
   flex-direction: column;
-  padding-left: 100px;
+  padding-left: 200px;
 }
 .the-upper-part {
-  /* margin-top: 40px; */
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 30px;
   /* width: 1200px; */
   background-color: white;
   /* background-color: burlywood; */
@@ -273,7 +277,7 @@ img {
 .the-upper-right {
   display: grid;
   align-items: center;
-  margin-left: 15px;
+  margin-left: 30px;
 }
 .nameDiv,
 .dateDiv,
@@ -296,46 +300,91 @@ img {
 .dateSpan,
 .timeSpan,
 .priceSpan,
-.addressSpan {
+.addressSpan,
+.NTSpan,
+.dollarSpans {
   font-weight: 500;
   margin-left: 10px;
+  font-size: 16px;
 }
 .delete-icon {
-  margin-left: 500px;
+  margin-left: 450px;
 }
 .the-bottom-container {
-  background: beige;
+  /* background: beige; */
   display: flex;
   width: 1200px;
   justify-content: space-around;
   align-items: flex-start;
   flex-direction: column;
-  padding-left: 100px;
+  padding-left: 200px;
   height: auto;
 }
 .contactInfo {
   width: 100%;
   margin: 20px 0 20px 0;
 }
+.contactName,
+.contactEmail,
+.contactPhone {
+  font-weight: 500;
+  font-size: 16px;
+}
+.contactName {
+  margin-top: 10px;
+}
+.contacttext,
+.paymenttext {
+  font-weight: 700;
+  font-size: 19px;
+}
+.the-bottom-container {
+  line-height: 40px;
+  height: auto;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+}
 .paymentInfo {
+  border-top: 1px solid #e8e8e8;
+  padding-top: 20px;
   width: 100%;
   margin: 20px 0 20px 0;
 }
 .submitDiv {
+  padding-top: 20px;
+  margin: 20px 0 20px 0;
   width: 100%;
   align-items: end;
-}
-.btnDiv {
   display: flex;
   justify-content: flex-end;
   padding-right: 100px;
-  padding-bottom: 50px;
+  /* padding-bottom: 50px; */
+  flex-direction: column;
+  border-top: 1px solid #e8e8e8;
+}
+.totalpriceDiv {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 180px;
+  font-weight: 700;
+  font-size: 16px;
+}
+.ttltext {
+  font-weight: 700;
+  font-size: 16px;
+}
+.btnDiv {
+  margin-right: 180px;
 }
 .Btn {
+  font-weight: 400;
+  font-size: 19px;
   border: none;
   color: white;
   width: 173px;
-  height: 36px;
+  /* height: 36px; */
   background: #448899;
   border-radius: 5px;
   padding: 10px 20px;

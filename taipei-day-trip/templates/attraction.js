@@ -192,6 +192,8 @@ function checkIsLogin() {
         document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
       } else {
+        document.querySelector(".signin-window").style = "";
+        document.querySelector(".login").style = "";
         document.querySelector(".logout").style = "display:none";
         document.querySelector(".login-and-signup").style = "";
       }
@@ -280,14 +282,14 @@ function postBookingInfo() {
           console.log("duplicate orders");
         }
       });
-    // window.location.href = "/booking";
+    window.location.href = "/booking";
   });
 }
 
 async function main() {
   signup();
   login();
-  checkIsLogin();
+  // checkIsLogin();
   logout();
   postBookingInfo();
   // deleteBooking();
