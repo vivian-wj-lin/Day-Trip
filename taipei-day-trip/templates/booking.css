@@ -248,6 +248,9 @@ img {
   text-align: start;
   padding-left: 80px;
   width: 1200px;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 16px;
 }
 
 .the-upper-container {
@@ -459,6 +462,9 @@ img {
     max-width: 1200px;
     margin-left: -550px;
     text-align: center;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 16px;
   }
   .the-upper-container {
     width: 100%;
