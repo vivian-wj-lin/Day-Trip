@@ -439,18 +439,26 @@ img {
   html,
   body {
     width: 100%;
+    height: auto;
     display: flex;
-    margin: 0;
+    margin: 0 auto 0 auto;
     padding: 0;
     justify-content: center;
     align-items: center;
   }
   .frame-section,
   .frame1200 {
+    max-width: 1200px;
     width: 100%;
   }
   .left {
     width: auto;
+  }
+  .greetings {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: -550px;
+    text-align: center;
   }
   .the-upper-container {
     width: 100%;
@@ -463,7 +471,7 @@ img {
   }
 
   .the-upper-left {
-    width: 45%;
+    width: 100%;
     height: auto;
   }
 
@@ -471,16 +479,45 @@ img {
     width: auto;
   }
   .the-upper-right {
-    width: 45%;
+    width: 100%;
+    margin-left: 20px;
+  }
+  .delete-icon {
+    margin-top: 100px;
   }
   .item,
   .booking,
   .login-and-signup {
     width: auto;
   }
-
+  .bookingImg {
+    margin-left: -400px;
+  }
+  .delete-icon {
+    margin-left: 0;
+  }
+  .the-bottom-container {
+    width: 100%;
+  }
+  .contacttext,
+  .paymenttext {
+    padding-left: 200px;
+  }
+  .contactName,
+  .contactEmail,
+  .contactPhone {
+    padding-left: 200px;
+  }
+  .warning-text {
+    padding-left: 200px;
+  }
+  .paymentCardNo,
+  .expiredDate,
+  .cvv {
+    padding-left: 200px;
+  }
   .footer {
-    height: 50px;
+    height: 100px;
     width: 100%;
     left: 0px;
     right: 0px;
@@ -491,10 +528,11 @@ img {
     margin-left: auto;
     margin-right: auto;
     margin-top: 100px;
+    padding-left: 200px;
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 800px) {
   html,
   body {
     width: 100%;
@@ -506,7 +544,11 @@ img {
     margin: 0 auto;
   }
   .frame-section {
-    width: 360px;
+    width: 100%;
+  }
+  .the-upper-container {
+    width: 100%;
+    max-width: 800px;
   }
   .the-upper-part {
     height: auto;
@@ -516,16 +558,25 @@ img {
 
   .the-upper-left {
     margin: 0 auto;
-    width: 360px;
-    height: 350px;
+    width: 100%;
+    /* height: 350px; */
     object-fit: cover;
   }
-
+  .delete-icon {
+    margin-right: -100px;
+    margin-left: 100px;
+  }
+  .bookingImg {
+    margin-left: 0;
+    width: 266px;
+    height: 200px;
+  }
   .the-upper-right {
     width: 340px;
     height: auto;
     margin: 0 auto;
     margin-top: 20px;
+    margin-left: 20px;
   }
 
   img {
@@ -534,12 +585,14 @@ img {
     object-fit: cover;
   }
 
-  footer {
+  .footer {
+    width: 1200px;
     height: 100px;
-    margin-top: 150px;
+    margin-top: 20px;
+    padding-left: 0;
   }
 }
-@media (max-width: 360px) {
+@media (max-width: 500px) {
   body {
     width: 100%;
   }
