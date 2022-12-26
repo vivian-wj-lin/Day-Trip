@@ -32,6 +32,17 @@ input {
   border-radius: 5px;
   padding: 10px;
 }
+.tpfield {
+  box-sizing: border-box;
+  width: 200px;
+  height: 38px;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  padding: 10px;
+  display: inline-block;
+  margin-bottom: -15px;
+}
 .login,
 .signup,
 .logout-window {
