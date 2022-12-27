@@ -116,10 +116,11 @@ function checkIsLogin() {
         document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
       } else {
-        document.querySelector(".logout").style = "display:none";
-        document.querySelector(".login-and-signup").style = "";
-        document.querySelector(".signin-window").style = "";
-        document.querySelector(".login").style = "";
+        window.location.href = "/";
+        // document.querySelector(".logout").style = "display:none";
+        // document.querySelector(".login-and-signup").style = "";
+        // document.querySelector(".signin-window").style = "";
+        // document.querySelector(".login").style = "";
       }
     }) //{"data":null} //hello = () => "Hello World!";
     .catch((error) => console.log("error", error));
