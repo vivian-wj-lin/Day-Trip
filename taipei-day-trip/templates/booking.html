@@ -143,10 +143,6 @@
               請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
             </div>
           </form>
-
-          <!-- <div class="tpfield" id="card-number"></div>
-          <div class="tpfield" id="card-expiration-date"></div>
-          <div class="tpfield" id="card-ccv"></div> -->
         </div>
         <div class="paymentInfo">
           <div class="paymenttext">信用卡付款資訊</div>
@@ -173,7 +169,7 @@
             <div class="tpfield" id="card-ccv"></div>
             <!-- <input type="text" id="cvv" name="cvv" placeholder="cvv" /> -->
             <br />
-          </form>
+          
           <div class="submitDiv">
             <div class="totalpriceDiv">
               <div class="ttltext">
@@ -185,7 +181,12 @@
               <div class="ttlnum"></div>
             </div>
             <div class="btnDiv">
-              <button class="Btn">確認訂購並付款</button>
+              <button type="submit" class="Btn btn btn-default">
+                確認訂購並付款
+              </button>
+              <!-- <button class="Btn">確認訂購並付款</button> -->
+          </form>
+              
             </div>
           </div>
         </div>
@@ -196,10 +197,12 @@
       <div class="footer-text">COPYRIGHT © 2022 台北一日遊</div>
     </footer>
     <script type="text/javascript" src="/static/booking.js"></script>
-    <script type="text/javascript" src="/static/tappay.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"
+    ></script>
     <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
-    <!-- <script>
-      TPDirect.setupSDK(APP_ID, "APP_KEY", "sandbox");
-    </script> -->
+    <script type="text/javascript" src="/static/tappay.js"></script>
   </body>
 </html>

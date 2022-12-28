@@ -4,7 +4,7 @@ import mysql
 import mysql.connector
 import mysql.connector.cursor
 import jwt
-
+import httpx
 
 from mysql.connector import pooling
 from mysql.connector.errors import Error
