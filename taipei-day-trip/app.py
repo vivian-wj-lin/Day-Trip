@@ -99,7 +99,7 @@ def api_attractionId(attractionId):
                     """
             val = (attractionId,)
             att_cursor.execute(sql, val)
-            attraction = att_cursor.fetchone()
+            attraction = att_cursor.fetchall()
 
         if attraction is None:
             return flask.Response(
@@ -119,11 +119,26 @@ def api_attractionId(attractionId):
             val = (attractionId,)
             img_cursor.execute(sql, val)
             images = img_cursor.fetchall()
+        # print(images)
+        print(1)
         images = [x["images"] for x in images]
-        attraction["images"] = images
+        print(2)
+        # print(type(images))
+        # print(type(attraction["images"]))
+        print(attraction)
+        print(type(attraction))  # list
+        # attraction[0]["images"]
+        attraction[0]["images"] = images
+        print(images)
+        print(type(images))  # list
+        print(3)
         return {
-            "data": attraction,
+            "data": attraction[0],
         }
+        print(5)
+
+        # fetchall 回傳 [{"images": ...}]
+        # fetchone 回傳 {"images": ...}
 
     except Exception as e:
         print(e)
@@ -380,7 +395,7 @@ def cartInfo():
             mimetype="application/json",
             status=403,
         )
-
+    print(1)
     with get_cursor() as cursor:
         cursor.execute(
             '''
@@ -397,10 +412,11 @@ def cartInfo():
             mimetype="application/json",
             status=200,
         )
-
+    print(2)
     attractionId = booking_data["attractionId"]
+    print(3)
     del booking_data["attractionId"]
-
+    print(4)
     with get_cursor() as cursor:
         cursor.execute(
             '''
@@ -410,9 +426,14 @@ def cartInfo():
             ;''',
             (attractionId,),
         )
-        attraction_data = cursor.fetchone()
+        # attraction_data = cursor.fetchone()
+        attraction_data = cursor.fetchall()
+        print(5)
+        # attraction_data = cursor.fetchmany()
+        print(6)
 
     with get_cursor() as cursor:
+        print(7)
         cursor.execute(
             '''
             SELECT images 
@@ -422,10 +443,27 @@ def cartInfo():
             ;''',
             (attractionId,),
         )
-        image_data = cursor.fetchone()
+        print(8)
+        # image_data = cursor.fetchone()
+        image_data = cursor.fetchall()
+        print(9)
+        print(image_data)
+        print(image_data[0]["images"])
+        # image_data = cursor.fetchmany()
+        print(10)
 
     booking_data["attraction"] = attraction_data
-    booking_data["attraction"]["image"] = image_data["images"]
+    print(11)
+    # print(booking_data["attraction"])
+    # print(booking_data["attraction"][0])
+    print(image_data[0]["images"])
+    # print(12)
+    # print(booking_data["attraction"]["image"])
+    print(12)
+    print(image_data[0])
+    # booking_data["attraction"]["image"] = image_data["images"]
+    booking_data["attraction"][0]["image"] = image_data[0]["images"]
+    print(13)
     return dict(data=booking_data)
 
 
@@ -457,6 +495,86 @@ def delete_booking():
         mimetype="application/json",
         status=200,
     )
+
+
+@app.route('/api/orders', methods=["POST"])
+def post_orders():
+    data = flask.request.get_json()
+    print(data)
+    prime = data['prime']
+    order = data['order']
+
+    partner_key = 'partner_4p3zHkTBSMy1PoKS3URoIVUDEqFD2ApEYMbWJ1QO2JUPOo58zTj6KA5t'
+    merchant_id = 'vtour22_CTBC'
+
+    response = httpx.post(
+        url="https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime",
+        headers={
+            'x-api-key': partner_key,
+            # 'Content-Type': 'application/json',
+        },
+        # data=json.dumps(
+        #     {
+        #         "prime": prime,
+        #         "partner_key": partner_key,
+        #         "merchant_id": merchant_id,
+        #         "details": "TapPay Test",
+        #         "amount": order['price'],
+        #         "cardholder": {
+        #             "phone_number": order['contact']['phone'],
+        #             "name": order['contact']['name'],
+        #             "email": order['contact']['email'],
+        #         },
+        #         "remember": True,
+        #     }
+        # ),
+        json={
+            "prime": prime,
+            "partner_key": partner_key,
+            "merchant_id": merchant_id,
+            "details": "TapPay Test",
+            "amount": order['price'],
+            "cardholder": {
+                "phone_number": order['contact']['phone'],
+                "name": order['contact']['name'],
+                "email": order['contact']['email'],
+            },
+            "remember": True,
+        },
+    )
+    payment_data = response.json()
+
+    # insert to table
+    # cnx = cnxpool.get_connection()
+    # cursor = cnx.cursor(dictionary=True)
+    # try:
+    #     cursor.execute(
+    #         '''INSERT INTO orders
+    #         (userId,attractionId,selectedDate,selectedTime,price,contactName,contactEmail,contactPhone)
+    #         VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''',
+    #         (userid, attractionId, date, time,
+    #          price, order['contact']['name'], order['contact']['email'], order['contact']['name']),
+    #     )
+    #     cnx.commit()
+    #     cursor.close()
+    #     cnx.close()
+    #     return flask.Response(
+    #         json.dumps({"ok": True, }),
+    #         mimetype="application/json",
+    #         status=200,
+    #     )
+    # except mysql.connector.Error as e:
+    #     print(e)
+
+    # return flask.Response(
+    #     json.dumps(
+    #         {"error": True, "message": "Internal Server Error"}),
+    #     mimetype="application/json",
+    #     status=500,
+    # )
+    # response to FE
+
+    return {}
 
 
 app.run(host="0.0.0.0", debug=True, port=3000)

@@ -179,14 +179,14 @@ function checkBooking() {
       if (result.data !== null) {
         console.log(result);
         document.querySelector(".bookingImg").src =
-          result.data.attraction.image;
+          result.data.attraction[0].image;
         document.querySelector(".nameSpan").textContent =
           result.data.attraction.name;
         document.querySelector(".timeSpan").textContent = result.data.time;
         document.querySelector(".dateSpan").textContent = result.data.date;
         document.querySelector(".priceSpan").textContent = result.data.price;
         document.querySelector(".addressSpan").textContent =
-          result.data.attraction.address;
+          result.data.attraction[0].address;
         document.querySelector(".ttltextSpan").textContent =
           "新台幣" + result.data.price + "元";
         ttltextDiv.appendChild(ttltextSpan);

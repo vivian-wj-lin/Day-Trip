@@ -40,6 +40,7 @@ function showSlides(n) {
 ////////slide show ends
 
 function loadImages(images) {
+  console.log("43");
   console.log(images);
   //images and dotted indicators
   const slideshowContainerDiv = document.querySelector(".slideshow-container");

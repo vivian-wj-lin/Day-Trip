@@ -140,16 +140,8 @@ $("form").on("submit", function (event) {
       return;
     }
     alert("get prime 成功，prime: " + result.card.prime);
-
-    const requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-    fetch("/api/orders", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-      });
+    //post
+    //redirect
   });
 });
 
