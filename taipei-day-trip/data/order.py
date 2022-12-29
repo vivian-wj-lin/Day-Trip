@@ -36,7 +36,7 @@ mycursor.execute(
 CREATE TABLE orders
 (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  orderNumber date UNIQUE NOT NULL,
+  orderNumber DATETIME DEFAULT (NOW()) UNIQUE NOT NULL,
   userId int UNIQUE NOT NULL,
   attractionId int NOT NULL,
   selectedDate date not null,

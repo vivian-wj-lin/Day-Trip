@@ -395,7 +395,6 @@ def cartInfo():
             mimetype="application/json",
             status=403,
         )
-    print(1)
     with get_cursor() as cursor:
         cursor.execute(
             '''
@@ -412,11 +411,8 @@ def cartInfo():
             mimetype="application/json",
             status=200,
         )
-    print(2)
     attractionId = booking_data["attractionId"]
-    print(3)
     del booking_data["attractionId"]
-    print(4)
     with get_cursor() as cursor:
         cursor.execute(
             '''
@@ -428,12 +424,9 @@ def cartInfo():
         )
         # attraction_data = cursor.fetchone()
         attraction_data = cursor.fetchall()
-        print(5)
         # attraction_data = cursor.fetchmany()
-        print(6)
 
     with get_cursor() as cursor:
-        print(7)
         cursor.execute(
             '''
             SELECT images 
@@ -443,27 +436,15 @@ def cartInfo():
             ;''',
             (attractionId,),
         )
-        print(8)
         # image_data = cursor.fetchone()
         image_data = cursor.fetchall()
-        print(9)
         print(image_data)
         print(image_data[0]["images"])
         # image_data = cursor.fetchmany()
-        print(10)
 
     booking_data["attraction"] = attraction_data
-    print(11)
-    # print(booking_data["attraction"])
-    # print(booking_data["attraction"][0])
-    print(image_data[0]["images"])
-    # print(12)
-    # print(booking_data["attraction"]["image"])
-    print(12)
-    print(image_data[0])
     # booking_data["attraction"]["image"] = image_data["images"]
     booking_data["attraction"][0]["image"] = image_data[0]["images"]
-    print(13)
     return dict(data=booking_data)
 
 
@@ -500,9 +481,24 @@ def delete_booking():
 @app.route('/api/orders', methods=["POST"])
 def post_orders():
     data = flask.request.get_json()
+    user = get_userinfo()
+    if user is None:
+        return flask.Response(
+            json.dumps({"error": True, "message": "Please log in"}),
+            mimetype="application/json",
+            status=403,
+        )
     print(data)
+    print("break")
+    print(user)
     prime = data['prime']
     order = data['order']
+    userid = user["id"]
+    attractionId = data["order"]["trip"]["attraction"]["id"]
+    print(attractionId)
+    date = data["order"]["trip"]["date"]
+    time = data["order"]["trip"]["time"]
+    price = data["order"]["price"]
 
     partner_key = 'partner_4p3zHkTBSMy1PoKS3URoIVUDEqFD2ApEYMbWJ1QO2JUPOo58zTj6KA5t'
     merchant_id = 'vtour22_CTBC'
@@ -543,38 +539,66 @@ def post_orders():
         },
     )
     payment_data = response.json()
+    print("payment_data:")
+    print(payment_data)
 
-    # insert to table
-    # cnx = cnxpool.get_connection()
-    # cursor = cnx.cursor(dictionary=True)
-    # try:
-    #     cursor.execute(
-    #         '''INSERT INTO orders
-    #         (userId,attractionId,selectedDate,selectedTime,price,contactName,contactEmail,contactPhone)
-    #         VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''',
-    #         (userid, attractionId, date, time,
-    #          price, order['contact']['name'], order['contact']['email'], order['contact']['name']),
-    #     )
-    #     cnx.commit()
-    #     cursor.close()
-    #     cnx.close()
-    #     return flask.Response(
-    #         json.dumps({"ok": True, }),
-    #         mimetype="application/json",
-    #         status=200,
-    #     )
-    # except mysql.connector.Error as e:
-    #     print(e)
+    # insert order to table
+    cnx = cnxpool.get_connection()
+    cursor = cnx.cursor(dictionary=True)
+    try:
+        cursor.execute(
+            '''INSERT INTO orders
+            (userId,attractionId,selectedDate,selectedTime,price,contactName,contactEmail,contactPhone)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''',
+            (userid, attractionId, date, time,
+             price, order['contact']['name'], order['contact']['email'], order['contact']['name']),
+        )
+        cnx.commit()
+        # cursor.close()
+        # cnx.close()
+        cursor.execute(
+            '''
+            SELECT orderNumber AS number
+            FROM orders
+            WHERE userId = %s
+            ;''',
+            (userid,),
+        )
+        orderNumber_data = cursor.fetchone()
+        print("orderNumber_data:")
+        print(orderNumber_data)
+        # {'number': datetime.datetime(2022, 12, 29, 16, 39, 17)}
+        # attraction_data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
 
-    # return flask.Response(
-    #     json.dumps(
-    #         {"error": True, "message": "Internal Server Error"}),
-    #     mimetype="application/json",
-    #     status=500,
-    # )
-    # response to FE
+        if orderNumber_data is None:
+            return flask.Response(
+                json.dumps(
+                    {"error": True, "message": "Order failed to established for wrong typing or other reasons"}),
+                mimetype="application/json",
+                status=400,
+            )
+        return flask.Response(
+            json.dumps({"data": {
+                "number": "20210425121135",
+                "payment": {
+                    "status": 0,
+                    "message": "付款成功"
+                }
+            }}),
+            mimetype="application/json",
+            status=200,
+        )
+    except mysql.connector.Error as e:
+        print(e)
 
-    return {}
+    return flask.Response(
+        json.dumps(
+            {"error": True, "message": "Internal Server Error"}),
+        mimetype="application/json",
+        status=500,
+    )
 
 
 app.run(host="0.0.0.0", debug=True, port=3000)
