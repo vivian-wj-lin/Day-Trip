@@ -13,6 +13,7 @@ import datetime
 from flask import *
 from flask import Flask, request
 
+
 app = Flask(__name__, static_folder="templates", static_url_path="/static")
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -100,8 +101,6 @@ def api_attractionId(attractionId):
             val = (attractionId,)
             att_cursor.execute(sql, val)
             attraction = att_cursor.fetchall()
-            # print(attraction)
-            # print("finish")
 
         if attraction is None:
             return flask.Response(
@@ -485,15 +484,10 @@ def post_orders():
             mimetype="application/json",
             status=403,
         )
-    # print(data)
-    # print("break")
-    # print(user)
     prime = data['prime']
     order = data['order']
     userid = user["id"]
     attractionId = data["order"]["trip"]["attraction"]["id"]
-    # print("attractionId")
-    # print(attractionId)
     date = data["order"]["trip"]["date"]
     time = data["order"]["trip"]["time"]
     price = data["order"]["price"]
@@ -544,7 +538,6 @@ def post_orders():
     cnx = cnxpool.get_connection()
     cursor = cnx.cursor(dictionary=True)
     order_number = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-    # order_number = 12345
     try:
         cursor.execute(
             '''INSERT INTO orders
@@ -565,9 +558,6 @@ def post_orders():
             (userid,),
         )
         orderNumber_data = cursor.fetchone()
-        # print("orderNumber_data:")
-        # print(orderNumber_data)
-        # {'number': datetime.datetime(2022, 12, 29, 16, 39, 17)}
         # attraction_data = cursor.fetchall()
         cursor.close()
         cnx.close()
@@ -613,9 +603,6 @@ def get_orderInfo(orderNumber):
         sql = ' SELECT * FROM orders WHERE orderNumber = %s;'
         # val = ([f'{orderNumber}'])
         val = (orderNumber,)
-        # print(type(orderNumber))
-        # print(orderNumber)
-
         cursor.execute(sql, val)
         order_data = cursor.fetchall()
 

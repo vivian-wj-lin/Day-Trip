@@ -195,12 +195,15 @@ $("form").on("submit", function (event) {
       redirect: "follow",
     };
 
-    fetch("http://127.0.0.1:3000/api/orders", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-    //redirect
-    console.log("success");
+    fetch("/api/orders", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result["data"] != null) {
+          const suffixNumber = result["data"]["number"];
+          const url = "/thankyou?number=" + suffixNumber;
+          window.location.replace(url);
+        }
+      });
   });
 });
 
