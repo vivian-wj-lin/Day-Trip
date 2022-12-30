@@ -530,15 +530,16 @@ def post_orders():
             "remember": True,
         },
     )
-    payment_data = response.json()
+    # payment_data = response.json()
     # print("payment_data:")
     # print(payment_data)
 
     # insert order to table
-    cnx = cnxpool.get_connection()
-    cursor = cnx.cursor(dictionary=True)
+
     order_number = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     try:
+        cnx = cnxpool.get_connection()
+        cursor = cnx.cursor(dictionary=True, buffered=True)
         cursor.execute(
             '''INSERT INTO orders
             (userId,orderNumber,attractionId,selectedDate,selectedTime,price,contactName,contactEmail,contactPhone,status)
@@ -547,8 +548,11 @@ def post_orders():
              price, order['contact']['name'], order['contact']['email'], order['contact']['name'], "0"),
         )
         cnx.commit()
-        # cursor.close()
-        # cnx.close()
+        cursor.close()
+        cnx.close()
+
+        cnx = cnxpool.get_connection()
+        cursor = cnx.cursor(dictionary=True, buffered=True)
         cursor.execute(
             '''
             SELECT DATE_FORMAT(orderNumber, '%Y%m%d%H%i%S') AS number
@@ -605,6 +609,8 @@ def get_orderInfo(orderNumber):
         val = (orderNumber,)
         cursor.execute(sql, val)
         order_data = cursor.fetchall()
+        # print("order_data")
+        # print(order_data)
 
         [(order_id, order_orderNumber, order_userId, order_attractionId,
           order_selectedDate, order_selectedTime, order_price, order_contactName,
