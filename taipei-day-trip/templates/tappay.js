@@ -141,7 +141,66 @@ $("form").on("submit", function (event) {
     }
     alert("get prime 成功，prime: " + result.card.prime);
     //post
+    let localStorageId = localStorage.getItem("BookingAttId");
+    console.log(localStorageId);
+    let contactName = document.querySelector("input[name='contactName']").value;
+    let contactEmail = document.querySelector(
+      "input[name='contactEmail']"
+    ).value;
+    let contactPhone = document.querySelector(
+      "input[name='contactPhone']"
+    ).value;
+    let attName = document.querySelector("span[class='nameSpan']").textContent;
+    console.log(attName);
+    let attPrice = document.querySelector(
+      "span[class='priceSpan']"
+    ).textContent;
+    let attDate = document.querySelector("span[class='dateSpan']").textContent;
+    let attAddress = document.querySelector(
+      "span[class='addressSpan']"
+    ).textContent;
+    let bookingImg = document.querySelector("img[class='bookingImg']").src;
+    console.log(bookingImg);
+    let attTime = document.querySelector("span[class='timeSpan']").textContent;
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    // myHeaders.append("Cookie", `"hijkl=${userCookieValue}"`);
+
+    var raw = JSON.stringify({
+      prime: result.card.prime,
+      order: {
+        price: attPrice,
+        trip: {
+          attraction: {
+            id: localStorageId,
+            name: attName,
+            address: attAddress,
+            image: bookingImg,
+          },
+          date: attDate,
+          time: attTime,
+        },
+        contact: {
+          name: contactName,
+          email: contactEmail,
+          phone: contactPhone,
+        },
+      },
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://127.0.0.1:3000/api/orders", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
     //redirect
+    console.log("success");
   });
 });
 

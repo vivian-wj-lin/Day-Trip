@@ -249,6 +249,7 @@ function postBookingInfo() {
   document.querySelector(".bookingBtn").addEventListener("click", async () => {
     await deleteBooking();
     const attractionId = location.pathname.split("/").pop();
+    localStorage.setItem("BookingAttId", attractionId);
     const date = document.querySelector(".start").value;
     const time = document.querySelector('input[name="radio"]:checked').value;
     const intPrice = document.querySelector(".price").textContent;

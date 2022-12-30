@@ -181,7 +181,7 @@ function checkBooking() {
         document.querySelector(".bookingImg").src =
           result.data.attraction[0].image;
         document.querySelector(".nameSpan").textContent =
-          result.data.attraction.name;
+          result.data.attraction[0].name;
         document.querySelector(".timeSpan").textContent = result.data.time;
         document.querySelector(".dateSpan").textContent = result.data.date;
         document.querySelector(".priceSpan").textContent = result.data.price;
@@ -223,6 +223,7 @@ function main() {
   logout();
   checkBooking();
   deleteBooking();
+
 
   document.querySelector(".login-and-signup").addEventListener("click", () => {
     document.querySelector(".signin-window").style = "";

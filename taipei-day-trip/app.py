@@ -9,7 +9,7 @@ import httpx
 from mysql.connector import pooling
 from mysql.connector.errors import Error
 from contextlib import contextmanager
-
+import datetime
 from flask import *
 from flask import Flask, request
 
@@ -100,6 +100,8 @@ def api_attractionId(attractionId):
             val = (attractionId,)
             att_cursor.execute(sql, val)
             attraction = att_cursor.fetchall()
+            # print(attraction)
+            # print("finish")
 
         if attraction is None:
             return flask.Response(
@@ -120,23 +122,18 @@ def api_attractionId(attractionId):
             img_cursor.execute(sql, val)
             images = img_cursor.fetchall()
         # print(images)
-        print(1)
         images = [x["images"] for x in images]
-        print(2)
         # print(type(images))
         # print(type(attraction["images"]))
-        print(attraction)
-        print(type(attraction))  # list
+        # print(attraction)
+        # print(type(attraction))  # list
         # attraction[0]["images"]
         attraction[0]["images"] = images
-        print(images)
-        print(type(images))  # list
-        print(3)
+        # print(images)
+        # print(type(images))  # list
         return {
             "data": attraction[0],
         }
-        print(5)
-
         # fetchall 回傳 [{"images": ...}]
         # fetchone 回傳 {"images": ...}
 
@@ -399,7 +396,7 @@ def cartInfo():
         cursor.execute(
             '''
             SELECT attractionId,DATE_FORMAT(date,'%Y-%m-%d') AS date,time,price
-            FROM Booking 
+            FROM Booking
             WHERE userId = %s
             ;''',
             (user["id"],),
@@ -416,7 +413,7 @@ def cartInfo():
     with get_cursor() as cursor:
         cursor.execute(
             '''
-            SELECT source_id AS id, name, address 
+            SELECT source_id AS id, name, address
             FROM Attractions
             WHERE source_id = %s
             ;''',
@@ -429,7 +426,7 @@ def cartInfo():
     with get_cursor() as cursor:
         cursor.execute(
             '''
-            SELECT images 
+            SELECT images
             FROM Images
             WHERE source_id = %s
             LIMIT 1
@@ -438,8 +435,8 @@ def cartInfo():
         )
         # image_data = cursor.fetchone()
         image_data = cursor.fetchall()
-        print(image_data)
-        print(image_data[0]["images"])
+        # print(image_data)
+        # print(image_data[0]["images"])
         # image_data = cursor.fetchmany()
 
     booking_data["attraction"] = attraction_data
@@ -462,8 +459,8 @@ def delete_booking():
     cursor = cnx.cursor(dictionary=True)
     cursor.execute(
         '''
-        DELETE 
-        FROM `Booking` 
+        DELETE
+        FROM `Booking`
         WHERE `userId` = %s
         ;''',
         (user['id'],),
@@ -488,14 +485,15 @@ def post_orders():
             mimetype="application/json",
             status=403,
         )
-    print(data)
-    print("break")
-    print(user)
+    # print(data)
+    # print("break")
+    # print(user)
     prime = data['prime']
     order = data['order']
     userid = user["id"]
     attractionId = data["order"]["trip"]["attraction"]["id"]
-    print(attractionId)
+    # print("attractionId")
+    # print(attractionId)
     date = data["order"]["trip"]["date"]
     time = data["order"]["trip"]["time"]
     price = data["order"]["price"]
@@ -539,39 +537,40 @@ def post_orders():
         },
     )
     payment_data = response.json()
-    print("payment_data:")
-    print(payment_data)
+    # print("payment_data:")
+    # print(payment_data)
 
     # insert order to table
     cnx = cnxpool.get_connection()
     cursor = cnx.cursor(dictionary=True)
+    order_number = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    # order_number = 12345
     try:
         cursor.execute(
             '''INSERT INTO orders
-            (userId,attractionId,selectedDate,selectedTime,price,contactName,contactEmail,contactPhone)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s)''',
-            (userid, attractionId, date, time,
-             price, order['contact']['name'], order['contact']['email'], order['contact']['name']),
+            (userId,orderNumber,attractionId,selectedDate,selectedTime,price,contactName,contactEmail,contactPhone,status)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',
+            (userid, order_number, attractionId, date, time,
+             price, order['contact']['name'], order['contact']['email'], order['contact']['name'], "0"),
         )
         cnx.commit()
         # cursor.close()
         # cnx.close()
         cursor.execute(
             '''
-            SELECT orderNumber AS number
+            SELECT DATE_FORMAT(orderNumber, '%Y%m%d%H%i%S') AS number
             FROM orders
             WHERE userId = %s
             ;''',
             (userid,),
         )
         orderNumber_data = cursor.fetchone()
-        print("orderNumber_data:")
-        print(orderNumber_data)
+        # print("orderNumber_data:")
+        # print(orderNumber_data)
         # {'number': datetime.datetime(2022, 12, 29, 16, 39, 17)}
         # attraction_data = cursor.fetchall()
         cursor.close()
         cnx.close()
-
         if orderNumber_data is None:
             return flask.Response(
                 json.dumps(
@@ -581,7 +580,7 @@ def post_orders():
             )
         return flask.Response(
             json.dumps({"data": {
-                "number": "20210425121135",
+                "number": orderNumber_data['number'],
                 "payment": {
                     "status": 0,
                     "message": "付款成功"
@@ -599,6 +598,67 @@ def post_orders():
         mimetype="application/json",
         status=500,
     )
+
+
+@app.route("/api/order/<orderNumber>")
+def get_orderInfo(orderNumber):
+    user = get_userinfo()
+    cnx = cnxpool.get_connection()
+    cursor = cnx.cursor()
+    orderNumber = int(orderNumber)
+
+    if user is None:
+        return {"error": True, "message": "Please log in"}, 403
+    try:
+        sql = ' SELECT * FROM orders WHERE orderNumber = %s;'
+        # val = ([f'{orderNumber}'])
+        val = (orderNumber,)
+        # print(type(orderNumber))
+        # print(orderNumber)
+
+        cursor.execute(sql, val)
+        order_data = cursor.fetchall()
+
+        [(order_id, order_orderNumber, order_userId, order_attractionId,
+          order_selectedDate, order_selectedTime, order_price, order_contactName,
+          order_contactEmail, order_contactPhone, order_status)] = order_data
+
+        attraction_Data = api_attractionId(order_attractionId)
+        getEventDate = cartInfo()
+        getEventDate = cartInfo()["data"]["date"]
+        # print("getEventDate")
+        # print(getEventDate)
+
+        # print("attraction_Data")
+        # print(attraction_Data)
+        source_id = attraction_Data['data']['source_id']
+        att_name = attraction_Data['data']['name']
+        att_address = attraction_Data['data']['address']
+        att_img = attraction_Data['data']['images'][0]
+        # print(source_id)
+
+        return {"data": {
+            "number": orderNumber,
+            "price": order_price,
+            "trip": {
+                "attraction": {
+                    "id": order_attractionId,
+                    "name": att_name,
+                    "address": att_address,
+                    "image": att_img},
+                "date": getEventDate,
+                "time": order_selectedTime},
+            "contact": {
+                "name": order_contactName,
+                "email": order_contactEmail,
+                "phone": order_contactPhone},
+            "status": order_status,
+        }
+        }
+
+    except Exception as e:
+        print(e)
+        return {"data": None}
 
 
 app.run(host="0.0.0.0", debug=True, port=3000)

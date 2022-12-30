@@ -36,15 +36,16 @@ mycursor.execute(
 CREATE TABLE orders
 (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  orderNumber DATETIME DEFAULT (NOW()) UNIQUE NOT NULL,
-  userId int UNIQUE NOT NULL,
+  orderNumber varchar(50) NOT NULL,
+  userId int NOT NULL,
   attractionId int NOT NULL,
   selectedDate date not null,
   selectedTime char(50) not null,
   price int not null,
   contactName varchar(50) NOT null,
   contactEmail varchar(50) not null,
-  contactPhone varchar(50) not null
+  contactPhone varchar(50) not null,
+  status int DEFAULT 1
 );
     '''
 )
