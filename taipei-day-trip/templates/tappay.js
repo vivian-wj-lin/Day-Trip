@@ -1,3 +1,16 @@
+function deleteBooking() {
+  const requestOptions = {
+    method: "DELETE",
+    redirect: "follow",
+    // redirect: "None",
+  };
+  fetch("/api/booking", requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+    });
+}
+
 const APP_ID = 127055;
 const APP_KEY =
   "app_9oek7nfxApTNz16O9vb77MOEM46IXUekBvrpKTBBarOYghze4vw87MLhjdbr";
@@ -134,12 +147,12 @@ $("form").on("submit", function (event) {
   }
 
   // Get prime
-  TPDirect.card.getPrime(function (result) {
+  TPDirect.card.getPrime(async function (result) {
     if (result.status !== 0) {
       alert("get prime error " + result.msg);
       return;
     }
-    alert("get prime 成功，prime: " + result.card.prime);
+    alert("付款成功!");
     //post
     let localStorageId = localStorage.getItem("BookingAttId");
     console.log(localStorageId);
@@ -195,7 +208,7 @@ $("form").on("submit", function (event) {
       redirect: "follow",
     };
 
-    fetch("/api/orders", requestOptions)
+    await fetch("/api/orders", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["data"] != null) {
@@ -204,6 +217,7 @@ $("form").on("submit", function (event) {
           window.location.replace(url);
         }
       });
+    await deleteBooking();
   });
 });
 

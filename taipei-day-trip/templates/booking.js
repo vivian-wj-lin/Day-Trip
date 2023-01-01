@@ -224,7 +224,6 @@ function main() {
   checkBooking();
   deleteBooking();
 
-
   document.querySelector(".login-and-signup").addEventListener("click", () => {
     document.querySelector(".signin-window").style = "";
     document.querySelector(".login").style = "";
@@ -247,6 +246,14 @@ function main() {
     "click",
     () => {
       window.location.href = "/";
+    },
+    false
+  );
+
+  document.querySelector(".booking").addEventListener(
+    "click",
+    () => {
+      window.location.href = "/booking";
     },
     false
   );

@@ -192,6 +192,13 @@ function main() {
     },
     false
   );
+  document.querySelector(".booking").addEventListener(
+    "click",
+    () => {
+      window.location.href = "/booking";
+    },
+    false
+  );
 }
 
 main();
