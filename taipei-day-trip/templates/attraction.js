@@ -40,6 +40,7 @@ function showSlides(n) {
 ////////slide show ends
 
 function loadImages(images) {
+  console.log("43");
   console.log(images);
   //images and dotted indicators
   const slideshowContainerDiv = document.querySelector(".slideshow-container");
@@ -192,6 +193,8 @@ function checkIsLogin() {
         document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
       } else {
+        document.querySelector(".signin-window").style = "";
+        document.querySelector(".login").style = "";
         document.querySelector(".logout").style = "display:none";
         document.querySelector(".login-and-signup").style = "";
       }
@@ -230,11 +233,68 @@ function logout() {
   });
 }
 
+function deleteBooking() {
+  const requestOptions = {
+    method: "DELETE",
+    redirect: "follow",
+  };
+  return fetch("/api/booking", requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+    });
+}
+
+function postBookingInfo() {
+  document.querySelector(".bookingBtn").addEventListener("click", async () => {
+    await deleteBooking();
+    const attractionId = location.pathname.split("/").pop();
+    localStorage.setItem("BookingAttId", attractionId);
+    const date = document.querySelector(".start").value;
+    const time = document.querySelector('input[name="radio"]:checked').value;
+    const intPrice = document.querySelector(".price").textContent;
+    console.log(intPrice);
+    // let text = "新台幣 2000 元";
+    // let result = text.substr(3,6);//2000
+    const price = parseInt(Number(intPrice.substr(3, 6)));
+    console.log(price);
+    const newHeaders = new Headers();
+    newHeaders.append("Content-Type", "application/json");
+    const newbody = JSON.stringify({
+      attractionId,
+      date,
+      time,
+      price,
+    });
+    const requestOptions = {
+      method: "POST",
+      headers: newHeaders,
+      body: newbody,
+      redirect: "follow",
+    };
+    fetch("/api/booking", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        console.log(result.message);
+        if (
+          result.message ==
+          "Reservation failed to established for duplicate orders or other reasons"
+        ) {
+          console.log("duplicate orders");
+        }
+      });
+    window.location.href = "/booking";
+  });
+}
+
 async function main() {
   signup();
   login();
-  checkIsLogin();
+  // checkIsLogin();
   logout();
+  postBookingInfo();
+  // deleteBooking();
 
   const attractionData = (await getAttractionData()).data;
   const timeSelectedMorning = document.querySelector(".morning");
@@ -294,23 +354,14 @@ async function main() {
     },
     false
   );
-  document.querySelector(".bookingBtn").addEventListener("click", () => {
-    const attractionId = location.pathname.split("/").pop();
-    const dateSelected = document.querySelector(".start").value;
-    const timeSelected = document.querySelector(
-      'input[name="radio"]:checked'
-    ).value;
-    const price = document.querySelector(".price").textContent;
-    localStorage.setItem("BookingAttId", attractionId);
-    localStorage.setItem("date", dateSelected);
-    localStorage.setItem("time", timeSelected);
-    localStorage.setItem("price", price);
-    if (document.cookie !== null) {
+  document.querySelector(".booking").addEventListener(
+    "click",
+    () => {
+      checkIsLogin();
       window.location.href = "/booking";
-    } else {
-      window.location.href = "/";
-    }
-  });
+    },
+    false
+  );
 }
 
 main();

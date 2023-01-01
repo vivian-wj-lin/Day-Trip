@@ -250,7 +250,10 @@ function checkIsLogin() {
         // if (result["error"] !== null) {
         document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
+        window.location.href = "/booking";
       } else {
+        document.querySelector(".signin-window").style = "";
+        document.querySelector(".login").style = "";
         document.querySelector(".logout").style = "display:none";
         document.querySelector(".login-and-signup").style = "";
       }
@@ -291,7 +294,7 @@ function main() {
   loadCategories();
   signup();
   login();
-  checkIsLogin();
+  // checkIsLogin();
   logout();
 
   document.querySelector(".searchinput").addEventListener("focus", () => {
@@ -336,6 +339,13 @@ function main() {
     document.querySelector(".signup").style = "display:none";
     document.querySelector(".login").style = "";
   });
+  document.querySelector(".booking").addEventListener(
+    "click",
+    () => {
+      checkIsLogin();
+    },
+    false
+  );
 }
 
 main();

@@ -15,11 +15,34 @@ body {
   justify-content: center;
 }
 body {
+  /* background: gainsboro; */
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   max-width: 1920px;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  /* background: beige; */
+}
+input {
+  box-sizing: border-box;
+  width: 200px;
+  height: 38px;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  padding: 10px;
+}
+.tpfield {
+  box-sizing: border-box;
+  width: 200px;
+  height: 38px;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  padding: 10px;
+  display: inline-block;
+  margin-bottom: -15px;
 }
 .login,
 .signup,
@@ -85,6 +108,8 @@ body {
 .logout-headline {
   width: 310px;
   height: 27px;
+  /* width: 280px;
+  height: 17px; */
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 700;
@@ -98,10 +123,10 @@ body {
 .input-name,
 .input-email,
 .input-password {
+  /* width: 310px;
+  height: 47px; */
   width: 280px;
   height: 17px;
-  width: 310px;
-  height: 47px;
   font-weight: 500;
   font-size: 16px;
   margin: 0 auto;
@@ -109,7 +134,17 @@ body {
   border: 1px solid #cccccc;
   border-radius: 5px;
 }
-
+.warning-text {
+  /* padding-left: 35px; */
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  color: #666666;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .loginButton,
 .signupButton {
   border: none;
@@ -216,41 +251,198 @@ img {
 }
 
 /* desktop width1920px */
-
+.greetings {
+  padding-top: 10px;
+  border-top: 1px solid #e8e8e8;
+  margin-top: 70px;
+  margin-bottom: 20px;
+  /* background: darkseagreen; */
+  text-align: start;
+  /* padding-left: 80px; */
+  width: 1200px;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 16px;
+  /* padding-left: 35px; */
+  width: 1200px;
+}
+.greetingstext {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  margin-top: 20px;
+}
 .the-upper-container {
+  margin: 10px auto 10px auto;
   background-color: white;
-  width: 100%;
+  width: 1200px;
   /* height: 45%;
   min-height: 500px; */
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  /* margin-bottom: -30px; */
+  align-items: flex-start;
+  flex-direction: column;
+  /* padding-left: 200px; */
 }
 .the-upper-part {
-  margin-top: 40px;
-  /* width: 1200px; */
+  /* width: 100%; */
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 30px;
+  width: 1200px;
   background-color: white;
   /* background-color: burlywood; */
   flex-wrap: nowrap;
   display: flex;
   align-items: stretch;
-  padding-top: 40px;
+  /* padding-top: 40px; */
+  justify-content: flex-start;
+  align-items: stretch;
+  margin-left: 0;
+  padding-left: 0;
 }
-.the-upper-left {
+/* .the-upper-left {
   align-items: flex-end;
-  margin-right: 15px;
   justify-content: center;
   display: flex;
+} */
+.bookingImg {
+  /* margin-left: 20px; */
+  width: 266px;
+  height: 200px;
 }
 .the-upper-right {
+  margin-left: 40px;
   display: grid;
   align-items: center;
-  margin-left: 15px;
+  /* margin-left: 30px; */
 }
-
+.nameDiv,
+.dateDiv,
+.timeDiv,
+.priceDiv,
+.addressDiv {
+  /* width: 144px; */
+  height: 14px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  color: #666666;
+}
+.nameDiv {
+  color: #448899;
+}
+.dateSpan,
+.timeSpan,
+.priceSpan,
+.addressSpan,
+.NTSpan,
+.dollarSpans {
+  font-weight: 500;
+  margin-left: 10px;
+  font-size: 16px;
+}
+.delete-icon {
+  margin-left: 450px;
+  margin-right: 90px;
+}
+.the-bottom-container {
+  /* background: beige; */
+  display: flex;
+  width: 1200px;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-direction: column;
+  /* padding-left: 200px; */
+  height: auto;
+}
+.contactInfo {
+  width: 100%;
+  /* margin: 20px 0 20px 0; */
+}
+.contactName,
+.contactEmail,
+.contactPhone {
+  /* padding-left: 35px; */
+  font-weight: 500;
+  font-size: 16px;
+}
+.contactName {
+  margin-top: 10px;
+}
+.contacttext,
+.paymenttext {
+  /* padding-left: 35px; */
+  font-weight: 700;
+  font-size: 19px;
+}
+.the-bottom-container {
+  line-height: 50px;
+  height: auto;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+.paymentInfo {
+  border-top: 1px solid #e8e8e8;
+  /* padding-top: 20px; */
+  width: 100%;
+  /* margin: 20px 0 20px 0; */
+}
+.paymentCardNo,
+.expiredDate,
+.cvv {
+  /* padding-left: 35px; */
+}
+.submitDiv {
+  /* padding-top: 20px; */
+  margin: 20px 0 20px 0;
+  width: 100%;
+  align-items: end;
+  display: flex;
+  justify-content: flex-end;
+  /* padding-right: 100px; */
+  /* padding-bottom: 50px; */
+  flex-direction: column;
+  border-top: 1px solid #e8e8e8;
+}
+.totalpriceDiv {
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+  margin-right: 90px;
+  font-weight: 700;
+  font-size: 16px;
+}
+.ttltext {
+  font-weight: 700;
+  font-size: 16px;
+}
+.btnDiv {
+  margin-right: 90px;
+}
+.Btn {
+  font-weight: 400;
+  font-size: 19px;
+  border: none;
+  color: white;
+  width: 173px;
+  /* height: 36px; */
+  background: #448899;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+.upper_and_bottom {
+  max-width: 1200px;
+  width: 100%;
+}
 .footer {
   display: flex;
+  font-weight: 400;
+  font-size: 19px;
   width: 100%;
   height: 105px;
   text-align: center;
@@ -273,18 +465,40 @@ img {
   html,
   body {
     width: 100%;
+    height: auto;
     display: flex;
-    margin: 0;
+    margin: 0 auto 0 auto;
     padding: 0;
     justify-content: center;
     align-items: center;
   }
   .frame-section,
   .frame1200 {
+    max-width: 1200px;
     width: 100%;
   }
   .left {
     width: auto;
+  }
+  .greetingsContainer {
+    width: 100%;
+    display: flex;
+  }
+  .greetings {
+    width: auto;
+    max-width: 1200px;
+    /* margin-left: 60px; */
+    text-align: start;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 16px;
+    margin-left: 35px;
+  }
+  .greetingstext {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 13px;
+    margin-top: 20px;
   }
   .the-upper-container {
     width: 100%;
@@ -296,25 +510,54 @@ img {
     justify-content: center;
   }
 
-  .the-upper-left {
-    width: 45%;
+  /* .the-upper-left {
+    width: 100%;
     height: auto;
-  }
+  } */
 
   img {
     width: auto;
   }
   .the-upper-right {
-    width: 45%;
+    width: 100%;
+    margin-left: 20px;
+  }
+  .delete-icon {
+    margin-top: 100px;
   }
   .item,
   .booking,
   .login-and-signup {
     width: auto;
   }
-
+  .bookingImg {
+    margin-left: 35px;
+  }
+  .delete-icon {
+    margin-left: 0;
+  }
+  .the-bottom-container {
+    width: 100%;
+  }
+  .contacttext,
+  .paymenttext {
+    padding-left: 35px;
+  }
+  .contactName,
+  .contactEmail,
+  .contactPhone {
+    padding-left: 35px;
+  }
+  .warning-text {
+    padding-left: 35px;
+  }
+  .paymentCardNo,
+  .expiredDate,
+  .cvv {
+    padding-left: 35px;
+  }
   .footer {
-    height: 50px;
+    height: 100px;
     width: 100%;
     left: 0px;
     right: 0px;
@@ -328,7 +571,7 @@ img {
   }
 }
 
-@media (max-width: 680px) {
+/* @media (max-width: 800px) {
   html,
   body {
     width: 100%;
@@ -340,7 +583,11 @@ img {
     margin: 0 auto;
   }
   .frame-section {
-    width: 360px;
+    width: 100%;
+  }
+  .the-upper-container {
+    width: 100%;
+    max-width: 800px;
   }
   .the-upper-part {
     height: auto;
@@ -350,16 +597,24 @@ img {
 
   .the-upper-left {
     margin: 0 auto;
-    width: 360px;
-    height: 350px;
+    width: 100%;
     object-fit: cover;
   }
-
+  .delete-icon {
+    margin-right: -100px;
+    margin-left: 100px;
+  }
+  .bookingImg {
+    margin-left: 0;
+    width: 266px;
+    height: 200px;
+  }
   .the-upper-right {
     width: 340px;
     height: auto;
     margin: 0 auto;
     margin-top: 20px;
+    margin-left: 20px;
   }
 
   img {
@@ -368,21 +623,56 @@ img {
     object-fit: cover;
   }
 
-  footer {
+  .footer {
+    width: 1200px;
     height: 100px;
-    margin-top: 150px;
+    margin-top: 20px;
+    padding-left: 0;
   }
-}
-@media (max-width: 360px) {
+} */
+@media (max-width: 800px) {
   body {
     width: 100%;
+    display: flex;
+    justify-items: center;
+    align-items: center;
   }
-
-  .frame-section {
+  .frame1200 {
+    max-width: 800px;
     width: 100%;
     height: auto;
   }
 
+  .frame-section {
+    max-width: 800px;
+    width: 100%;
+    height: auto;
+  }
+  .greetingsContainer {
+    width: auto;
+  }
+  .greetings {
+    /* display: flex; */
+    justify-content: center;
+    margin-left: 0;
+    max-width: 360px;
+    padding-left: 0;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 16px;
+    width: 340px;
+  }
+  .greetingstext {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 13px;
+    margin-top: 20px;
+  }
+
+  .upper_and_bottom {
+    max-width: 800px;
+    max-width: 340px;
+  }
   .the-upper-container {
     width: 90%;
     height: auto;
@@ -391,21 +681,91 @@ img {
     justify-content: center;
     margin: 0 auto;
   }
+  .the-upper-part {
+    display: flex;
+    flex-direction: column;
+  }
   .the-upper-left {
     height: auto;
     width: 90%;
+  }
+  .bookingImg {
+    width: 340px;
+    height: 256px;
+    margin-left: 0px;
+  }
+  .the-upper-part {
+    display: flex;
+    align-items: center;
+    width: 340px;
+  }
+  .nameDiv,
+  .dateDiv,
+  .timeDiv,
+  .priceDiv,
+  .addressDiv {
+    margin: 10px;
+    margin-left: 0;
   }
   .the-upper-right {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     justify-items: center;
-    align-items: center;
     margin: auto;
+    align-items: start;
+    flex-direction: column;
+    line-height: 13px;
+    height: auto;
+    margin: 20px;
+    margin: 20px auto auto 0;
+    width: 340px;
   }
-
+  .deleteDiv {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .delete-icon {
+    margin: 0;
+    margin-top: 10px;
+    margin-right: 40px;
+    margin-right: 0px;
+    margin-right: -160px;
+  }
   img {
     width: 100%;
     height: auto;
+  }
+  .contacttext,
+  .paymenttext {
+    padding-left: 0;
+  }
+  .contactName,
+  .contactEmail,
+  .contactPhone {
+    padding-left: 0;
+  }
+  .warning-text {
+    padding-left: 0;
+    line-height: 23px;
+  }
+  .paymentCardNo,
+  .expiredDate,
+  .cvv {
+    padding-left: 0;
+  }
+  .totalpriceDiv {
+    margin-right: 0;
+  }
+  .btnDiv {
+    margin-right: 0;
+  }
+  .submitDiv {
+    padding-right: 20px;
+  }
+
+  .footer {
+    max-width: 800px;
+    width: 100%;
   }
 }

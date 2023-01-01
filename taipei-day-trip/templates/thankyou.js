@@ -111,8 +111,8 @@ function checkIsLogin() {
     .then((response) => response.json())
     .then((result) => {
       if (result.data !== null) {
-        document.querySelector(".greetingName").textContent =
-          result.data.name + " ，";
+        // document.querySelector(".greetingName").textContent =
+        //   result.data.name + " ，";
         document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
       } else {
@@ -139,15 +139,18 @@ function logout() {
           document.querySelector(".logout").style = "display:none";
           document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout-window").style = "";
-          document.querySelector(".greetings").style.opacity = "0.5";
-          document.querySelector(".upper_and_bottom").style.opacity = "0.5";
+          // document.querySelector(".greetings").style.opacity = "0.5";
+          // document.querySelector(".upper_and_bottom").style.opacity = "0.5";
           document.querySelector(".footer").style.opacity = "0.5";
+          window.location.href = "/";
           setTimeout(() => {
             document.querySelector(".logout-window").style = "display:none";
-            document.querySelector(".greetings").style.opacity = "";
-            document.querySelector(".upper_and_bottom").style.opacity = "";
+            // document.querySelector(".greetings").style.opacity = "";
+            // document.querySelector(".upper_and_bottom").style.opacity = "";
             document.querySelector(".footer").style.opacity = "";
-            checkIsLogin();
+            console.log("1");
+            window.location.href = "/";
+            // checkIsLogin();
           }, 1000);
         } else {
           // document.querySelector(".login-and-signup").style = "display:none";
@@ -157,78 +160,18 @@ function logout() {
       .catch((error) => console.log("error", error));
   });
 }
-function checkBooking() {
-  const requestOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
-  fetch("/api/booking", requestOptions)
-    .then((response) => response.json())
-    .then((result) => {
-      if (result.data == null) {
-        document.querySelector(".the-upper-container").style = "display:none";
-        document.querySelector(".contactInfo").innerHTML = "";
-        document.querySelector(".paymentInfo").innerHTML = "";
-        const greetingsDiv = document.querySelector(".greetings");
-        const greetingstext = document.createElement("div");
-        greetingstext.className = "greetingstext";
-        greetingstext.textContent = "目前沒有任何待預定的行程";
-        greetingsDiv.appendChild(greetingstext);
-        document.querySelector(".footer").style = "min-height:500px;";
-      }
-      if (result.data !== null) {
-        console.log(result);
-        document.querySelector(".bookingImg").src =
-          result.data.attraction[0].image;
-        document.querySelector(".nameSpan").textContent =
-          result.data.attraction[0].name;
-        document.querySelector(".timeSpan").textContent = result.data.time;
-        document.querySelector(".dateSpan").textContent = result.data.date;
-        document.querySelector(".priceSpan").textContent = result.data.price;
-        document.querySelector(".addressSpan").textContent =
-          result.data.attraction[0].address;
-        document.querySelector(".ttltextSpan").textContent =
-          "新台幣" + result.data.price + "元";
-        ttltextDiv.appendChild(ttltextSpan);
-      }
-    }) //{"data":null} //hello = () => "Hello World!";
-    .catch((error) => console.log("error", error));
-}
-function deleteBooking() {
-  document.querySelector(".delete-icon").addEventListener("click", () => {
-    const requestOptions = {
-      method: "DELETE",
-      redirect: "follow",
-    };
-    fetch("/api/booking", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        document.querySelector(".the-upper-container").style = "display:none";
-        document.querySelector(".contactInfo").innerHTML = "";
-        document.querySelector(".paymentInfo").innerHTML = "";
-        const greetingsDiv = document.querySelector(".greetings");
-        const greetingstext = document.createElement("div");
-        greetingstext.className = "greetingstext";
-        greetingstext.textContent = "目前沒有任何待預定的行程";
-        greetingsDiv.appendChild(greetingstext);
-        document.querySelector(".footer").style = "min-height:500px;";
-      });
-  });
-}
+
 function main() {
+  checkIsLogin();
   signup();
   login();
-  checkIsLogin();
   logout();
-  checkBooking();
-  deleteBooking();
 
   document.querySelector(".login-and-signup").addEventListener("click", () => {
     document.querySelector(".signin-window").style = "";
     document.querySelector(".login").style = "";
-    document.querySelector(".greetings").style.opacity = "0.5";
-    document.querySelector(".upper_and_bottom").style.opacity = "0.5";
+    // document.querySelector(".greetings").style.opacity = "0.5";
+    // document.querySelector(".upper_and_bottom").style.opacity = "0.5";
   });
 
   document.querySelector(".link-to-signup").addEventListener("click", () => {
@@ -249,7 +192,6 @@ function main() {
     },
     false
   );
-
   document.querySelector(".booking").addEventListener(
     "click",
     () => {

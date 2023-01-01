@@ -9,10 +9,10 @@ app = Flask(__name__,
 
 mydb = mysql.connector.connect(
     host="localhost",
-    user="root",
-    # user="debian-sys-maint",
-    passwd="mysqlpwd2022",
-    # passwd="b6hdV6hWNuqadE2s",
+    # user="root",
+    user="debian-sys-maint",
+    # passwd="mysqlpwd2022",
+    passwd="b6hdV6hWNuqadE2s",
     database="mysql"
 )
 
@@ -24,26 +24,33 @@ mydb.close()
 
 mydb = mysql.connector.connect(
     host="localhost",
-    user="root",
-    # user="debian-sys-maint",
-    passwd="mysqlpwd2022",
-    # passwd="b6hdV6hWNuqadE2s",
+    # user="root",
+    user="debian-sys-maint",
+    # passwd="mysqlpwd2022",
+    passwd="b6hdV6hWNuqadE2s",
     database="TaipeiAttractionsDB"
 )
 mycursor = mydb.cursor()
 mycursor.execute(
     '''
-    CREATE Table IF NOT EXISTS Users
-    (
-        id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        `name` varchar(100) NOT NULL,
-        email varchar(100) UNIQUE NOT NULL,
-        password char(20) not null
-    );
+CREATE TABLE orders
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  orderNumber varchar(50) NOT NULL,
+  userId int NOT NULL,
+  attractionId int NOT NULL,
+  selectedDate date not null,
+  selectedTime char(50) not null,
+  price int not null,
+  contactName varchar(50) NOT null,
+  contactEmail varchar(50) not null,
+  contactPhone varchar(50) not null,
+  status int DEFAULT 1
+);
     '''
 )
-mydb.commit()
+
 mycursor.close()
 mydb.close()
 
-# python user.py
+# python order.py

@@ -88,7 +88,8 @@ body {
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 700;
-  font-size: 24px;
+  /* font-size: 24px; */
+  font-size: 20px;
   line-height: 24px;
   /* display: flex; */
   align-items: center;
