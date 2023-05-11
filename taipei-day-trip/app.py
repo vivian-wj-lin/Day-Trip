@@ -29,10 +29,7 @@ cnxpool = pooling.MySQLConnectionPool(
     host='localhost',
     database='TaipeiAttractionsDB',
     user='root',
-    # user="debian-sys-maint",
     password='mysqlpwd2022'
-    # passwd="b6hdV6hWNuqadE2s",
-    # auth_plugin='mysql_native_password'
 )
 
 
@@ -120,21 +117,14 @@ def api_attractionId(attractionId):
             val = (attractionId,)
             img_cursor.execute(sql, val)
             images = img_cursor.fetchall()
-        # print(images)
         images = [x["images"] for x in images]
-        # print(type(images))
-        # print(type(attraction["images"]))
-        # print(attraction)
-        # print(type(attraction))  # list
-        # attraction[0]["images"]
+    
         attraction[0]["images"] = images
-        # print(images)
-        # print(type(images))  # list
+      
         return {
             "data": attraction[0],
         }
-        # fetchall 回傳 [{"images": ...}]
-        # fetchone 回傳 {"images": ...}
+ 
 
     except Exception as e:
         print(e)
@@ -418,9 +408,7 @@ def cartInfo():
             ;''',
             (attractionId,),
         )
-        # attraction_data = cursor.fetchone()
         attraction_data = cursor.fetchall()
-        # attraction_data = cursor.fetchmany()
 
     with get_cursor() as cursor:
         cursor.execute(
@@ -432,14 +420,10 @@ def cartInfo():
             ;''',
             (attractionId,),
         )
-        # image_data = cursor.fetchone()
         image_data = cursor.fetchall()
-        # print(image_data)
-        # print(image_data[0]["images"])
-        # image_data = cursor.fetchmany()
+
 
     booking_data["attraction"] = attraction_data
-    # booking_data["attraction"]["image"] = image_data["images"]
     booking_data["attraction"][0]["image"] = image_data[0]["images"]
     return dict(data=booking_data)
 
@@ -531,8 +515,6 @@ def post_orders():
         },
     )
     # payment_data = response.json()
-    # print("payment_data:")
-    # print(payment_data)
 
     # insert order to table
 
@@ -562,7 +544,6 @@ def post_orders():
             (userid,),
         )
         orderNumber_data = cursor.fetchone()
-        # attraction_data = cursor.fetchall()
         cursor.close()
         cnx.close()
         if orderNumber_data is None:
@@ -605,12 +586,10 @@ def get_orderInfo(orderNumber):
         return {"error": True, "message": "Please log in"}, 403
     try:
         sql = ' SELECT * FROM orders WHERE orderNumber = %s;'
-        # val = ([f'{orderNumber}'])
         val = (orderNumber,)
         cursor.execute(sql, val)
         order_data = cursor.fetchall()
-        # print("order_data")
-        # print(order_data)
+
 
         [(order_id, order_orderNumber, order_userId, order_attractionId,
           order_selectedDate, order_selectedTime, order_price, order_contactName,
@@ -619,16 +598,11 @@ def get_orderInfo(orderNumber):
         attraction_Data = api_attractionId(order_attractionId)
         getEventDate = cartInfo()
         getEventDate = cartInfo()["data"]["date"]
-        # print("getEventDate")
-        # print(getEventDate)
 
-        # print("attraction_Data")
-        # print(attraction_Data)
         source_id = attraction_Data['data']['source_id']
         att_name = attraction_Data['data']['name']
         att_address = attraction_Data['data']['address']
         att_img = attraction_Data['data']['images'][0]
-        # print(source_id)
 
         return {"data": {
             "number": orderNumber,

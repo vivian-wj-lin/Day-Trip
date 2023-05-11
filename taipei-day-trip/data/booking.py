@@ -10,9 +10,7 @@ app = Flask(__name__,
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    # user="debian-sys-maint",
     passwd="mysqlpwd2022",
-    # passwd="b6hdV6hWNuqadE2s",
     database="mysql"
 )
 
@@ -24,10 +22,8 @@ mydb.close()
 
 mydb = mysql.connector.connect(
     host="localhost",
-    # user="root",
-    user="debian-sys-maint",
-    # passwd="mysqlpwd2022",
-    passwd="b6hdV6hWNuqadE2s",
+    user="root",
+    passwd="mysqlpwd2022",
     database="TaipeiAttractionsDB"
 )
 mycursor = mydb.cursor()
@@ -48,4 +44,3 @@ mydb.commit()
 mycursor.close()
 mydb.close()
 
-# python booking.py
