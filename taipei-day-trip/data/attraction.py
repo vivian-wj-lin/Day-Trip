@@ -5,8 +5,9 @@ from dotenv import dotenv_values
 import json
 import mysql.connector
 import mysql.connector.cursor
+import os
 
-env = dotenv_values(".env")
+env = dotenv_values(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 
 app = Flask(__name__,
             static_folder="templates",
