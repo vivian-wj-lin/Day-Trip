@@ -291,7 +291,7 @@ function postBookingInfo() {
 async function main() {
   signup();
   login();
-  // checkIsLogin();
+  checkIsLogin();
   logout();
   postBookingInfo();
   // deleteBooking();

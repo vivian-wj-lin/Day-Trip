@@ -243,19 +243,22 @@ function checkIsLogin() {
     method: "GET",
     redirect: "follow",
   };
-  fetch("/api/user/auth", requestOptions)
+  return fetch("/api/user/auth", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       if (result.data !== null) {
-        // if (result["error"] !== null) {
         document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
-        window.location.href = "/booking";
+        // window.location.href = "/booking";
+        return true;
+
       } else {
         document.querySelector(".signin-window").style = "";
         document.querySelector(".login").style = "";
         document.querySelector(".logout").style = "display:none";
         document.querySelector(".login-and-signup").style = "";
+        return false;
+
       }
     }) //{"data":null} //hello = () => "Hello World!";
     .catch((error) => console.log("error", error));
@@ -294,7 +297,7 @@ function main() {
   loadCategories();
   signup();
   login();
-  // checkIsLogin();
+  checkIsLogin();
   logout();
 
   document.querySelector(".searchinput").addEventListener("focus", () => {
@@ -341,11 +344,19 @@ function main() {
   });
   document.querySelector(".booking").addEventListener(
     "click",
-    () => {
-      checkIsLogin();
-    },
+    async () => {
+    const isLoggedIn = await checkIsLogin();
+    if (isLoggedIn) {
+      window.location.href = "/booking";
+    } else {
+        document.querySelector(".signin-window").style = "";
+        document.querySelector(".login").style = "";
+        document.querySelector(".greetings").style.opacity = "0.5";
+        document.querySelector(".upper_and_bottom").style.opacity = "0.5";
+      }
+  },
     false
   );
-}
 
+}
 main();
