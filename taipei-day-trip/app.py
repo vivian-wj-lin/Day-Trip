@@ -11,7 +11,7 @@ from mysql.connector.errors import Error
 from contextlib import contextmanager
 import datetime
 from flask import *
-from flask import Flask, request
+from flask import Flask, request, Response
 
 
 app = Flask(__name__, static_folder="templates", static_url_path="/static")

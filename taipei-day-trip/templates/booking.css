@@ -393,11 +393,11 @@ img {
   width: 100%;
   /* margin: 20px 0 20px 0; */
 }
-.paymentCardNo,
+/* .paymentCardNo,
 .expiredDate,
 .cvv {
-  /* padding-left: 35px; */
-}
+  padding-left: 35px;
+} */
 .submitDiv {
   /* padding-top: 20px; */
   margin: 20px 0 20px 0;

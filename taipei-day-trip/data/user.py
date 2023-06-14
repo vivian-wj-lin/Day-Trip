@@ -1,8 +1,7 @@
-from flask import *
+from flask import Flask
 from unicodedata import name
 from dotenv import dotenv_values
 
-import json
 import mysql.connector
 import mysql.connector.cursor
 import os
@@ -47,5 +46,3 @@ mycursor.execute(
 mydb.commit()
 mycursor.close()
 mydb.close()
-
-# python user.py

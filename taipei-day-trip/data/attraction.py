@@ -1,4 +1,4 @@
-from flask import *
+from flask import Flask
 from unicodedata import name
 from dotenv import dotenv_values
 
