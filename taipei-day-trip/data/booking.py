@@ -1,16 +1,21 @@
 from flask import *
 from unicodedata import name
+from dotenv import dotenv_values
+
 import json
 import mysql.connector
 import mysql.connector.cursor
+
 app = Flask(__name__,
             static_folder="templates",
             static_url_path="/static")
 
+env = dotenv_values(".env")
+
 mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="mysqlpwd2022",
+    host=env["DB_HOST"],
+    user=env["DB_USER"],
+    passwd=env["DB_PASSWORD"],
     database="mysql"
 )
 
@@ -21,10 +26,10 @@ mycursor.close()
 mydb.close()
 
 mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="mysqlpwd2022",
-    database="TaipeiAttractionsDB"
+    host=env["DB_HOST"],
+    user=env["DB_USER"],
+    passwd=env["DB_PASSWORD"],
+    database=env["DB_DATABASE"]
 )
 mycursor = mydb.cursor()
 mycursor.execute(
