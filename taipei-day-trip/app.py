@@ -471,10 +471,14 @@ def post_orders():
     prime = data['prime']
     order = data['order']
     userid = user["id"]
-    attractionId = data["order"]["trip"]["attraction"]["id"]
-    date = data["order"]["trip"]["date"]
-    time = data["order"]["trip"]["time"]
-    price = data["order"]["price"]
+    # attractionId = data["order"]["trip"]["attraction"]["id"]
+    attractionId = order["trip"]["attraction"]["id"]
+    # date = data["order"]["trip"]["date"]
+    # time = data["order"]["trip"]["time"]
+    # price = data["order"]["price"]
+    date = order["trip"]["date"]
+    time = order["trip"]["time"]
+    price = order["price"]
 
     partner_key = 'partner_4p3zHkTBSMy1PoKS3URoIVUDEqFD2ApEYMbWJ1QO2JUPOo58zTj6KA5t'
     merchant_id = 'vtour22_CTBC'
