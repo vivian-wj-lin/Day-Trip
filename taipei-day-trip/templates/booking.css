@@ -24,6 +24,11 @@ body {
   /* justify-content: space-around; */
   /* background: beige; */
 }
+
+.item,.left,.loginButton,.link-to-signup,.link-to-login,.signupButton,.container,.delete-icon,.Btn {
+cursor: pointer
+}
+
 input {
   box-sizing: border-box;
   width: 200px;

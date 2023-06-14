@@ -19,6 +19,11 @@ body {
   max-width: 1920px;
   text-align: center;
 }
+
+.item,.left,.loginButton,.link-to-signup,.link-to-login,.signupButton,.container {
+cursor: pointer
+}
+
 .login,
 .signup,
 .logout-window {
