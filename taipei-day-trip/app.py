@@ -17,6 +17,7 @@ import os
 
 env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env')
 env = dotenv_values(env_path)
+print(env)
 
 app = Flask(__name__, static_folder="templates", static_url_path="/static")
 app.config["JSON_AS_ASCII"] = False
