@@ -20,11 +20,9 @@ function signup() {
     fetch("/api/user", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        // console.log(result);
         const signupDiv = document.querySelector(".signupDiv");
         const signupSuccessText = document.createElement("div");
         signupSuccessText.className = "signupSuccessText";
-        // if (result.data !== null) {
         if (result["error"] !== true) {
           signupSuccessText.textContent = "註冊成功!請登入帳號";
           signupDiv.appendChild(signupSuccessText);
@@ -35,7 +33,6 @@ function signup() {
         } else {
           signupSuccessText.textContent = "註冊失敗!email重複或其他原因";
           signupDiv.appendChild(signupSuccessText);
-          // document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout").style = "display:none";
           setTimeout(() => {
             document.querySelector(".signup-window").style = "display:none";
@@ -67,7 +64,6 @@ function login() {
     fetch("/api/user/auth", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        // document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
         const loginDiv = document.querySelector(".loginDiv");
         const loginSuccessText = document.createElement("div");
@@ -89,7 +85,6 @@ function login() {
           loginSuccessText.className = "loginSuccessText";
           loginSuccessText.textContent = "登入失敗!";
           loginDiv.appendChild(loginSuccessText);
-          // document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout").style = "display:none";
           setTimeout(() => {
             document.querySelector(".signin-window").style = "display:none";
@@ -117,12 +112,8 @@ function checkIsLogin() {
         document.querySelector(".logout").style = "";
       } else {
         window.location.href = "/";
-        // document.querySelector(".logout").style = "display:none";
-        // document.querySelector(".login-and-signup").style = "";
-        // document.querySelector(".signin-window").style = "";
-        // document.querySelector(".login").style = "";
       }
-    }) //{"data":null} //hello = () => "Hello World!";
+    }) 
     .catch((error) => console.log("error", error));
 }
 
@@ -150,7 +141,6 @@ function logout() {
             checkIsLogin();
           }, 1000);
         } else {
-          // document.querySelector(".login-and-signup").style = "display:none";
           document.querySelector(".logout").style = "";
         }
       })
@@ -191,7 +181,7 @@ function checkBooking() {
           "新台幣" + result.data.price + "元";
         ttltextDiv.appendChild(ttltextSpan);
       }
-    }) //{"data":null} //hello = () => "Hello World!";
+    }) 
     .catch((error) => console.log("error", error));
 }
 function deleteBooking() {

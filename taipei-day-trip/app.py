@@ -1,3 +1,10 @@
+from mysql.connector import pooling
+from mysql.connector.errors import Error
+from contextlib import contextmanager
+from flask import *
+from flask import Flask, request, Response
+from dotenv import dotenv_values
+
 import json
 import flask
 import mysql
@@ -5,14 +12,10 @@ import mysql.connector
 import mysql.connector.cursor
 import jwt
 import httpx
-
-from mysql.connector import pooling
-from mysql.connector.errors import Error
-from contextlib import contextmanager
 import datetime
-from flask import *
-from flask import Flask, request, Response
+import os
 
+env = dotenv_values(os.path.join(os.path.dirname(__file__), '.env'))
 
 app = Flask(__name__, static_folder="templates", static_url_path="/static")
 app.config["JSON_AS_ASCII"] = False
@@ -26,12 +29,11 @@ COOKIE_KEY_JWT_TOKEN = 'hijkl'
 cnxpool = pooling.MySQLConnectionPool(
     pool_name="mypool",
     pool_size=10,
-    host='localhost',
-    database='TaipeiAttractionsDB',
-    user='root',
-    password='mysqlpwd2022'
+    host=env["DB_HOST"],
+    user=env["DB_USER"],
+    passwd=env["DB_PASSWORD"],
+    database=env["DB_DATABASE"]
 )
-
 
 @contextmanager
 def get_cursor(dictionary=True):
@@ -44,7 +46,6 @@ def get_cursor(dictionary=True):
         cnx.close()
 
 # Pages
-
 
 @app.route("/")
 def index():
@@ -471,11 +472,7 @@ def post_orders():
     prime = data['prime']
     order = data['order']
     userid = user["id"]
-    # attractionId = data["order"]["trip"]["attraction"]["id"]
     attractionId = order["trip"]["attraction"]["id"]
-    # date = data["order"]["trip"]["date"]
-    # time = data["order"]["trip"]["time"]
-    # price = data["order"]["price"]
     date = order["trip"]["date"]
     time = order["trip"]["time"]
     price = order["price"]
@@ -487,23 +484,8 @@ def post_orders():
         url="https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime",
         headers={
             'x-api-key': partner_key,
-            # 'Content-Type': 'application/json',
         },
-        # data=json.dumps(
-        #     {
-        #         "prime": prime,
-        #         "partner_key": partner_key,
-        #         "merchant_id": merchant_id,
-        #         "details": "TapPay Test",
-        #         "amount": order['price'],
-        #         "cardholder": {
-        #             "phone_number": order['contact']['phone'],
-        #             "name": order['contact']['name'],
-        #             "email": order['contact']['email'],
-        #         },
-        #         "remember": True,
-        #     }
-        # ),
+
         json={
             "prime": prime,
             "partner_key": partner_key,
@@ -518,7 +500,6 @@ def post_orders():
             "remember": True,
         },
     )
-    # payment_data = response.json()
 
     # insert order to table
 
@@ -634,4 +615,3 @@ def get_orderInfo(orderNumber):
 
 app.run(host="0.0.0.0", debug=True, port=3000)
 
-# python app.py

@@ -19,16 +19,16 @@ let fields = {
   number: {
     // css selector
     element: "#card-number",
-    placeholder: "**** **** **** ****",
+    placeholder: "4242 4242 4242 4242",
   },
   expirationDate: {
     // DOM object
     element: document.getElementById("card-expiration-date"),
-    placeholder: "MM / YY",
+    placeholder: "01 / 24",
   },
   ccv: {
     element: "#card-ccv",
-    placeholder: "ccv",
+    placeholder: "123",
   },
 };
 
@@ -177,7 +177,6 @@ $("form").on("submit", function (event) {
     let attTime = document.querySelector("span[class='timeSpan']").textContent;
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    // myHeaders.append("Cookie", `"hijkl=${userCookieValue}"`);
 
     var raw = JSON.stringify({
       prime: result.card.prime,

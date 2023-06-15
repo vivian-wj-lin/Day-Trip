@@ -35,7 +35,6 @@ function signup() {
         } else {
           signupSuccessText.textContent = "註冊失敗!email重複或其他原因";
           signupDiv.appendChild(signupSuccessText);
-          // document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout").style = "display:none";
           setTimeout(() => {
             document.querySelector(".signup-window").style = "display:none";
@@ -67,7 +66,6 @@ function login() {
     fetch("/api/user/auth", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        // document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
         const loginDiv = document.querySelector(".loginDiv");
         const loginSuccessText = document.createElement("div");
@@ -89,7 +87,6 @@ function login() {
           loginSuccessText.className = "loginSuccessText";
           loginSuccessText.textContent = "登入失敗!";
           loginDiv.appendChild(loginSuccessText);
-          // document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout").style = "display:none";
           setTimeout(() => {
             document.querySelector(".signin-window").style = "display:none";
@@ -111,18 +108,12 @@ function checkIsLogin() {
     .then((response) => response.json())
     .then((result) => {
       if (result.data !== null) {
-        // document.querySelector(".greetingName").textContent =
-        //   result.data.name + " ，";
         document.querySelector(".login-and-signup").style = "display:none";
         document.querySelector(".logout").style = "";
       } else {
         window.location.href = "/";
-        // document.querySelector(".logout").style = "display:none";
-        // document.querySelector(".login-and-signup").style = "";
-        // document.querySelector(".signin-window").style = "";
-        // document.querySelector(".login").style = "";
       }
-    }) //{"data":null} //hello = () => "Hello World!";
+    }) 
     .catch((error) => console.log("error", error));
 }
 
@@ -139,21 +130,15 @@ function logout() {
           document.querySelector(".logout").style = "display:none";
           document.querySelector(".login-and-signup").style = "";
           document.querySelector(".logout-window").style = "";
-          // document.querySelector(".greetings").style.opacity = "0.5";
-          // document.querySelector(".upper_and_bottom").style.opacity = "0.5";
           document.querySelector(".footer").style.opacity = "0.5";
           window.location.href = "/";
           setTimeout(() => {
             document.querySelector(".logout-window").style = "display:none";
-            // document.querySelector(".greetings").style.opacity = "";
-            // document.querySelector(".upper_and_bottom").style.opacity = "";
             document.querySelector(".footer").style.opacity = "";
             console.log("1");
             window.location.href = "/";
-            // checkIsLogin();
           }, 1000);
         } else {
-          // document.querySelector(".login-and-signup").style = "display:none";
           document.querySelector(".logout").style = "";
         }
       })
@@ -170,8 +155,6 @@ function main() {
   document.querySelector(".login-and-signup").addEventListener("click", () => {
     document.querySelector(".signin-window").style = "";
     document.querySelector(".login").style = "";
-    // document.querySelector(".greetings").style.opacity = "0.5";
-    // document.querySelector(".upper_and_bottom").style.opacity = "0.5";
   });
 
   document.querySelector(".link-to-signup").addEventListener("click", () => {

@@ -2,10 +2,8 @@ let slideIndex = 1; ////////slide show
 
 async function getAttractionData() {
   const attractionId = location.pathname.split("/").pop();
-  console.log(attractionId);
   const response = await fetch(`/api/attraction/${attractionId}`);
   const data = await response.json();
-  console.log(data);
   return data;
 }
 
@@ -40,8 +38,6 @@ function showSlides(n) {
 ////////slide show ends
 
 function loadImages(images) {
-  console.log("43");
-  console.log(images);
   //images and dotted indicators
   const slideshowContainerDiv = document.querySelector(".slideshow-container");
   const dotsDiv = document.querySelector(".dots");
@@ -85,23 +81,17 @@ function signup() {
     fetch("/api/user", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        // console.log(result);
         const signupDiv = document.querySelector(".signupDiv");
         const signupSuccessText = document.createElement("div");
         signupSuccessText.className = "signupSuccessText";
-        // if (result.data !== null) {
         if (result["error"] !== true) {
           signupSuccessText.textContent = "註冊成功!請登入帳號";
           signupDiv.appendChild(signupSuccessText);
           setTimeout(() => {
-            console.log(1);
             document.querySelector(".signup-window").style = "display:none";
             document.querySelector(".the-upper-container").style.opacity = "";
             document.querySelector(".the-bottom-container").style.opacity = "";
-            // document.querySelector("body").style.opacity = "";
-            // document.querySelector("body").style.background = "white";
             signupDiv.removeChild(signupSuccessText);
-            console.log(2);
           }, 1000);
         } else {
           signupSuccessText.textContent = "註冊失敗!email重複或其他原因";
@@ -112,10 +102,7 @@ function signup() {
             document.querySelector(".signup-window").style = "display:none";
             document.querySelector(".the-upper-container").style.opacity = "";
             document.querySelector(".the-bottom-container").style.opacity = "";
-            // document.querySelector("body").style.opacity = "";
-            // document.querySelector("body").style.background = "white";
             signupDiv.removeChild(signupSuccessText);
-            console.log(3);
           }, 1000);
         }
       })
@@ -155,8 +142,6 @@ function login() {
             document.querySelector(".signin-window").style = "display:none";
             document.querySelector(".the-upper-container").style.opacity = "";
             document.querySelector(".the-bottom-container").style.opacity = "";
-            // document.querySelector("body").style.opacity = "";
-            // document.querySelector("body").style.background = "white";
             document.querySelector(".loginSuccessText").style = "display:none";
             loginDiv.removeChild(loginSuccessText);
           }, 1000);
@@ -170,8 +155,6 @@ function login() {
             document.querySelector(".signin-window").style = "display:none";
             document.querySelector(".the-upper-container").style.opacity = "";
             document.querySelector(".the-bottom-container").style.opacity = "";
-            // document.querySelector("body").style.opacity = "";
-            // document.querySelector("body").style.background = "white";
             document.querySelector(".loginSuccessText").style = "display:none";
             loginDiv.removeChild(loginSuccessText);
           }, 1000);
@@ -198,7 +181,7 @@ function checkIsLogin() {
         document.querySelector(".logout").style = "display:none";
         document.querySelector(".login-and-signup").style = "";
       }
-    }) //{"data":null} //hello = () => "Hello World!";
+    }) 
     .catch((error) => console.log("error", error));
 }
 
@@ -209,9 +192,7 @@ function logout() {
       redirect: "follow",
     };
     fetch("/api/user/auth", requestOptions)
-      // .then((response) => response.text())
       .then((response) => response.json())
-      // .then((result) => console.log(result))
       .then((result) => {
         if (result.data == null) {
           document.querySelector(".logout").style = "display:none";
@@ -221,8 +202,6 @@ function logout() {
             document.querySelector(".logout-window").style = "display:none";
             document.querySelector(".the-upper-container").style.opacity = "";
             document.querySelector(".the-bottom-container").style.opacity = "";
-            // document.querySelector("body").style.opacity = "";
-            // document.querySelector("body").style.background = "white";
           }, 1000);
         } else {
           document.querySelector(".login-and-signup").style = "display:none";
@@ -253,11 +232,7 @@ function postBookingInfo() {
     const date = document.querySelector(".start").value;
     const time = document.querySelector('input[name="radio"]:checked').value;
     const intPrice = document.querySelector(".price").textContent;
-    console.log(intPrice);
-    // let text = "新台幣 2000 元";
-    // let result = text.substr(3,6);//2000
     const price = parseInt(Number(intPrice.substr(3, 6)));
-    console.log(price);
     const newHeaders = new Headers();
     newHeaders.append("Content-Type", "application/json");
     const newbody = JSON.stringify({
@@ -275,8 +250,6 @@ function postBookingInfo() {
     fetch("/api/booking", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
-        console.log(result.message);
         if (
           result.message ==
           "Reservation failed to established for duplicate orders or other reasons"
@@ -294,12 +267,10 @@ async function main() {
   checkIsLogin();
   logout();
   postBookingInfo();
-  // deleteBooking();
 
   const attractionData = (await getAttractionData()).data;
   const timeSelectedMorning = document.querySelector(".morning");
   const timeSelectedafternoon = document.querySelector(".afternoon");
-  console.log(attractionData);
 
   document.querySelector(".att-name").textContent = attractionData.name;
   document.querySelector(".cat").textContent = attractionData.category;
@@ -323,8 +294,6 @@ async function main() {
     document.querySelector(".login").style = "";
     document.querySelector(".the-upper-container").style.opacity = "0.5";
     document.querySelector(".the-bottom-container").style.opacity = "0.5";
-    // document.querySelector("body").style.background = "#000000";
-    // document.querySelector("body").style.opacity = "0.25";
   });
 
   document.querySelector(".logout").addEventListener("click", () => {
@@ -332,8 +301,6 @@ async function main() {
     document.querySelector(".login").style = "";
     document.querySelector(".the-upper-container").style.opacity = "0.5";
     document.querySelector(".the-bottom-container").style.opacity = "0.5";
-    // document.querySelector("body").style.background = "#000000";
-    // document.querySelector("body").style.opacity = "0.25";
   });
 
   document.querySelector(".link-to-signup").addEventListener("click", () => {
