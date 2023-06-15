@@ -15,7 +15,8 @@ import httpx
 import datetime
 import os
 
-env = dotenv_values(os.path.join(os.path.dirname(__file__), '.env'))
+env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env')
+env = dotenv_values(env_path)
 
 app = Flask(__name__, static_folder="templates", static_url_path="/static")
 app.config["JSON_AS_ASCII"] = False
